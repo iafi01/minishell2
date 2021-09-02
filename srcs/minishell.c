@@ -87,7 +87,7 @@ char	**ft_parse_split(char *line, t_token *token)
 		i += is_token(line + i);
 		if (line[i] && (is_token(line + i) || line[i] == 32))
 		{
-			token->val = tmp;
+			token->val = ft_strdup(tmp);
 			free(tmp);
 			continue;
 		}
