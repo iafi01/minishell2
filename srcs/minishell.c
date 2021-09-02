@@ -82,7 +82,7 @@ char	**ft_parse_split(char *line, t_token *token)
 	len = ft_strlen(line);
 	while (line[i++])
 	{
-		if (is_token(line + i) == 0)
+		if (is_token(line + i) == 0 || line[i] != 32)
 			s[0] = line[i];
 		i += is_token(line + i);
 		if (line[i] && (is_token(line + i) || line[i] == 32))
