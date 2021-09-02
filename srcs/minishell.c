@@ -77,16 +77,21 @@ char	**ft_parse_split(char *line, t_token *token)
 	char	s[2];
 
 	s[1] = '\0';
-	i = 0;
+	i = -1;
 	tmp = calloc(sizeof(char), 10);
 	len = ft_strlen(line);
-	while (line[i])
+	while (line[i++])
 	{
 		s[0] = line[i];
-		if (is_token(line + i) == 2)
-			i += 1;
+		i += is_token(line + i);
+		if (line[i] && (is_token(line + i) || line[i] == 32))
+		{
+			token->val = tmp;
+			free(tmp);
+			continue;
+		}
 		tmp = ft_strjoin(tmp, s);
-		i++;
+		
 	}
 	printf("%s", tmp);
 }
