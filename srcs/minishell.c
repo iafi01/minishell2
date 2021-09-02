@@ -18,29 +18,32 @@ void    sign_handler(int sig)
  	}
 }
 
-char	**ft_parse_split(char *line)
+int	is_token(char *c)
+{
+	if (c == '>' || c == '<' || c == '|')
+		return (1);
+	return (0);
+}
+
+char	**ft_parse_split(char *line, t_token *token)
 {
 	int len;
 	int i;
-	int j;
-	char **split;
+	char *tmp;
 
 	i = 0;
 	len = ft_strlen(line);
-	while (*line)
+	while (line[i])
 	{
-		j = 0;
-		/*while ()
-		{
 
-		}*/
+		i++;
 	}
 }
 
 int	loop(t_global *global)
 {
 	char		*read;
-
+	t_token		token;
 	while (1)
 	{
 		//signal(SIGINT, sign_handler);
@@ -58,7 +61,7 @@ int	loop(t_global *global)
 			free(read);
 			continue ;
 		}
-		global->line = ft_parse_split(read);
+		global->line = ft_parse_split(read, &token);
 		free(read);
 	}
 	return (1);
