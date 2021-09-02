@@ -27,6 +27,32 @@ int	is_token(char *c)
 	return (0);
 }
 
+t_token	*ft_token_new(t_type token, char *val)
+{
+	t_token	*lnew;
+
+	lnew = (t_token *)malloc(sizeof(t_token));
+	lnew->e_type = token;
+	lnew->val = val;
+	return (lnew);
+}
+
+t_token	*ft_find_end(t_token *list)
+{
+	if (!list)
+		return (NULL);
+	while (list->next != NULL)
+		list = list->next;
+	return (list);
+}
+
+void	ft_add_list(t_token *list, t_type token, char *val)
+{
+	list = ft_find_end(list);
+	list->next = ft_token_new(token, val);
+	return ;
+}
+
 void	store_token(t_token *list, char *t)
 {
 	if (ft_strncmp(t, ">>", 2))
