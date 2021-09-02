@@ -52,7 +52,7 @@ typedef struct s_token
 }	t_token;
 
 //minishell.c
-
+void    sign_handler(int sig);
 
 //parsing.c
 int     init_parsing(char *line);
