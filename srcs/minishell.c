@@ -1,6 +1,6 @@
 #include "../includes/minishell.h"
 
-static void    sign_handler(int sig)
+void    sign_handler(int sig)
 {
  	char		*read;
 
@@ -43,15 +43,16 @@ int	loop(t_global *global)
 
 	while (1)
 	{
-		signal(SIGINT, sign_handler);
-		signal(SIGQUIT, sign_handler);
+		//signal(SIGINT, sign_handler);
+		//signal(SIGQUIT, sign_handler);
 		read = ft_strjoin(ft_strjoin("\e[0;32m<\e\033[0;37m", getenv("USER")),
 	           "\033[0;31m>\e \033[0;37m ");
 		read = readline(read);
 		if (read == NULL)
 			return (0);
 		add_history(read);
-		if (init_parsing(read) == 1)
+		printf("%s", read);
+		if (init_parsing(read) == 1 && *read != NULL)
 		{
 			printf("Error Parsing\n");
 			free(read);
