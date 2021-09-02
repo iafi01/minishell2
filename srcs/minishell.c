@@ -18,14 +18,31 @@ static void    sign_handler(int sig)
  	}
 }
 
+char	**ft_parse_split(char *line)
+{
+	int i;
+	int j;
+	char **split;
+
+	i = 0;
+	while (*line)
+	{
+		j = 0;
+		/*while ()
+		{
+
+		}*/
+	}
+}
+
 int	loop(t_global *global)
 {
 	char		*read;
 
 	while (1)
 	{
-		// signal(SIGINT, sign_handler);
-		// signal(SIGQUIT, sign_handler);
+		signal(SIGINT, sign_handler);
+		signal(SIGQUIT, sign_handler);
 		read = ft_strjoin(ft_strjoin("\e[0;32m<\e\033[0;37m", getenv("USER")),
 	           "\033[0;31m>\e \033[0;37m ");
 		read = readline(read);
@@ -34,12 +51,11 @@ int	loop(t_global *global)
 		add_history(read);
 		if (init_parsing(read) == 1)
 		{
-			printf("errore\n");
+			printf("Error Parsing\n");
 			free(read);
 			continue ;
 		}
-		global->line = ft_split(read, 32);
-		ft_tree(global);
+		global->line = ft_parse_split(read);
 		free(read);
 	}
 	return (1);

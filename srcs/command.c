@@ -1,6 +1,6 @@
 #include "../includes/minishell.h"
 
-int ft_tree(t_global *global)
+/*int ft_tree(t_global *global)
 {
     if (!ft_strncmp(global->line[0], "echo", 4) || !ft_strncmp(global->line[0], "ECHO", 4))
         ft_echo(global);
@@ -25,4 +25,4 @@ int ft_tree(t_global *global)
     else
         printf("Comando sconosciuto\n"); // execve da addare
     return (1);
-}
+}*/

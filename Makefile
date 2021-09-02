@@ -7,7 +7,7 @@ LFLAGS = -L libft -lft
 
 FOLDER = srcs
 
-SRCS_LIST = minishell.c parsing.c parsing2.c parsing3.c
+SRCS_LIST = minishell.c parsing.c parsing2.c parsing3.c command.c
 
 SRCS = $(addprefix ${FOLDER}/, ${SRCS_LIST})
 
