@@ -20,7 +20,7 @@ void    sign_handler(int sig)
 
 int	is_token(char *c)
 {
-	if (c == '>' || c == '<' || c == '|')
+	if (*c == '>' || *c == '<' || *c == '|' || ft_strncmp(c, ">>", 2) || ft_strncmp(c, "<<", 2))
 		return (1);
 	return (0);
 }
