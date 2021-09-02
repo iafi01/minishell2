@@ -15,7 +15,7 @@ all: $(LIB) $(NAME)
 
 $(NAME):
 	@make -s -C $(LIBFT)
-	@gcc -o $(NAME) $(FLAGS) $(SRCS) $(LFLAGS) -I $(HEADER) -lreadline
+	@gcc -o $(NAME) $(FLAGS) $(SRCS) $(LFLAGS) -I $(HEADER) ./includes/libreadline.a -lreadline
 	@echo "\033[1m$(NAME)\033[0m""\033[32m	Compiled\033[0m"
 clean:
 	@make clean -C $(LIBFT) 

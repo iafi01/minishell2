@@ -29,6 +29,28 @@ typedef struct s_global
     char **args;
 }   t_global;
 
+typedef enum e_type
+{
+	TK_ID,
+	TK_PIPE,
+	TK_EQ,
+	TK_QUOTE,
+	TK_SQUOTE,
+	TK_SEMI,
+	TK_GREATER,
+	TK_LOWER,
+	TK_DGREA,
+	TK_DLOW,
+	TK_BREAK
+}	t_type;
+
+typedef struct s_token
+{
+	t_type	e_type;
+    struct  s_token *next;
+	char	*val;
+}	t_token;
+
 //minishell.c
 
 

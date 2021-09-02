@@ -20,11 +20,13 @@ static void    sign_handler(int sig)
 
 char	**ft_parse_split(char *line)
 {
+	int len;
 	int i;
 	int j;
 	char **split;
 
 	i = 0;
+	len = ft_strlen(line);
 	while (*line)
 	{
 		j = 0;
