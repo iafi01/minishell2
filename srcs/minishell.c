@@ -82,7 +82,8 @@ char	**ft_parse_split(char *line, t_token *token)
 	len = ft_strlen(line);
 	while (line[i++])
 	{
-		s[0] = line[i];
+		if (is_token(line + i) == 0)
+			s[0] = line[i];
 		i += is_token(line + i);
 		if (line[i] && (is_token(line + i) || line[i] == 32))
 		{
@@ -90,8 +91,8 @@ char	**ft_parse_split(char *line, t_token *token)
 			free(tmp);
 			continue;
 		}
-		tmp = ft_strjoin(tmp, s);
-		
+		if (s != NULL)
+			tmp = ft_strjoin(tmp, s);
 	}
 	printf("%s", tmp);
 }
