@@ -45,7 +45,7 @@ typedef struct s_token
 typedef struct s_global
 {
     int  argc;
-    t_token *list;
+    t_token *token;
     char **argv;
     char **envp;
     char **args;

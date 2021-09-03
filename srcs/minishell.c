@@ -82,16 +82,18 @@ void	ft_parse_split(char *line, t_token *token)
 	i = -1;
 	tmp = calloc(sizeof(char), 10);
 	len = ft_strlen(line);
-	while (line[i++])
+	while (line[++i])
 	{
 		if (is_token(line + i) == 0 && line[i] != 32)
 			s[0] = line[i];
-		if (s != NULL)
+		if (*s != '\0')
 			tmp = ft_strjoin(tmp, s);
+		//printf("OH:%s", tmp);
 		if (line[i] && (is_token(line + i) || line[i] == 32))
 		{
 			if (tmp)
 			{
+				//printf("tmp:%s", tmp);
 				ft_add_list(token, TK_ID, tmp);
 				free(tmp);
 			}
@@ -99,12 +101,16 @@ void	ft_parse_split(char *line, t_token *token)
 				store_token(token, line + i);
 			if (is_token(line + i) == 2)
 				i++;
-			continue;
+		}
+		if (line[i] == '\0' && tmp)
+		{
+			ft_add_list(token, TK_ID, tmp);
+			free(tmp);
 		}
 	}
 }
 
-int	loop(t_global *global, t_token *token)
+int	loop(t_global *global)
 {
 	char		*read;
 	while (1)
@@ -117,14 +123,13 @@ int	loop(t_global *global, t_token *token)
 		if (read == NULL)
 			return (0);
 		add_history(read);
-		if (init_parsing(read) == 1 && *read != NULL)
+		if (init_parsing(read) == 1 && *read != '\0')
 		{
 			printf("Error Parsing\n");
 			free(read);
 			continue ;
 		}
-		printf("dfgdfg");
-		ft_parse_split(read, token);
+		ft_parse_split(read, global->token);
 		free(read);
 	}
 	return (1);
@@ -138,8 +143,8 @@ int	main(int argc, char **argv, char **envp)
 	global.argc = argc;
 	global.argv = argv;
 	global.envp = envp;
-	global.list = &token;
+	global.token = &token;
 
-	if (!loop(&global, &token))
+	if (!loop(&global))
 		return (0);
 }

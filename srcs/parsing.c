@@ -6,7 +6,7 @@ char *skip_spaces(char *str)
 	
 	i = 0;
 	while (str[i] == 32)
-		*str++;
+		str++;
 	return (str);
 }
 
