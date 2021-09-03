@@ -20,7 +20,7 @@ void    sign_handler(int sig)
 
 int	is_token(char *c)
 {
-	if (*c+1 && (ft_strncmp(c, ">>", 2) || ft_strncmp(c, "<<", 2)))
+	if (*(c+1) && (!ft_strncmp(c, ">>", 2) || !ft_strncmp(c, "<<", 2)))
 		return (2);
 	if (*c == '>' || *c == '<' || *c == '|')
 		return (1);
@@ -77,7 +77,7 @@ void	ft_parse_split(char *line, t_token *token)
 	int i;
 	char *tmp;
 	char	s[2];
-	//gestire anche EOF per salvare tmp
+
 	s[1] = '\0';
 	i = -1;
 	tmp = calloc(sizeof(char), 10);
@@ -86,26 +86,26 @@ void	ft_parse_split(char *line, t_token *token)
 	{
 		if (is_token(line + i) == 0 && line[i] != 32)
 			s[0] = line[i];
-		if (*s != '\0')
+		if (s[0] != '\0')
 			tmp = ft_strjoin(tmp, s);
-		//printf("OH:%s", tmp);
+		// printf("OH:%s", tmp);
 		if (line[i] && (is_token(line + i) || line[i] == 32))
 		{
 			if (tmp)
 			{
-				//printf("tmp:%s", tmp);
+				// printf("tmp:%s", tmp);
 				ft_add_list(token, TK_ID, tmp);
 				free(tmp);
 			}
 			if (is_token(line + i))
 				store_token(token, line + i);
-			if (is_token(line + i) == 2)
-				i++;
+			i += is_token(line + i);
 		}
 		if (line[i] == '\0' && tmp)
 		{
 			ft_add_list(token, TK_ID, tmp);
 			free(tmp);
+			break ;
 		}
 	}
 }
