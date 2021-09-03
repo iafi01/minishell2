@@ -128,7 +128,8 @@ void	ft_parse_split(char *line, t_token *token)
 				store_token(token, line + i);
 				t_token *test = ft_find_end(token);
 				printf("token:%d ", test->e_type);
-				i++;
+				if (is_token(line + i) == 2)
+					i++;
 				continue;
 			}
 			else if (tmp)
