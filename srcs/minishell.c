@@ -111,33 +111,37 @@ void	ft_parse_split(char *line, t_token *token)
 
 	s[1] = '\0';
 	i = -1;
-	tmp = calloc(sizeof(char), 10);
+	tmp = malloc(sizeof(char) * 30);
 	len = ft_strlen(line);
 	while (line[++i])
 	{
-		
 		if (is_token(line + i) == 0 && line[i] != 32)
+		{
 			s[0] = line[i];
-		if (s[0] != '\0')
 			tmp = ft_strjoin(tmp, s);
+			s[0] = '\0';
+		}
 		if (line[i] && (is_token(line + i) || line[i] == 32))
 		{
 			if (is_token(line + i))
+			{
 				store_token(token, line + i);
+				t_token *test = ft_find_end(token);
+				printf("token:%d ", test->e_type);
+				i++;
+				continue;
+			}
 			else if (tmp)
 			{
-				printf("%c", line[i]);
+				printf("word:%s ",tmp);
 				ft_add_list(token, TK_ID, ft_strdup(tmp));
-				free(tmp);
+				ft_memset((void*)tmp, '\0', 30);
+				continue;
 			}
-			i += is_token(line + i);
 		}
 	}
 	if (line[i] == '\0' && tmp)
-	{
 		ft_add_list(token, TK_BREAK, tmp);
-		//free(tmp);
-	}
 	debug_list(token);
 	ft_free_list(token);
 }
