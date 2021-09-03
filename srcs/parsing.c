@@ -10,13 +10,9 @@ char *skip_spaces(char *str)
 	return (str);
 }
 
-int print_err_apici(int s_apici, int d_apici)
+int control_apici(int s_apici, int d_apici)
 {
-	if (s_apici % 2 != 0 && d_apici % 2 != 0)
-		return (0);
-	if (s_apici % 2 != 0)
-		return (0);
-	if (d_apici % 2 != 0)
+	if (s_apici % 2 != 0 || d_apici % 2 != 0)
 		return (0);
 	return (1);
 }
@@ -38,7 +34,7 @@ int check_apici(char *line)
 			s_apici += 1;
 		i++;
 	}
-	if (print_err_apici(s_apici, d_apici) == 0)
+	if (!control_apici(s_apici, d_apici))
 		return (0);
 	return (1);
 }
@@ -49,7 +45,7 @@ int init_parsing(char *line)
 		return (1);
 	if (!check_apici(line))
 		return (1);
-	if (!check_corr_pos_apici(line))
+	if (!check_apici_pos(line))
 		return (1);
 	return (0);
 }

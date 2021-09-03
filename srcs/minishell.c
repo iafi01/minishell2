@@ -80,17 +80,15 @@ void	ft_free_list(t_token *list)
 void	ft_add_list(t_token *list, t_type type, char *val)
 {
 	list = ft_find_end(list);
-	if (val)
-		list->val = ft_strdup(val);
 	list->next = ft_token_new(type, val);
 	return ;
 }
 
 void	store_token(t_token *list, char *t)
 {
-	if (ft_strncmp(t, ">>", 2))
+	if (!ft_strncmp(t, ">>", 2))
 		ft_add_list(list, TK_DGREA, NULL);
-	else if (ft_strncmp(t, "<<", 2))
+	else if (!ft_strncmp(t, "<<", 2))
 		ft_add_list(list, TK_DLOW, NULL);
 	else if (*t == '>')
 		ft_add_list(list, TK_GREATER, NULL);
@@ -117,27 +115,28 @@ void	ft_parse_split(char *line, t_token *token)
 	len = ft_strlen(line);
 	while (line[++i])
 	{
+		
 		if (is_token(line + i) == 0 && line[i] != 32)
 			s[0] = line[i];
 		if (s[0] != '\0')
 			tmp = ft_strjoin(tmp, s);
 		if (line[i] && (is_token(line + i) || line[i] == 32))
 		{
-			if (tmp)
-			{
-				ft_add_list(token, TK_ID, tmp);
-				free(tmp);
-			}
 			if (is_token(line + i))
 				store_token(token, line + i);
+			else if (tmp)
+			{
+				printf("%c", line[i]);
+				ft_add_list(token, TK_ID, ft_strdup(tmp));
+				free(tmp);
+			}
 			i += is_token(line + i);
 		}
-		if (line[i] == '\0' && tmp)
-		{
-			ft_add_list(token, TK_BREAK, tmp);
-			free(tmp);
-			break ;
-		}
+	}
+	if (line[i] == '\0' && tmp)
+	{
+		ft_add_list(token, TK_BREAK, tmp);
+		//free(tmp);
 	}
 	debug_list(token);
 	ft_free_list(token);

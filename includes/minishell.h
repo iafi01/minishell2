@@ -60,7 +60,7 @@ int     init_parsing(char *line);
 char    *skip_spaces(char *str);
 int     check_apici(char *line);
 int     cerca_apici(char *line);
-int     print_err_apici(int s_apici, int d_apici);
+int     control_apici(int s_apici, int d_apici);
 
 
 //parsing2.c
@@ -70,7 +70,7 @@ int	    parsing_comand(char *line);
 int	    solo_spazi(char *line);
 
 //parsing3.c
-int	    check_corr_pos_apici(char *line);
+int	    check_apici_pos(char *line);
 
 //command.c
 int ft_tree(t_global *global);
