@@ -20,15 +20,6 @@
 
 # include "../libft/includes/libft.h"
 
-typedef struct s_global
-{
-    int  argc;
-    char **line;
-    char **argv;
-    char **envp;
-    char **args;
-}   t_global;
-
 typedef enum e_type
 {
 	TK_ID,
@@ -51,8 +42,19 @@ typedef struct s_token
 	char	*val;
 }	t_token;
 
+typedef struct s_global
+{
+    int  argc;
+    t_token *list;
+    char **argv;
+    char **envp;
+    char **args;
+}   t_global;
+
+
 //minishell.c
 void    sign_handler(int sig);
+void	ft_parse_split(char *line, t_token *token);
 
 //parsing.c
 int     init_parsing(char *line);
@@ -73,4 +75,5 @@ int	    check_corr_pos_apici(char *line);
 
 //command.c
 int ft_tree(t_global *global);
+
 #endif

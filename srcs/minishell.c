@@ -46,10 +46,12 @@ t_token	*ft_find_end(t_token *list)
 	return (list);
 }
 
-void	ft_add_list(t_token *list, t_type token, char *val)
+void	ft_add_list(t_token *list, t_type type, char *val)
 {
 	list = ft_find_end(list);
-	list->next = ft_token_new(token, val);
+	if (val)
+		list->val = ft_strdup(val);
+	list->next = ft_token_new(type, val);
 	return ;
 }
 
@@ -69,38 +71,42 @@ void	store_token(t_token *list, char *t)
 		ft_add_list(list, TK_GREATER, NULL);
 }
 
-char	**ft_parse_split(char *line, t_token *token)
+void	ft_parse_split(char *line, t_token *token)
 {
 	int len;
 	int i;
 	char *tmp;
 	char	s[2];
-
+	//gestire anche EOF per salvare tmp
 	s[1] = '\0';
 	i = -1;
 	tmp = calloc(sizeof(char), 10);
 	len = ft_strlen(line);
 	while (line[i++])
 	{
-		if (is_token(line + i) == 0 || line[i] != 32)
+		if (is_token(line + i) == 0 && line[i] != 32)
 			s[0] = line[i];
-		i += is_token(line + i);
-		if (line[i] && (is_token(line + i) || line[i] == 32))
-		{
-			token->val = ft_strdup(tmp);
-			free(tmp);
-			continue;
-		}
 		if (s != NULL)
 			tmp = ft_strjoin(tmp, s);
+		if (line[i] && (is_token(line + i) || line[i] == 32))
+		{
+			if (tmp)
+			{
+				ft_add_list(token, TK_ID, tmp);
+				free(tmp);
+			}
+			if (is_token(line + i))
+				store_token(token, line + i);
+			if (is_token(line + i) == 2)
+				i++;
+			continue;
+		}
 	}
-	printf("%s", tmp);
 }
 
-int	loop(t_global *global)
+int	loop(t_global *global, t_token *token)
 {
 	char		*read;
-	t_token		token;
 	while (1)
 	{
 		//signal(SIGINT, sign_handler);
@@ -117,7 +123,8 @@ int	loop(t_global *global)
 			free(read);
 			continue ;
 		}
-		global->line = ft_parse_split(read, &token);
+		printf("dfgdfg");
+		ft_parse_split(read, token);
 		free(read);
 	}
 	return (1);
@@ -126,11 +133,13 @@ int	loop(t_global *global)
 int	main(int argc, char **argv, char **envp)
 {
 	t_global	global;
+	t_token		token;
 
 	global.argc = argc;
 	global.argv = argv;
 	global.envp = envp;
+	global.list = &token;
 
-	if (!loop(&global))
+	if (!loop(&global, &token))
 		return (0);
 }
