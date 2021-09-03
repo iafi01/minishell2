@@ -27,6 +27,32 @@ int	is_token(char *c)
 	return (0);
 }
 
+t_token	*ft_token_new(t_type token, char *val)
+{
+	t_token	*lnew;
+
+	lnew = (t_token *)malloc(sizeof(t_token));
+	lnew->e_type = token;
+	lnew->val = val;
+	return (lnew);
+}
+
+t_token	*ft_find_end(t_token *list)
+{
+	if (!list)
+		return (NULL);
+	while (list->next != NULL)
+		list = list->next;
+	return (list);
+}
+
+void	ft_add_list(t_token *list, t_type token, char *val)
+{
+	list = ft_find_end(list);
+	list->next = ft_token_new(token, val);
+	return ;
+}
+
 void	store_token(t_token *list, char *t)
 {
 	if (ft_strncmp(t, ">>", 2))
@@ -51,16 +77,22 @@ char	**ft_parse_split(char *line, t_token *token)
 	char	s[2];
 
 	s[1] = '\0';
-	i = 0;
+	i = -1;
 	tmp = calloc(sizeof(char), 10);
 	len = ft_strlen(line);
-	while (line[i])
+	while (line[i++])
 	{
-		s[0] = line[i];
-		if (is_token(line + i) == 2)
-			i += 1;
-		tmp = ft_strjoin(tmp, s);
-		i++;
+		if (is_token(line + i) == 0 || line[i] != 32)
+			s[0] = line[i];
+		i += is_token(line + i);
+		if (line[i] && (is_token(line + i) || line[i] == 32))
+		{
+			token->val = ft_strdup(tmp);
+			free(tmp);
+			continue;
+		}
+		if (s != NULL)
+			tmp = ft_strjoin(tmp, s);
 	}
 	printf("%s", tmp);
 }
