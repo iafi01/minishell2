@@ -34,6 +34,7 @@ t_token	*ft_token_new(t_type token, char *val)
 	lnew = (t_token *)malloc(sizeof(t_token));
 	lnew->e_type = token;
 	lnew->val = val;
+	lnew->next = NULL;
 	return (lnew);
 }
 
@@ -44,6 +45,36 @@ t_token	*ft_find_end(t_token *list)
 	while (list->next != NULL)
 		list = list->next;
 	return (list);
+}
+
+void	debug_list(t_token *token)
+{
+	while (token->next != NULL)
+	{
+		printf("%d\n", token->e_type);
+		token = token->next;
+	}
+}
+
+void	ft_free_list(t_token *list)
+{
+	t_token	*first;
+	t_token	*next;
+
+	if (!list || list->next == NULL)
+		return ;
+	first = list;
+	list = list->next;
+	while (list->next != NULL)
+	{
+		next = list->next;
+		if (list->e_type == TK_ID)
+			free(list->val);
+		free(list);
+		list = next;
+	}
+	list = first;
+	list->next = NULL;
 }
 
 void	ft_add_list(t_token *list, t_type type, char *val)
@@ -69,6 +100,8 @@ void	store_token(t_token *list, char *t)
 		ft_add_list(list, TK_PIPE, NULL);
 	else if (*t == '>')
 		ft_add_list(list, TK_GREATER, NULL);
+	else if (*t == '=')
+		ft_add_list(list, TK_EQ, NULL);
 }
 
 void	ft_parse_split(char *line, t_token *token)
@@ -88,12 +121,10 @@ void	ft_parse_split(char *line, t_token *token)
 			s[0] = line[i];
 		if (s[0] != '\0')
 			tmp = ft_strjoin(tmp, s);
-		// printf("OH:%s", tmp);
 		if (line[i] && (is_token(line + i) || line[i] == 32))
 		{
 			if (tmp)
 			{
-				// printf("tmp:%s", tmp);
 				ft_add_list(token, TK_ID, tmp);
 				free(tmp);
 			}
@@ -103,11 +134,13 @@ void	ft_parse_split(char *line, t_token *token)
 		}
 		if (line[i] == '\0' && tmp)
 		{
-			ft_add_list(token, TK_ID, tmp);
+			ft_add_list(token, TK_BREAK, tmp);
 			free(tmp);
 			break ;
 		}
 	}
+	debug_list(token);
+	ft_free_list(token);
 }
 
 int	loop(t_global *global)
@@ -138,12 +171,13 @@ int	loop(t_global *global)
 int	main(int argc, char **argv, char **envp)
 {
 	t_global	global;
-	t_token		token;
+	t_token		*token;
 
+	token = ft_token_new(TK_ID, NULL);
 	global.argc = argc;
 	global.argv = argv;
 	global.envp = envp;
-	global.token = &token;
+	global.token = token;
 
 	if (!loop(&global))
 		return (0);

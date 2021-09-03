@@ -27,7 +27,6 @@ typedef enum e_type
 	TK_EQ,
 	TK_QUOTE,
 	TK_SQUOTE,
-	TK_SEMI,
 	TK_GREATER,
 	TK_LOWER,
 	TK_DGREA,
