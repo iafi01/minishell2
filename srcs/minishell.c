@@ -121,6 +121,8 @@ void	ft_parse_split(char *line, t_token *token)
 			tmp = ft_strjoin(tmp, s);
 			s[0] = '\0';
 		}
+		if (*tmp == NULL && line[i] == 32)
+			continue;
 		if (line[i] && (is_token(line + i) || line[i] == 32))
 		{
 			if (is_token(line + i))
