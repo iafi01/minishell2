@@ -12,14 +12,51 @@ t_token	*init_token(int type, char *val)
 	return (token);
 }
 
-void debug(int d_apici, int s_apici, int prev_apici)
+int	is_token(char *c)
 {
-	printf("\n Debbug:\n");
-	if (prev_apici == 1)
-		printf("\t Primo apice singolo\n");
-	if (prev_apici == 2)
-		printf("\t Primo apice doppio\n");
-	printf("\t Apice singolo: %d\n", s_apici);
-	printf("\t Apice dpppio: %d\n", d_apici);
+	if (*(c+1) && (!ft_strncmp(c, ">>", 2) || !ft_strncmp(c, "<<", 2)))
+		return (2);
+	if (*c == '>' || *c == '<' || *c == '|')
+		return (1);
+	return (0);
 }
 
+t_token	*ft_token_new(t_type token, char *val, int apici)
+{
+	t_token	*lnew;
+
+	lnew = (t_token *)malloc(sizeof(t_token));
+	lnew->e_type = token;
+	lnew->val = val;
+	lnew->apici = apici;
+	lnew->next = NULL;
+	return (lnew);
+}
+
+void	ft_free_list(t_token *list)
+{
+	t_token	*first;
+	t_token	*next;
+
+	if (!list || list->next == NULL)
+		return ;
+	first = list;
+	list = list->next;
+	while (list->next != NULL)
+	{
+		next = list->next;
+		if (list->e_type == TK_ID)
+			free(list->val);
+		free(list);
+		list = next;
+	}
+	list = first;
+	list->next = NULL;
+}
+
+void	ft_add_list(t_token *list, t_type type, char *val, int apici)
+{
+	list = ft_find_end(list);
+	list->next = ft_token_new(type, val, apici);
+	return ;
+}

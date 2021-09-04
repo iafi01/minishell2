@@ -18,27 +18,6 @@ void    sign_handler(int sig)
  	}
 }
 
-int	is_token(char *c)
-{
-	if (*(c+1) && (!ft_strncmp(c, ">>", 2) || !ft_strncmp(c, "<<", 2)))
-		return (2);
-	if (*c == '>' || *c == '<' || *c == '|')
-		return (1);
-	return (0);
-}
-
-t_token	*ft_token_new(t_type token, char *val, int apici)
-{
-	t_token	*lnew;
-
-	lnew = (t_token *)malloc(sizeof(t_token));
-	lnew->e_type = token;
-	lnew->val = val;
-	lnew->apici = apici;
-	lnew->next = NULL;
-	return (lnew);
-}
-
 t_token	*ft_find_end(t_token *list)
 {
 	if (!list)
@@ -46,46 +25,6 @@ t_token	*ft_find_end(t_token *list)
 	while (list->next != NULL)
 		list = list->next;
 	return (list);
-}
-
-void	debug_list(t_token *token)
-{
-	while (token->next != NULL)
-	{
-		//if (token->e_type != 0)
-		printf("%d",token->e_type);
-		//else
-		//printf("%s\n", token->val);
-		token = token->next;
-	}
-}
-
-void	ft_free_list(t_token *list)
-{
-	t_token	*first;
-	t_token	*next;
-
-	if (!list || list->next == NULL)
-		return ;
-	first = list;
-	list = list->next;
-	while (list->next != NULL)
-	{
-		next = list->next;
-		if (list->e_type == TK_ID)
-			free(list->val);
-		free(list);
-		list = next;
-	}
-	list = first;
-	list->next = NULL;
-}
-
-void	ft_add_list(t_token *list, t_type type, char *val, int apici)
-{
-	list = ft_find_end(list);
-	list->next = ft_token_new(type, val, apici);
-	return ;
 }
 
 void	store_token(t_token *list, char *t)
@@ -132,7 +71,7 @@ int	ft_apici_split(char *line, t_token *token)
 	}
 	i++;
 	ft_add_list(token, TK_ID, tmp, apici);
-	printf("%s", tmp);
+	//printf("%s", tmp);
 	free(tmp);
 	return (i);
 }
@@ -143,7 +82,7 @@ void	ft_parse_split(char *line, t_token *token)
 	int i;
 	char *tmp;
 	char	s[2];
-
+	
 	s[1] = '\0';
 	i = -1;
 	tmp = malloc(sizeof(char) * 30); //cambiare 30
@@ -202,6 +141,7 @@ int	loop(t_global *global)
 		}
 		ft_parse_split(read, global->token);
 		debug_list(global->token);
+		//ft_parsing(global->token);
 		ft_free_list(global->token);
 		free(read);
 	}

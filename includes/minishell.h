@@ -55,6 +55,7 @@ typedef struct s_global
 //minishell.c
 void    sign_handler(int sig);
 void	ft_parse_split(char *line, t_token *token);
+t_token	*ft_find_end(t_token *list);
 
 //parsing.c
 int     init_parsing(char *line);
@@ -71,9 +72,20 @@ int	    parsing_comand(char *line);
 int	    solo_spazi(char *line);
 
 //parsing3.c
+t_token	*ft_token_new(t_type token, char *val, int apici);
+int		is_token(char *c);
+void	ft_free_list(t_token *list);
+void	ft_add_list(t_token *list, t_type type, char *val, int apici);
+
+//parsing3.c
 int	    check_apici_pos(char *line);
 
 //command.c
 int ft_tree(t_global *global);
+
+//debug.c
+void 	debug(int d_apici, int s_apici, int prev_apici);
+void	debug_list(t_token *token);
+
 
 #endif

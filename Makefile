@@ -8,7 +8,7 @@ LFLAGS = -L libft -lft
 READLINERIGHT = ./includes/libreadline.a
 FOLDER = srcs
 
-SRCS_LIST = minishell.c parsing.c parsing2.c parsing3.c command.c
+SRCS_LIST = minishell.c parsing.c parsing2.c parsing3.c command.c debug.c
 
 SRCS = $(addprefix ${FOLDER}/, ${SRCS_LIST})
 
