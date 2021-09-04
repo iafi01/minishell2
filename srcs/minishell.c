@@ -121,36 +121,27 @@ void	ft_parse_split(char *line, t_token *token)
 			tmp = ft_strjoin(tmp, s);
 			s[0] = '\0';
 		}
-		if (*tmp == NULL && line[i] == 32)
+		if (*tmp == (char)NULL && line[i] == 32)
 			continue;
 		if (line[i] && (is_token(line + i) || line[i] == 32))
 		{
 			if (is_token(line + i))
 			{
 				store_token(token, line + i);
-				t_token *test = ft_find_end(token);
-				printf("token:%d ", test->e_type);
 				if (is_token(line + i) == 2)
 					i++;
 				continue;
 			}
 			else if (tmp)
 			{
-				printf("word:%s ",tmp);
 				ft_add_list(token, TK_ID, ft_strdup(tmp));
 				ft_memset((void*)tmp, '\0', 30);
 				continue;
 			}
 		}
 	}
-	if (line[i] == '\0' && tmp)
-	{
-		printf("word:%s ",tmp);
+	if (line[i] == '\0' && tmp && *tmp != (char)NULL && line[i] != 32)
 		ft_add_list(token, TK_ID, tmp);
-	}
-	ft_add_list(token, TK_BREAK, tmp);
-	debug_list(token);
-	ft_free_list(token);
 }
 
 int	loop(t_global *global)
@@ -173,6 +164,8 @@ int	loop(t_global *global)
 			continue ;
 		}
 		ft_parse_split(read, global->token);
+		debug_list(global->token);
+		ft_free_list(global->token);
 		free(read);
 	}
 	return (1);
