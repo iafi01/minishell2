@@ -142,7 +142,11 @@ void	ft_parse_split(char *line, t_token *token)
 		}
 	}
 	if (line[i] == '\0' && tmp)
-		ft_add_list(token, TK_BREAK, tmp);
+	{
+		printf("word:%s ",tmp);
+		ft_add_list(token, TK_ID, tmp);
+	}
+	ft_add_list(token, TK_BREAK, tmp);
 	debug_list(token);
 	ft_free_list(token);
 }
