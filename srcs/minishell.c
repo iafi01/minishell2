@@ -27,13 +27,14 @@ int	is_token(char *c)
 	return (0);
 }
 
-t_token	*ft_token_new(t_type token, char *val)
+t_token	*ft_token_new(t_type token, char *val, int apici)
 {
 	t_token	*lnew;
 
 	lnew = (t_token *)malloc(sizeof(t_token));
 	lnew->e_type = token;
 	lnew->val = val;
+	lnew->apici = apici;
 	lnew->next = NULL;
 	return (lnew);
 }
@@ -77,29 +78,58 @@ void	ft_free_list(t_token *list)
 	list->next = NULL;
 }
 
-void	ft_add_list(t_token *list, t_type type, char *val)
+void	ft_add_list(t_token *list, t_type type, char *val, int apici)
 {
 	list = ft_find_end(list);
-	list->next = ft_token_new(type, val);
+	list->next = ft_token_new(type, val, apici);
 	return ;
 }
 
 void	store_token(t_token *list, char *t)
 {
 	if (!ft_strncmp(t, ">>", 2))
-		ft_add_list(list, TK_DGREA, NULL);
+		ft_add_list(list, TK_DGREA, NULL, 0);
 	else if (!ft_strncmp(t, "<<", 2))
-		ft_add_list(list, TK_DLOW, NULL);
+		ft_add_list(list, TK_DLOW, NULL, 0);
 	else if (*t == '>')
-		ft_add_list(list, TK_GREATER, NULL);
+		ft_add_list(list, TK_GREATER, NULL, 0);
 	else if (*t == '<')
-		ft_add_list(list, TK_LOWER, NULL);
+		ft_add_list(list, TK_LOWER, NULL, 0);
 	else if (*t == '|')
-		ft_add_list(list, TK_PIPE, NULL);
+		ft_add_list(list, TK_PIPE, NULL, 0);
 	else if (*t == '>')
-		ft_add_list(list, TK_GREATER, NULL);
+		ft_add_list(list, TK_GREATER, NULL, 0);
 	else if (*t == '=')
-		ft_add_list(list, TK_EQ, NULL);
+		ft_add_list(list, TK_EQ, NULL, 0);
+}
+
+int	ft_apici_split(char *line, t_token *token)
+{
+	int i;
+	int apici;
+	char *tmp;
+	char s[2];
+
+	s[1] = '\0';
+	apici = 0;
+	i = 0;
+	tmp = calloc(30, sizeof(char));
+	if (line[i] == 39)
+		apici = 1;
+	else if (line[i] == 34)
+		apici = 2;
+	while (line[i++])
+	{
+		if (line[i] == 39 && apici == 1)
+			break ;
+		else if (line[i] == 34 && apici == 2)
+			break;
+		s[0] = line[i];
+		tmp = ft_strjoin(tmp, s);
+	}
+	ft_add_list(token, TK_ID, tmp, apici);
+	free(tmp);
+	return (i);
 }
 
 void	ft_parse_split(char *line, t_token *token)
@@ -111,10 +141,13 @@ void	ft_parse_split(char *line, t_token *token)
 
 	s[1] = '\0';
 	i = -1;
-	tmp = malloc(sizeof(char) * 30);
+	tmp = malloc(sizeof(char) * 30); //cambiare 30
 	len = ft_strlen(line);
 	while (line[++i])
 	{
+		if (line[i] == 34 || line[i] == 39)
+			i += ft_apici_split(line + i, token);
+		//aggiungere funzione salva stringa as virgoletta (se la stringa ha $, salvare se stamparla come char o come envar)
 		if (is_token(line + i) == 0 && line[i] != 32)
 		{
 			s[0] = line[i];
@@ -134,14 +167,14 @@ void	ft_parse_split(char *line, t_token *token)
 			}
 			else if (tmp)
 			{
-				ft_add_list(token, TK_ID, ft_strdup(tmp));
+				ft_add_list(token, TK_ID, ft_strdup(tmp), 0);
 				ft_memset((void*)tmp, '\0', 30);
 				continue;
 			}
 		}
 	}
 	if (line[i] == '\0' && tmp && *tmp != (char)NULL && line[i] != 32)
-		ft_add_list(token, TK_ID, tmp);
+		ft_add_list(token, TK_ID, tmp, 0);
 }
 
 int	loop(t_global *global)
@@ -176,7 +209,7 @@ int	main(int argc, char **argv, char **envp)
 	t_global	global;
 	t_token		*token;
 
-	token = ft_token_new(TK_ID, NULL);
+	token = ft_token_new(TK_ID, NULL, 0);
 	global.argc = argc;
 	global.argv = argv;
 	global.envp = envp;

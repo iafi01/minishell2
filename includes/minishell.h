@@ -39,6 +39,7 @@ typedef struct s_token
 	t_type	e_type;
     struct  s_token *next;
 	char	*val;
+	int		apici; //0, 1, 2
 }	t_token;
 
 typedef struct s_global
