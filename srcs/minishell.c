@@ -52,7 +52,10 @@ void	debug_list(t_token *token)
 {
 	while (token->next != NULL)
 	{
-		printf("%d\n", token->e_type);
+		//if (token->e_type != 0)
+		printf("%d",token->e_type);
+		//else
+		//printf("%s\n", token->val);
 		token = token->next;
 	}
 }
@@ -113,7 +116,7 @@ int	ft_apici_split(char *line, t_token *token)
 	s[1] = '\0';
 	apici = 0;
 	i = 0;
-	tmp = calloc(30, sizeof(char));
+	tmp = calloc(30, sizeof(char)); //cambiare 30
 	if (line[i] == 39)
 		apici = 1;
 	else if (line[i] == 34)
@@ -127,7 +130,9 @@ int	ft_apici_split(char *line, t_token *token)
 		s[0] = line[i];
 		tmp = ft_strjoin(tmp, s);
 	}
+	i++;
 	ft_add_list(token, TK_ID, tmp, apici);
+	printf("%s", tmp);
 	free(tmp);
 	return (i);
 }
@@ -147,7 +152,6 @@ void	ft_parse_split(char *line, t_token *token)
 	{
 		if (line[i] == 34 || line[i] == 39)
 			i += ft_apici_split(line + i, token);
-		//aggiungere funzione salva stringa as virgoletta (se la stringa ha $, salvare se stamparla come char o come envar)
 		if (is_token(line + i) == 0 && line[i] != 32)
 		{
 			s[0] = line[i];
