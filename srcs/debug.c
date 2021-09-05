@@ -13,7 +13,7 @@ void debug(int d_apici, int s_apici, int prev_apici)
 
 void	debug_list(t_token *token)
 {
-	while (token->next != NULL)
+	while (token != NULL)
 	{
 		//if (token->e_type != 0)
 		printf("%d\n",token->e_type);

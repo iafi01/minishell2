@@ -27,22 +27,23 @@ t_token	*ft_find_end(t_token *list)
 	return (list);
 }
 
-void	store_token(t_token *list, char *t)
+int	store_token(t_token *list, char *t)
 {
 	if (!ft_strncmp(t, ">>", 2))
-		ft_add_list(list, TK_DGREA, NULL, 0);
+		return (ft_add_list(list, TK_DGREA, NULL, 0));
 	else if (!ft_strncmp(t, "<<", 2))
-		ft_add_list(list, TK_DLOW, NULL, 0);
+		return (ft_add_list(list, TK_DLOW, NULL, 0));
 	else if (*t == '>')
-		ft_add_list(list, TK_GREATER, NULL, 0);
+		return (ft_add_list(list, TK_GREATER, NULL, 0));
 	else if (*t == '<')
-		ft_add_list(list, TK_LOWER, NULL, 0);
+		return (ft_add_list(list, TK_LOWER, NULL, 0));
 	else if (*t == '|')
-		ft_add_list(list, TK_PIPE, NULL, 0);
+		return (ft_add_list(list, TK_PIPE, NULL, 0));
 	else if (*t == '>')
-		ft_add_list(list, TK_GREATER, NULL, 0);
+		return (ft_add_list(list, TK_GREATER, NULL, 0));
 	else if (*t == '=')
-		ft_add_list(list, TK_EQ, NULL, 0);
+		return (ft_add_list(list, TK_EQ, NULL, 0));
+	return (0);
 }
 
 int	ft_apici_split(char *line, t_token *token)

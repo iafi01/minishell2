@@ -75,7 +75,7 @@ int	    solo_spazi(char *line);
 t_token	*ft_token_new(t_type token, char *val, int apici);
 int		is_token(char *c);
 void	ft_free_list(t_token *list);
-void	ft_add_list(t_token *list, t_type type, char *val, int apici);
+int		ft_add_list(t_token *list, t_type type, char *val, int apici);
 
 //parsing3.c
 int	    check_apici_pos(char *line);

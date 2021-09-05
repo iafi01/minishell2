@@ -54,9 +54,11 @@ void	ft_free_list(t_token *list)
 	list->next = NULL;
 }
 
-void	ft_add_list(t_token *list, t_type type, char *val, int apici)
+int	ft_add_list(t_token *list, t_type type, char *val, int apici)
 {
 	list = ft_find_end(list);
 	list->next = ft_token_new(type, val, apici);
-	return ;
+	if (list->next)
+		return (1);
+	return (0);
 }
