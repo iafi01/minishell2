@@ -102,10 +102,10 @@ void	ft_parse_split(char *line, t_token *token)
 			continue;
 		if (line[i] && (is_token(line + i) || line[i] == 32))
 		{
-			printf(":%c", line[i]);
+			//printf(":%c", line[i]);
 			if (is_token(line + i))
 			{
-				printf("&%c&", line[i]);
+				//printf("&%c&", line[i]);
 				store_token(token, line + i);
 				if (is_token(line + i) == 2)
 					i++;
@@ -113,7 +113,7 @@ void	ft_parse_split(char *line, t_token *token)
 			}
 			else if (tmp)
 			{
-				printf("&%s&", tmp);
+				//printf("&%s&", tmp);
 				ft_add_list(token, TK_ID, ft_strdup(tmp), 0);
 				ft_memset((void*)tmp, '\0', 30);
 				continue;
@@ -121,10 +121,8 @@ void	ft_parse_split(char *line, t_token *token)
 		}
 	}
 	if (line[i] == '\0' && tmp && *tmp != (char)NULL && line[i] != 32)
-	{	ft_add_list(token, TK_ID, tmp, 0);
-		printf("&%s&\n", tmp);
-	}
-	debug_list(token);
+		ft_add_list(token, TK_ID, tmp, 0);
+		//printf("&%s&\n", tmp);}
 }
 
 int	loop(t_global *global)
@@ -147,7 +145,8 @@ int	loop(t_global *global)
 			continue ;
 		}
 		ft_parse_split(read, global->token);
-		//ft_parsing(global->token);
+		ft_parsing(global->token);
+		//debug_list(global->token);
 		ft_free_list(global->token);
 		free(read);
 	}

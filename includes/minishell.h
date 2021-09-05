@@ -80,6 +80,9 @@ int		ft_add_list(t_token *list, t_type type, char *val, int apici);
 //parsing3.c
 int	    check_apici_pos(char *line);
 
+//parser.c
+int ft_parsing(t_token *token);
+
 //command.c
 int ft_tree(t_global *global);
 
@@ -87,5 +90,8 @@ int ft_tree(t_global *global);
 void 	debug(int d_apici, int s_apici, int prev_apici);
 void	debug_list(t_token *token);
 
+//utils.c
+char	*cerca_variabile(char *line);
+int	count_var(char* line);
 
 #endif

@@ -17,10 +17,7 @@ void	debug_list(t_token *token)
 		token = token->next;
 	while (token != NULL)
 	{
-		//if (token->e_type != 0)
-			printf("\n%d\n",token->e_type);
-		/*else
-			printf("%s\n", token->val);*/
+		printf("%s",token->val);
 		token = token->next;
 	}
 }
