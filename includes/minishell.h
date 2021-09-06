@@ -55,7 +55,6 @@ typedef struct s_global
 //minishell.c
 void    sign_handler(int sig);
 void	ft_parse_split(char *line, t_token *token);
-t_token	*ft_find_end(t_token *list);
 
 //parsing.c
 int     init_parsing(char *line);
@@ -93,5 +92,8 @@ void	debug_list(t_token *token);
 //utils.c
 char	*cerca_variabile(char *line);
 int	count_var(char* line);
+int cerca_token(t_token *token, enum e_type type);
+int	store_token(t_token *list, char *t);
+t_token	*ft_find_end(t_token *list);
 
 #endif
