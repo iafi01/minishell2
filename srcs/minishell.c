@@ -49,6 +49,61 @@ int	ft_apici_split(char *line, t_token *token)
 	return (i);
 }
 
+void	set_cmd(t_token *token)
+{
+	if (token->next)
+		token = token->next;
+	while (token != NULL)
+	{
+		if (token->e_type == TK_ID)
+		{
+			if (!ft_strncmp((const char*)token->val, "echo", 4))
+			{
+				free(token->val);
+				token->val = NULL;
+				token->e_type = CM_ECHO;
+			}
+			else if (!ft_strncmp((const char*)token->val, "cd", 2))
+			{
+				free(token->val);
+				token->val = NULL;
+				token->e_type = CM_CD;
+			}
+			else if (!ft_strncmp((const char*)token->val, "pwd", 3))
+			{
+				free(token->val);
+				token->val = NULL;
+				token->e_type = CM_PWD;
+			}
+			else if (!ft_strncmp((const char*)token->val, "export", 6))
+			{
+				free(token->val);
+				token->val = NULL;
+				token->e_type = CM_EXP;
+			}
+			else if (!ft_strncmp((const char*)token->val, "unset", 5))
+			{
+				free(token->val);
+				token->val = NULL;
+				token->e_type = CM_UNS;
+			}
+			else if (!ft_strncmp((const char*)token->val, "env", 3))
+			{
+				free(token->val);
+				token->val = NULL;
+				token->e_type = CM_ENV;
+			}
+			else if (!ft_strncmp((const char*)token->val, "exit", 4))
+			{
+				free(token->val);
+				token->val = NULL;
+				token->e_type = CM_EXIT;
+			}
+		}
+		token = token->next;
+	}
+}
+
 void	ft_parse_split(char *line, t_token *token)
 {
 	int len;
@@ -119,6 +174,7 @@ int	loop(t_global *global)
 		ft_parse_split(read, global->token);
 		if (!ft_parsing(global->token))
 			printf("Errore Parser\n");
+		set_cmd(global->token);
 		//debug_list(global->token);
 		ft_free_list(global->token);
 		free(read);
