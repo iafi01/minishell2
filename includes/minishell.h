@@ -15,8 +15,8 @@
 # include <fcntl.h>
 # include <dirent.h>
 # include <sys/ioctl.h>
-# include <readline/readline.h>
-# include <readline/history.h>
+// # include <readline/readline.h>
+// # include <readline/history.h>
 
 # include "../libft/includes/libft.h"
 
@@ -87,7 +87,8 @@ int		ft_add_list(t_token *list, t_type type, char *val, int apici);
 int	    check_apici_pos(char *line);
 
 //parser.c
-int ft_parsing(t_token *token);
+int 	ft_parsing(t_token *token);
+void	ft_check_doubles(t_token *list);
 
 //command.c
 int ft_tree(t_global *global);

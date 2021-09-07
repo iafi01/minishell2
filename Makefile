@@ -5,7 +5,6 @@ LIBFT = libft/
 FLAGS = -Wall -Wextra
 LFLAGS = -L libft -lft
 
-READLINERIGHT = ./includes/libreadline.a
 FOLDER = srcs
 
 SRCS_LIST = minishell.c parsing.c parsing2.c parsing3.c command.c debug.c \
@@ -17,7 +16,7 @@ all: $(LIB) $(NAME)
 
 $(NAME):
 	@make -s -C $(LIBFT)
-	@gcc -o $(NAME) $(FLAGS) $(SRCS) $(LFLAGS) -I $(HEADER) -lreadline
+	@gcc -o $(NAME) $(FLAGS) $(SRCS) $(LFLAGS) -I $(HEADER)
 	@echo "\033[1m$(NAME)\033[0m""\033[32m	Compiled\033[0m"
 clean:
 	@make clean -C $(LIBFT) 

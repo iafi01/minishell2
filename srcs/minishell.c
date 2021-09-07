@@ -43,7 +43,7 @@ int	ft_apici_split(char *line, t_token *token)
 		tmp = ft_strjoin(tmp, s);
 	}
 	i++;
-	ft_add_list(token, TK_ID, tmp, apici);
+	ft_add_list(token, TK_ID, ft_strdup(tmp), apici);
 	//printf("%s", tmp);
 	free(tmp);
 	return (i);
@@ -59,44 +59,30 @@ void	set_cmd(t_token *token)
 		{
 			if (!ft_strncmp((const char*)token->val, "echo", 4))
 			{
-				free(token->val);
-				token->val = NULL;
 				token->e_type = CM_ECHO;
 			}
 			else if (!ft_strncmp((const char*)token->val, "cd", 2))
 			{
-				free(token->val);
-				token->val = NULL;
 				token->e_type = CM_CD;
 			}
 			else if (!ft_strncmp((const char*)token->val, "pwd", 3))
 			{
-				free(token->val);
-				token->val = NULL;
 				token->e_type = CM_PWD;
 			}
 			else if (!ft_strncmp((const char*)token->val, "export", 6))
 			{
-				free(token->val);
-				token->val = NULL;
 				token->e_type = CM_EXP;
 			}
 			else if (!ft_strncmp((const char*)token->val, "unset", 5))
 			{
-				free(token->val);
-				token->val = NULL;
 				token->e_type = CM_UNS;
 			}
 			else if (!ft_strncmp((const char*)token->val, "env", 3))
 			{
-				free(token->val);
-				token->val = NULL;
 				token->e_type = CM_ENV;
 			}
 			else if (!ft_strncmp((const char*)token->val, "exit", 4))
 			{
-				free(token->val);
-				token->val = NULL;
 				token->e_type = CM_EXIT;
 			}
 		}
@@ -140,7 +126,7 @@ void	ft_parse_split(char *line, t_token *token)
 			}
 			else if (tmp)
 			{
-				//printf("&%s&", tmp);
+				// printf("&%s&", tmp);
 				ft_add_list(token, TK_ID, ft_strdup(tmp), 0);
 				ft_memset((void*)tmp, '\0', 30);
 				continue;
@@ -148,8 +134,10 @@ void	ft_parse_split(char *line, t_token *token)
 		}
 	}
 	if (line[i] == '\0' && tmp && *tmp != (char)NULL && line[i] != 32)
+	{
 		ft_add_list(token, TK_ID, tmp, 0);
-		//printf("&%s&\n", tmp);}
+		// printf("&%s&\n", tmp);}
+	}
 }
 
 int	loop(t_global *global)
@@ -161,10 +149,11 @@ int	loop(t_global *global)
 		//signal(SIGQUIT, sign_handler);
 		read = ft_strjoin(ft_strjoin("\e[0;32m<\e\033[0;37m", getenv("USER")),
 	           "\033[0;31m>\e \033[0;37m ");
-		read = readline(read);
+		scanf("%s", read);
+		// read = readline(read);
 		if (read == NULL)
 			return (0);
-		add_history(read);
+		// add_history(read);
 		if (init_parsing(read) == 1 && *read != '\0')
 		{
 			printf("Error Parsing\n");
@@ -175,7 +164,8 @@ int	loop(t_global *global)
 		if (!ft_parsing(global->token))
 			printf("Errore Parser\n");
 		set_cmd(global->token);
-		//debug_list(global->token);
+		ft_check_doubles(global->token);
+		debug_list(global->token);
 		ft_free_list(global->token);
 		free(read);
 	}
