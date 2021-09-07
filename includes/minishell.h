@@ -20,15 +20,6 @@
 
 # include "../libft/includes/libft.h"
 
-typedef struct s_global
-{
-    int  argc;
-    char **line;
-    char **argv;
-    char **envp;
-    char **args;
-}   t_global;
-
 typedef enum e_type
 {
 	TK_ID,
@@ -36,12 +27,18 @@ typedef enum e_type
 	TK_EQ,
 	TK_QUOTE,
 	TK_SQUOTE,
-	TK_SEMI,
 	TK_GREATER,
 	TK_LOWER,
 	TK_DGREA,
 	TK_DLOW,
-	TK_BREAK
+	TK_BREAK,
+	CM_ECHO,
+	CM_CD,
+	CM_PWD,
+	CM_EXP,
+	CM_UNS,
+	CM_ENV,
+	CM_EXIT
 }	t_type;
 
 typedef struct s_token
@@ -49,17 +46,29 @@ typedef struct s_token
 	t_type	e_type;
     struct  s_token *next;
 	char	*val;
+	int		apici; //0, 1, 2
 }	t_token;
+
+typedef struct s_global
+{
+    int  argc;
+    t_token *token;
+    char **argv;
+    char **envp;
+    char **args;
+}   t_global;
+
 
 //minishell.c
 void    sign_handler(int sig);
+void	ft_parse_split(char *line, t_token *token);
 
 //parsing.c
 int     init_parsing(char *line);
 char    *skip_spaces(char *str);
 int     check_apici(char *line);
 int     cerca_apici(char *line);
-int     print_err_apici(int s_apici, int d_apici);
+int     control_apici(int s_apici, int d_apici);
 
 
 //parsing2.c
@@ -69,8 +78,29 @@ int	    parsing_comand(char *line);
 int	    solo_spazi(char *line);
 
 //parsing3.c
-int	    check_corr_pos_apici(char *line);
+t_token	*ft_token_new(t_type token, char *val, int apici);
+int		is_token(char *c);
+void	ft_free_list(t_token *list);
+int		ft_add_list(t_token *list, t_type type, char *val, int apici);
+
+//parsing3.c
+int	    check_apici_pos(char *line);
+
+//parser.c
+int ft_parsing(t_token *token);
 
 //command.c
 int ft_tree(t_global *global);
+
+//debug.c
+void 	debug(int d_apici, int s_apici, int prev_apici);
+void	debug_list(t_token *token);
+
+//utils.c
+char	*cerca_variabile(char *line);
+int	count_var(char* line);
+int cerca_token(t_token *token, enum e_type type);
+int	store_token(t_token *list, char *t);
+t_token	*ft_find_end(t_token *list);
+
 #endif

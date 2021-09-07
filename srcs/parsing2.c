@@ -70,7 +70,7 @@ int check_apertura(char *line)
 	return (0);
 }
 
-int	check_corr_pos_apici(char *line)
+int	check_apici_pos(char *line)
 {
 	if (check_apertura(line) == 1)
 	{
