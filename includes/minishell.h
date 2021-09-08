@@ -40,6 +40,7 @@ typedef struct s_token
     struct  s_token *next;
 	char	*val;
 	int		apici; //0, 1, 2
+	struct s_token *prec;
 }	t_token;
 
 typedef struct s_global
@@ -71,7 +72,7 @@ int	    parsing_comand(char *line);
 int	    solo_spazi(char *line);
 
 //parsing3.c
-t_token	*ft_token_new(t_type token, char *val, int apici);
+t_token	*ft_token_new(t_type token, char *val, int apici, t_token *prec);
 int		is_token(char *c);
 void	ft_free_list(t_token *list);
 int		ft_add_list(t_token *list, t_type type, char *val, int apici);

@@ -131,7 +131,7 @@ int	main(int argc, char **argv, char **envp)
 	t_global	global;
 	t_token		*token;
 
-	token = ft_token_new(TK_ID, NULL, 0);
+	token = ft_token_new(TK_ID, NULL, 0, NULL);
 	global.argc = argc;
 	global.argv = argv;
 	global.envp = envp;

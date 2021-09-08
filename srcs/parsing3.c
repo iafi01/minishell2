@@ -21,11 +21,12 @@ int	is_token(char *c)
 	return (0);
 }
 
-t_token	*ft_token_new(t_type token, char *val, int apici)
+t_token	*ft_token_new(t_type token, char *val, int apici, t_token *prec)
 {
 	t_token	*lnew;
 
 	lnew = (t_token *)malloc(sizeof(t_token));
+	lnew->prec = prec;
 	lnew->e_type = token;
 	lnew->val = val;
 	lnew->apici = apici;
@@ -56,8 +57,11 @@ void	ft_free_list(t_token *list)
 
 int	ft_add_list(t_token *list, t_type type, char *val, int apici)
 {
+	t_token *prec;
+
 	list = ft_find_end(list);
-	list->next = ft_token_new(type, val, apici);
+	prec = list;
+	list->next = ft_token_new(type, val, apici, prec);
 	if (list->next)
 		return (1);
 	return (0);
