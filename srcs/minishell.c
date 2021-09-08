@@ -90,6 +90,16 @@ void	set_cmd(t_token *token)
 	}
 }
 
+void	write_b(int n)
+{
+	while (n > 0)
+	{
+		printf("\b");
+		n--;
+	}
+	return ;
+}
+
 void	ft_parse_split(char *line, t_token *token)
 {
 	int len;
@@ -127,7 +137,8 @@ void	ft_parse_split(char *line, t_token *token)
 			else if (tmp)
 			{
 				// printf("&%s&\n", tmp);
-				printf("%s\b\b\b\b", "ciao");
+				printf("%s", ft_strdup(tmp));
+				write_b(ft_strlen(tmp));
 				ft_add_list(token, TK_ID, ft_strdup(tmp), 0);
 				ft_memset((void*)tmp, '\0', 30);
 				continue;
