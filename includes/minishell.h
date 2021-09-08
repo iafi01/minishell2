@@ -31,7 +31,14 @@ typedef enum e_type
 	TK_LOWER,
 	TK_DGREA,
 	TK_DLOW,
-	TK_BREAK
+	TK_BREAK,
+	CM_ECHO,
+	CM_CD,
+	CM_PWD,
+	CM_EXP,
+	CM_UNS,
+	CM_ENV,
+	CM_EXIT
 }	t_type;
 
 typedef struct s_token

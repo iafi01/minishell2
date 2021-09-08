@@ -43,10 +43,51 @@ int	ft_apici_split(char *line, t_token *token)
 		tmp = ft_strjoin(tmp, s);
 	}
 	i++;
-	ft_add_list(token, TK_ID, tmp, apici);
+	ft_add_list(token, TK_ID, ft_strdup(tmp), apici);
 	//printf("%s", tmp);
 	free(tmp);
 	return (i);
+}
+
+void	set_cmd(t_token *token)
+{
+	if (token->next)
+		token = token->next;
+	while (token != NULL)
+	{
+		if (token->e_type == TK_ID)
+		{
+			if (!ft_strncmp((const char*)token->val, "echo", 4))
+			{
+				token->e_type = CM_ECHO;
+			}
+			else if (!ft_strncmp((const char*)token->val, "cd", 2))
+			{
+				token->e_type = CM_CD;
+			}
+			else if (!ft_strncmp((const char*)token->val, "pwd", 3))
+			{
+				token->e_type = CM_PWD;
+			}
+			else if (!ft_strncmp((const char*)token->val, "export", 6))
+			{
+				token->e_type = CM_EXP;
+			}
+			else if (!ft_strncmp((const char*)token->val, "unset", 5))
+			{
+				token->e_type = CM_UNS;
+			}
+			else if (!ft_strncmp((const char*)token->val, "env", 3))
+			{
+				token->e_type = CM_ENV;
+			}
+			else if (!ft_strncmp((const char*)token->val, "exit", 4))
+			{
+				token->e_type = CM_EXIT;
+			}
+		}
+		token = token->next;
+	}
 }
 
 void	ft_parse_split(char *line, t_token *token)
@@ -85,7 +126,8 @@ void	ft_parse_split(char *line, t_token *token)
 			}
 			else if (tmp)
 			{
-				//printf("&%s&", tmp);
+				// printf("&%s&\n", tmp);
+				printf("%s\b\b\b\b", "ciao");
 				ft_add_list(token, TK_ID, ft_strdup(tmp), 0);
 				ft_memset((void*)tmp, '\0', 30);
 				continue;
@@ -94,7 +136,7 @@ void	ft_parse_split(char *line, t_token *token)
 	}
 	if (line[i] == '\0' && tmp && *tmp != (char)NULL && line[i] != 32)
 		ft_add_list(token, TK_ID, tmp, 0);
-		//printf("&%s&\n", tmp);}
+		// printf("&%s&\n", tmp);
 }
 
 int	loop(t_global *global)
@@ -119,7 +161,8 @@ int	loop(t_global *global)
 		ft_parse_split(read, global->token);
 		if (!ft_parsing(global->token))
 			printf("Errore Parser\n");
-		//debug_list(global->token);
+		set_cmd(global->token);
+		debug_list(global->token);
 		ft_free_list(global->token);
 		free(read);
 	}
