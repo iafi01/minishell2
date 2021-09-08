@@ -2,8 +2,8 @@
 
 int ft_is_command(enum e_type i)
 {
-    if (i == CM_ECHO || i == CM_CD || i == CM_PWD || \
-    i == CM_EXP i == CM_UNS i == CM_ENV i == CM_EXIT)
+    if (i == CM_ECHO || i == CM_CD || i == CM_PWD || i == CM_EXP \
+     || i == CM_UNS || i == CM_ENV || i == CM_EXIT)
         return (1);
     return (0);
 }
