@@ -57,34 +57,20 @@ void	set_cmd(t_token *token)
 	{
 		if (token->e_type == TK_ID)
 		{
-			if (!ft_strncmp((const char*)token->val, "echo", 4))
-			{
+			if (!ft_strncmp((const char*)token->val, "echo", 4) || !ft_strncmp((const char*)token->val, "EHO", 4))
 				token->e_type = CM_ECHO;
-			}
 			else if (!ft_strncmp((const char*)token->val, "cd", 2))
-			{
 				token->e_type = CM_CD;
-			}
-			else if (!ft_strncmp((const char*)token->val, "pwd", 3))
-			{
+			else if (!ft_strncmp((const char*)token->val, "pwd", 3) || !ft_strncmp((const char*)token->val, "PWD", 3))
 				token->e_type = CM_PWD;
-			}
 			else if (!ft_strncmp((const char*)token->val, "export", 6))
-			{
 				token->e_type = CM_EXP;
-			}
 			else if (!ft_strncmp((const char*)token->val, "unset", 5))
-			{
 				token->e_type = CM_UNS;
-			}
-			else if (!ft_strncmp((const char*)token->val, "env", 3))
-			{
+			else if (!ft_strncmp((const char*)token->val, "env", 3) || !ft_strncmp((const char*)token->val, "ENV", 3))
 				token->e_type = CM_ENV;
-			}
 			else if (!ft_strncmp((const char*)token->val, "exit", 4))
-			{
 				token->e_type = CM_EXIT;
-			}
 		}
 		token = token->next;
 	}
