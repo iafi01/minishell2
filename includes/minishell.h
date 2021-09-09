@@ -89,6 +89,7 @@ int	    check_apici_pos(char *line);
 
 //parser.c
 int ft_parsing(t_global *global);
+int exec_build_in(t_global *global);
 
 //command.c
 int ft_tree(t_global *global);

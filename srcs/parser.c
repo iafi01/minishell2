@@ -38,11 +38,43 @@ int ft_parsing(t_global *global)
         return (0);
     if (!check_tokens_valid(token))
         return (0);
+    if (!exec_build_in(global))
+        return (-1);
+    return (1);
+}
+
+int exec_build_in(t_global *global)
+{
+    t_token *token;
+
+    if (!global->token->next)
+        return (0);
+    token = global->token->next;
+    /*if (token->e_type == CM_ECHO)
+        ft_echo();*/
     if (token->e_type == CM_PWD)
         ft_pwd();
     if (token->e_type == CM_ENV)
         ft_env(global);
     if (token->e_type == CM_CD)
         ft_cd(global->token->next);
+    /*if (token->e_type == CM_EXP)
+        ft_export();*/
+    if (token->e_type == CM_PWD)
+        ft_pwd();
+    if (token->e_type == CM_EXIT)
+        return (0);
     return (1);
+}
+
+void    sub_var(t_token *list)
+{
+	while (list != NULL)
+	{
+        if (list->e_type == TK_ID && list->val[0] == '$')
+		{
+			free(list->val);
+		}
+		list = list->next;
+	}
 }

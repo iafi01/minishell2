@@ -148,6 +148,8 @@ int	loop(t_global *global)
 		read = readline(read);
 		if (read == NULL)
 			return (0);
+		if (!strncmp(read, "", 2))
+			continue;
 		add_history(read);
 		if (init_parsing(read) == 1 && *read != '\0')
 		{
@@ -157,9 +159,11 @@ int	loop(t_global *global)
 		}
 		ft_parse_split(read, global->token);
 		set_cmd(global->token);
-		if (!ft_parsing(global))
+		if (ft_parsing(global) == 0)
 			printf("Errore Parser\n");
-		//debug_list(global->token);
+		else if (ft_parsing(global) == -1)
+			return (0);
+		debug_list(global->token);
 		ft_free_list(global->token);
 		free(read);
 	}

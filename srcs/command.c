@@ -62,6 +62,53 @@ void	ft_pwd(void)
 	printf("%s\n", getcwd(dir, sizeof(dir)));
 }
 
+/*int	ft_echo(char *line, t_list *list)
+{
+    int		i;
+	int		flag;
+	int		space;
+	int		apice;
+	int c = 0;
+
+	space = 0;
+	flag = 0;
+    i = 0;
+	apice = 0;
+	if (check_apice(line) != 1)
+		return (0);
+    while (line[i])
+	{	
+		if (line[i] == '\\')
+			if (line[++i])
+				write(1, &line[i++], 1);
+		if (line[i] == '\'')
+			apice += -1;
+		if (line[i] == '-' && line[i + 1] == 'n')
+		{
+			flag = 1;
+			i += 2;
+		}
+		else if (line[i] == '~')
+			printf("%s", ft_substr(ft_getenv(list, "HOME"), 5, 
+				ft_strlen(ft_getenv(list, "HOME"))));
+		else if (line[i] == '$' && apice % 2 == 0 && ft_isalnum(line[i + 1]))
+		{
+			c = ft_print_envvar(line + i + 1, list);
+			if (!c)
+				return (0);
+			i += c;
+		}
+		else if (line[i] != '"' && line[i] != '\'' && space == 1)
+			printf("%c", line[i]);
+		if (line[i] == ' ')
+			space = 1;
+		i++;
+	}
+	if (flag == 0)
+		printf("\n");
+	return (0);
+}*/
+
 void	ft_cd(t_token *token)
 {
 	char	*tmp;
