@@ -170,10 +170,10 @@ int	loop(t_global *global)
 			continue ;
 		}
 		ft_parse_split(read, global->token);
-		if (!ft_parsing(global->token))
-			printf("Errore Parser\n");
 		set_cmd(global->token);
-		debug_list(global->token);
+		if (!ft_parsing(global))
+			printf("Errore Parser\n");
+		//debug_list(global->token);
 		ft_free_list(global->token);
 		free(read);
 	}

@@ -88,10 +88,13 @@ int		ft_add_list(t_token *list, t_type type, char *val, int apici);
 int	    check_apici_pos(char *line);
 
 //parser.c
-int ft_parsing(t_token *token);
+int ft_parsing(t_global *global);
 
 //command.c
 int ft_tree(t_global *global);
+void	ft_pwd(void);
+void	ft_env(t_global *global);
+void	ft_cd(t_token *token);
 
 //debug.c
 void 	debug(int d_apici, int s_apici, int prev_apici);

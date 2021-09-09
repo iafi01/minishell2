@@ -62,13 +62,17 @@ void	ft_pwd(void)
 	printf("%s\n", getcwd(dir, sizeof(dir)));
 }
 
-void	ft_cd(char *line)
+void	ft_cd(t_token *token)
 {
 	char	*tmp;
 	int		index;
+	char	*line;
 
+	line = token->val;
+	debug_list(token);
 	index = 1;
-	tmp = line;
+	tmp = token->val;
+	printf("%s",tmp);
 	if (tmp == NULL || ft_str_sim(tmp, "~"))
 	{
 		index = chdir(getenv("HOME"));
