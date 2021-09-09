@@ -1,52 +1,5 @@
 #include "../includes/minishell.h"
 
-/*int	ft_echo(char *line, t_list *list)
-{
-    int		i;
-	int		flag;
-	int		space;
-	int		apice;
-	int c = 0;
-
-	space = 0;
-	flag = 0;
-    i = 0;
-	apice = 0;
-	if (check_apice(line) != 1)
-		return (0);
-    while (line[i])
-	{	
-		if (line[i] == '\\')
-			if (line[++i])
-				write(1, &line[i++], 1);
-		if (line[i] == '\'')
-			apice += -1;
-		if (line[i] == '-' && line[i + 1] == 'n')
-		{
-			flag = 1;
-			i += 2;
-		}
-		else if (line[i] == '~')
-			printf("%s", ft_substr(ft_getenv(list, "HOME"), 5, 
-				ft_strlen(ft_getenv(list, "HOME"))));
-		else if (line[i] == '$' && apice % 2 == 0 && ft_isalnum(line[i + 1]))
-		{
-			c = ft_print_envvar(line + i + 1, list);
-			if (!c)
-				return (0);
-			i += c;
-		}
-		else if (line[i] != '"' && line[i] != '\'' && space == 1)
-			printf("%c", line[i]);
-		if (line[i] == ' ')
-			space = 1;
-		i++;
-	}
-	if (flag == 0)
-		printf("\n");
-	return (0);
-}*/
-
 void	ft_env(t_global *global)
 {
 	int	i;
@@ -62,52 +15,11 @@ void	ft_pwd(void)
 	printf("%s\n", getcwd(dir, sizeof(dir)));
 }
 
-/*int	ft_echo(char *line, t_list *list)
+int ft_echo(t_global *global)
 {
-    int		i;
-	int		flag;
-	int		space;
-	int		apice;
-	int c = 0;
-
-	space = 0;
-	flag = 0;
-    i = 0;
-	apice = 0;
-	if (check_apice(line) != 1)
-		return (0);
-    while (line[i])
-	{	
-		if (line[i] == '\\')
-			if (line[++i])
-				write(1, &line[i++], 1);
-		if (line[i] == '\'')
-			apice += -1;
-		if (line[i] == '-' && line[i + 1] == 'n')
-		{
-			flag = 1;
-			i += 2;
-		}
-		else if (line[i] == '~')
-			printf("%s", ft_substr(ft_getenv(list, "HOME"), 5, 
-				ft_strlen(ft_getenv(list, "HOME"))));
-		else if (line[i] == '$' && apice % 2 == 0 && ft_isalnum(line[i + 1]))
-		{
-			c = ft_print_envvar(line + i + 1, list);
-			if (!c)
-				return (0);
-			i += c;
-		}
-		else if (line[i] != '"' && line[i] != '\'' && space == 1)
-			printf("%c", line[i]);
-		if (line[i] == ' ')
-			space = 1;
-		i++;
-	}
-	if (flag == 0)
-		printf("\n");
+	global = 0;
 	return (0);
-}*/
+}
 
 void	ft_cd(t_token *token)
 {
@@ -136,23 +48,24 @@ void	ft_cd(t_token *token)
 		printf("cd: %s: %s\n", strerror(errno), line);
 }
 
-/*int ft_tree(t_global *global)
+/*
+void	ft_print_alfa_env(char **envp, )
 {
-    if (!ft_strncmp(global->line[0], "echo", 4) || !ft_strncmp(global->line[0], "ECHO", 4))
-        ft_echo(global);
-    else if (!ft_strncmp(global->line[0], "env", 3) || !ft_strncmp(global->line[0], "ENV", 3))
-        ft_env(global);
-    else if (!ft_strncmp(global->line[0], "pwd", 3) || !ft_strncmp(global->line[0], "PWD", 3))
-        ft_pwd();
-    else if (!ft_strncmp(global->line[0], "exit", 4))
-        return (0);
-    else if (!ft_strncmp(global->line[0], "export", 6))
-        ft_export(global);
-    else if (!ft_strncmp(global->line[0], "unset", 5))
-        unset(global);
-    else if (!ft_strncmp(global->line[0], "cd", 2))
-        ft_cd(global);
-    else
-        printf("Comando sconosciuto\n"); // execve da addare
-    return (1);
-}*/
+	int	i;
+
+	i = 0;
+	while (i < s)
+}
+
+void	ft_export(t_token *list, char **envp, int size)
+{
+	if (list->next == NULL || strncmp(list->next->val, "", 2))
+		ft_print_alfa_env(envp);
+	else if (list->next && list->next->e_type == TK_ID && list->next->val[0] != '=')
+	{
+		envp = ft_realloc_env(envp);
+		envp[size - 1] = ft_strdup(list->next->val);
+	}
+}
+
+*/

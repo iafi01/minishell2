@@ -52,13 +52,13 @@ typedef struct s_token
 
 typedef struct s_global
 {
-    int  argc;
-    t_token *token;
-    char **argv;
-    char **envp;
-    char **args;
-}   t_global;
-
+    int  	argc;
+    t_token	*token;
+    char 	**argv;
+    char 	**args;
+	char	**envp;
+	int		size;
+}   			t_global;
 
 //minishell.c
 void    sign_handler(int sig);
@@ -90,12 +90,15 @@ int	    check_apici_pos(char *line);
 //parser.c
 int ft_parsing(t_global *global);
 int exec_build_in(t_global *global);
+int ft_print_envvar(char *line, t_global *global);
+int	check_apice(char *line);
 
 //command.c
 int ft_tree(t_global *global);
 void	ft_pwd(void);
 void	ft_env(t_global *global);
 void	ft_cd(t_token *token);
+int		ft_echo(t_global *global);
 
 //debug.c
 void 	debug(int d_apici, int s_apici, int prev_apici);

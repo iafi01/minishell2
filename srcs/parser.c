@@ -38,6 +38,7 @@ int ft_parsing(t_global *global)
         return (0);
     if (!check_tokens_valid(token))
         return (0);
+    //token priority
     if (!exec_build_in(global))
         return (-1);
     return (1);
@@ -50,8 +51,8 @@ int exec_build_in(t_global *global)
     if (!global->token->next)
         return (0);
     token = global->token->next;
-    /*if (token->e_type == CM_ECHO)
-        ft_echo();*/
+    if (token->e_type == CM_ECHO)
+        ft_echo(global);
     if (token->e_type == CM_PWD)
         ft_pwd();
     if (token->e_type == CM_ENV)

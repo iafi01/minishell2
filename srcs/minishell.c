@@ -170,6 +170,36 @@ int	loop(t_global *global)
 	return (1);
 }
 
+
+int	ft_get_size(char **envp)
+{
+	int	i;
+
+	i = 0;
+	while (envp[i] != NULL)
+		i++;
+	return (i);
+}
+
+
+ft_copy_env(char **envp)
+{
+	int		s;
+	int		i;
+	char	**res;
+
+	s = ft_get_size(envp);
+	i = 0;
+	res = (char **)malloc(sizeof(char*) * s);
+	while (i < s)
+	{
+		res[i] = envp[i];
+		i++;
+	}
+	return (res);
+}
+
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_global	global;
@@ -178,8 +208,9 @@ int	main(int argc, char **argv, char **envp)
 	token = ft_token_new(TK_ID, NULL, 0, NULL);
 	global.argc = argc;
 	global.argv = argv;
-	global.envp = envp;
 	global.token = token;
+	global.envp = ft_copy_env(envp);
+	global.size = ft_get_size(envp);
 
 	if (!loop(&global))
 		return (0);
