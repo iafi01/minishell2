@@ -72,7 +72,7 @@ void	ft_cd(t_token *token)
 	debug_list(token);
 	index = 1;
 	tmp = token->val;
-	printf("%s",tmp);
+	write(1, tmp, ft_strlen(tmp));
 	if (tmp == NULL || ft_str_sim(tmp, "~"))
 	{
 		index = chdir(getenv("HOME"));
