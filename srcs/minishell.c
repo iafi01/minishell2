@@ -139,6 +139,7 @@ void	ft_parse_split(char *line, t_token *token)
 int	loop(t_global *global)
 {
 	char		*read;
+	int err;
 	while (1)
 	{
 		//signal(SIGINT, sign_handler);
@@ -159,17 +160,17 @@ int	loop(t_global *global)
 		}
 		ft_parse_split(read, global->token);
 		set_cmd(global->token);
-		if (ft_parsing(global) == 0)
+		err = ft_parsing(global);
+		if (err == 0)
 			printf("Errore Parser\n");
-		else if (ft_parsing(global) == -1)
+		else if (err == -1)
 			return (0);
-		debug_list(global->token);
+		//debug_list(global->token);
 		ft_free_list(global->token);
 		free(read);
 	}
 	return (1);
 }
-
 
 int	ft_get_size(char **envp)
 {
@@ -197,7 +198,6 @@ char **ft_copy_env(char **envp)
 	}
 	return (res);
 }
-
 
 int	main(int argc, char **argv, char **envp)
 {

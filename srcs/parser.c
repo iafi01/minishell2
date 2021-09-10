@@ -53,8 +53,6 @@ int exec_build_in(t_global *global)
     token = global->token->next;
     if (token->e_type == CM_ECHO)
         ft_echo(global);
-    if (token->e_type == CM_PWD)
-        ft_pwd();
     if (token->e_type == CM_ENV)
         ft_env(global);
     if (token->e_type == CM_CD)
