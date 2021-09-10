@@ -66,17 +66,26 @@ void	ft_free_list(t_token *list)
 int	ft_add_list(t_token *list, t_type type, char *val, int apici)
 {
 	t_token *prec;
-
+	char **dollar;
+	int i;
+	char *tmp;
+	i = 0;
+	tmp = calloc(30, sizeof(char));
 	list = ft_find_end(list);
 	prec = list;
 	if (val[0] == '~')
 		list->next = ft_token_new(type, getenv("HOME"), apici, prec);
 	else if (val[0] == '$')
 	{
-		if (getenv(val + 1))
-			list->next = ft_token_new(type, getenv(++val), apici, prec);
-		else
-			list->next = ft_token_new(type, NULL, apici, prec);
+		dollar = ft_split(val, '$');
+		while (dollar[i])
+		{
+			if (getenv(dollar[i]))
+				tmp = ft_strjoin(tmp ,getenv(dollar[i]));
+			i++;
+		}
+		if (tmp)
+			list->next = ft_token_new(type, tmp, apici, prec);
 	}
 	else
 		list->next = ft_token_new(type, val, apici, prec);
