@@ -25,7 +25,6 @@ int ft_echo(t_global *global)
 	if (!token->next)
 		return (0);
 	token = token->next;
-
 	if (token->next == NULL)
 	{
 		write(1, "\n", 1);
@@ -35,14 +34,11 @@ int ft_echo(t_global *global)
 		token = token->next;
 	while (token && !is_token_type(token->e_type))
 	{
-		if (!ft_strncmp(token->val, "-n", 2))
+		if (!ft_strncmp(token->val, "-n", 2) && ft_strncmp(token->val, "-n-", 3))
 		{
-			if (ft_strncmp(token->val, "-n-", 3))
-			{
-				flag = 1;
-				token = token->next;
-				continue;
-			}
+			flag = 1;
+			token = token->next;
+			continue;
 		}
 		write(1, token->val, ft_strlen(token->val));
 		token = token->next;

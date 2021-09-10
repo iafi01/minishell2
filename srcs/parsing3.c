@@ -69,7 +69,17 @@ int	ft_add_list(t_token *list, t_type type, char *val, int apici)
 
 	list = ft_find_end(list);
 	prec = list;
-	list->next = ft_token_new(type, val, apici, prec);
+	if (val[0] == '~')
+		list->next = ft_token_new(type, getenv("HOME"), apici, prec);
+	else if (val[0] == '$')
+	{
+		if (getenv(val + 1))
+			list->next = ft_token_new(type, getenv(++val), apici, prec);
+		else
+			list->next = ft_token_new(type, NULL, apici, prec);
+	}
+	else
+		list->next = ft_token_new(type, val, apici, prec);
 	if (list->next)
 		return (1);
 	return (0);
