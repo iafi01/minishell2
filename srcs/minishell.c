@@ -181,8 +181,7 @@ int	ft_get_size(char **envp)
 	return (i);
 }
 
-
-ft_copy_env(char **envp)
+char **ft_copy_env(char **envp)
 {
 	int		s;
 	int		i;
