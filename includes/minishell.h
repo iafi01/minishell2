@@ -91,6 +91,7 @@ t_token	*ft_token_new(t_type token, char *val, int apici, t_token *prec);
 int		is_token(char *c);
 void	ft_free_list(t_token *list);
 int		ft_add_list(t_token *list, t_type type, char *val, int apici);
+int	is_token_type(int i);
 
 //parsing3.c
 int	    check_apici_pos(char *line);

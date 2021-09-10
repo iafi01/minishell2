@@ -21,6 +21,14 @@ int	is_token(char *c)
 	return (0);
 }
 
+int	is_token_type(int i)
+{
+	if (i == TK_LOWER || i == TK_PIPE || i == TK_GREATER || \
+	 i == TK_DGREA || i == TK_DLOW || i == TK_PIPE)
+		return (1);
+	return (0);
+}
+
 t_token	*ft_token_new(t_type token, char *val, int apici, t_token *prec)
 {
 	t_token	*lnew;

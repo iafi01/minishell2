@@ -17,7 +17,39 @@ void	ft_pwd(void)
 
 int ft_echo(t_global *global)
 {
-	global = 0;
+	t_token *token;
+	int flag;
+
+	flag = 0;
+	token = global->token;
+	if (!token->next)
+		return (0);
+	token = token->next;
+
+	if (token->next == NULL)
+	{
+		write(1, "\n", 1);
+		return (0);
+	}
+	else
+		token = token->next;
+	while (token && !is_token_type(token->e_type))
+	{
+		if (!ft_strncmp(token->val, "-n", 2))
+		{
+			if (ft_strncmp(token->val, "-n-", 3))
+			{
+				flag = 1;
+				token = token->next;
+				continue;
+			}
+		}
+		write(1, token->val, ft_strlen(token->val));
+		token = token->next;
+		write(1, " ", 1);
+	}
+	if (flag == 0)
+			write(1, "\n", 1);
 	return (0);
 }
 
