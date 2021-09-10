@@ -49,7 +49,7 @@ void	ft_cd(t_token *token)
 }
 
 /*
-void	ft_print_alfa_env(char **envp, )
+void	ft_print_alfa_env(char **envp, int	s)
 {
 	int	i;
 
@@ -60,7 +60,7 @@ void	ft_print_alfa_env(char **envp, )
 void	ft_export(t_token *list, char **envp, int size)
 {
 	if (list->next == NULL || strncmp(list->next->val, "", 2))
-		ft_print_alfa_env(envp);
+		ft_print_alfa_env(envp, size);
 	else if (list->next && list->next->e_type == TK_ID && list->next->val[0] != '=')
 	{
 		envp = ft_realloc_env(envp);

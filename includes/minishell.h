@@ -41,6 +41,13 @@ typedef enum e_type
 	CM_EXIT
 }	t_type;
 
+typedef struct s_envp
+{
+	char *first;
+	char *second;
+	struct s_envp *next;
+} t_envp;
+
 typedef struct s_token
 {
 	t_type	e_type;
@@ -57,6 +64,7 @@ typedef struct s_global
     char 	**argv;
     char 	**args;
 	char	**envp;
+	struct s_envp *env;
 	int		size;
 }   			t_global;
 
@@ -110,5 +118,9 @@ int	count_var(char* line);
 int cerca_token(t_token *token, enum e_type type);
 int	store_token(t_token *list, char *t);
 t_token	*ft_find_end(t_token *list);
+
+//utils2.c
+char **list_to_arr(t_token *token);
+t_token *arr_to_list(char **arg);
 
 #endif
