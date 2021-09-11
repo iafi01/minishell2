@@ -41,7 +41,7 @@ $(NAME):	${OBJS}
 			@ar -rcs ${NAME} ${OBJS}
 
 %.o: %.c
-			@${CC} -c ${CFLAGS} -o $@ $< -I ${HEADER}
+			@${CC} -c ${CFLAGS} -o $@ $< -I ${HEADER} -g
 
 all:		${NAME}
 

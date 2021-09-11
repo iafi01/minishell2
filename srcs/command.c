@@ -1,5 +1,23 @@
 #include "../includes/minishell.h"
 
+void    ft_unset(char *find, t_global *global)
+{
+	int	i;
+
+	i = 0;
+    while (*find == ' ')
+            find++;
+	while (global->envp[i])
+	{
+		if (!ft_strncmp(global->envp[i], find, ft_strlen(find)))
+		{
+			global->envp[i] = 0;
+            return ;
+		}
+		i++;
+	}
+}
+
 void	ft_env(t_global *global)
 {
 	int	i;

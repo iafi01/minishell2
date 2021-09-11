@@ -108,6 +108,7 @@ void	ft_pwd(void);
 void	ft_env(t_global *global);
 void	ft_cd(t_token *token);
 int		ft_echo(t_global *global);
+void    ft_unset(char *find, t_global *global);
 
 //debug.c
 void 	debug(int d_apici, int s_apici, int prev_apici);
