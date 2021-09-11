@@ -57,7 +57,7 @@ void	set_cmd(t_token *token)
 	{
 		if (token->e_type == TK_ID)
 		{
-			if (!ft_strncmp((const char*)token->val, "echo", 5) || !ft_strncmp((const char*)token->val, "EHO", 5))
+			if (!ft_strncmp((const char*)token->val, "echo", 5) || !ft_strncmp((const char*)token->val, "ECHO", 5))
 				token->e_type = CM_ECHO;
 			else if (!ft_strncmp((const char*)token->val, "cd", 3))
 				token->e_type = CM_CD;
