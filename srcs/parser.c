@@ -57,8 +57,8 @@ int exec_build_in(t_global *global)
         ft_env(global);
     if (token->e_type == CM_CD)
         ft_cd(global->token->next);
-    /*if (token->e_type == CM_EXP)
-        ft_export();*/
+    if (token->e_type == CM_EXP)
+        ft_export(global);
     if (token->e_type == CM_PWD)
         ft_pwd();
     if (token->e_type == CM_EXIT)

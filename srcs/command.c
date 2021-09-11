@@ -109,3 +109,52 @@ void	ft_export(t_token *list, char **envp, int size)
 }
 
 */
+
+t_envp	*ft_env_new(char *envp)
+{
+	t_envp	*lnew;
+	char **c_split;
+
+	lnew = (t_envp *)malloc(sizeof(t_envp));
+	c_split = ft_split(envp, '=');
+	if (c_split[0])
+		lnew->first = c_split[0];
+	else
+		lnew->first = NULL;
+	if (c_split[1])
+		lnew->second = c_split[1];
+	else
+		lnew->second = NULL;
+	lnew->index = 0;
+	lnew->next = NULL;
+	return (lnew);
+}
+
+void	ft_export(t_global *global)
+{
+	char *s1;
+	char *s2;
+	t_envp *env;
+	char **envp;
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+	env = global->env;
+	envp = global->envp;
+	while (1)
+	{
+		i = 0;
+		while (envp[i + 1])
+		{
+			env = ft_env_new(envp[j]);
+			s1 = envp[j];
+			s2 = envp[i + 1];
+			if (ft_strcmp(s1, s2) == 1)
+				env->index++;
+			i++;
+		}
+		j++;
+	}
+}

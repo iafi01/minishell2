@@ -45,6 +45,7 @@ typedef struct s_envp
 {
 	char *first;
 	char *second;
+	int index;
 	struct s_envp *next;
 } t_envp;
 
@@ -124,5 +125,8 @@ t_token	*ft_find_end(t_token *list);
 //utils2.c
 char **list_to_arr(t_token *token);
 t_token *arr_to_list(char **arg);
+
+void	ft_export(t_global *global);
+t_envp	*ft_env_new(char *envp);
 
 #endif

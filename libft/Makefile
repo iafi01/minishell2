@@ -25,7 +25,7 @@ SRCS_LIST	= ft_isascii.c ft_isprint.c ft_isalpha.c ft_isdigit.c ft_isalnum.c \
 			ft_set_split.c ft_str_delete.c ft_is_in_str.c ft_strlen_c.c \
 			ft_atof.c ft_intlen.c ft_is_space.c ft_strcpy.c ft_strcat.c \
 			ft_str_sim.c ft_str_end.c ft_char_count.c ft_isnum.c ft_atol.c \
-			ft_strsplit.c get_next_line.c \
+			ft_strsplit.c get_next_line.c ft_strcmp.c \
 
 SRCS		= $(addprefix ${FOLDER}/, ${SRCS_LIST})
 OBJS		= ${SRCS:.c=.o}
