@@ -71,27 +71,21 @@ void	ft_cd(t_token *token)
 {
 	char	*tmp;
 	int		index;
-	char	*line;
 
-	line = token->val;
-	debug_list(token);
 	index = 1;
-	tmp = token->val;
-	write(1, tmp, ft_strlen(tmp));
-	if (tmp == NULL || ft_str_sim(tmp, "~"))
+	if (token->next == NULL)
 	{
 		index = chdir(getenv("HOME"));
 		return ;
 	}
-	if (tmp[0] == '$')
-		tmp = ft_strjoin(cerca_variabile(tmp + 1), tmp + count_var(tmp));
+	tmp = token->next->val;
 	if (tmp[0] == '-')
 		index = chdir(getenv("OLDPWD"));
-	if (line[0] == 126 && line[1] == 47)
+	if (tmp[0] == 126 && tmp[1] == 47)
 			tmp = ft_strjoin(getenv("HOME"),ft_substr(tmp, 1,ft_strlen(tmp)));
 			index = chdir(tmp);
-	if(index < 0 && tmp[0] != '-' &&!(line == NULL || ft_str_sim(&line[0],"~")))
-		printf("cd: %s: %s\n", strerror(errno), line);
+	if(index < 0 && tmp[0] != '-' &&!(tmp == NULL || ft_str_sim(&tmp[0],"~")))
+		printf("cd: %s: %s\n", strerror(errno), tmp);
 }
 
 /*

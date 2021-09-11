@@ -12,7 +12,7 @@ void    sign_handler(int sig)
  		write(1, "\n", 1);
  		write(1, read, ft_strlen(read));
  	}
- 	if (sig == SIGQUIT)
+ 	else if (sig == SIGQUIT)
 	{
  		ft_putstr_fd("\033[2D\033[0K", 1);
  	}
