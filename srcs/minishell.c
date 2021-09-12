@@ -144,10 +144,10 @@ int	loop(t_global *global)
 	{
 		//signal(SIGINT, sign_handler);
 		//signal(SIGQUIT, sign_handler);
-		/*read = ft_strjoin(ft_strjoin("\e[0;32m<\e\033[0;37m", getenv("USER")),
+		read = ft_strjoin(ft_strjoin("\e[0;32m<\e\033[0;37m", getenv("USER")),
 	           "\033[0;31m>\e \033[0;37m ");
-		read = readline(read);*/
-		read = "export";
+		read = readline(read);
+		/*read = "export";*/
 		if (read == NULL)
 			return (0);
 		if (!strncmp(read, "", 2))

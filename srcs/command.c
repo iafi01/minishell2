@@ -135,26 +135,34 @@ void	ft_export(t_global *global)
 	char *s1;
 	char *s2;
 	t_envp *env;
+	t_envp *test;
 	char **envp;
 	int i;
 	int j;
+	char **splitting;
 
 	i = 0;
 	j = 0;
-	env = global->env;
 	envp = global->envp;
-	while (1)
+	while (envp[i])
 	{
-		i = 0;
-		while (envp[i + 1])
-		{
-			env = ft_env_new(envp[j]);
-			s1 = envp[j];
-			s2 = envp[i + 1];
-			if (ft_strcmp(s1, s2) == 1)
-				env->index++;
-			i++;
-		}
-		j++;
+		splitting = ft_split(envp[i++], '=');
+		env = ft_env_new(envp);
+		if (i == 1)
+			test = env;
+		env->first = splitting[0];
+		env->second = splitting[1];
+		env = env->next;
+		/*ft_memset(splitting[0], '\0', ft_strlen(splitting[0]));
+		ft_memset(splitting[1], '\0', ft_strlen(splitting[1]));*/
 	}
+	while (test != NULL)
+	{
+		printf("%s|%s\n",test->first, test->second);
+		test = test->next;
+	}
+	/*s1 = envp[j];
+	s2 = envp[++i];
+	if (ft_strcmp(s1, s2) == 1)
+		env->index++;*/
 }
