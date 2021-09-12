@@ -139,18 +139,22 @@ void	ft_export(t_global *global)
 	char **envp;
 	int i;
 	int j;
-	char **splitting;
 
 	i = 0;
 	j = 0;
 	envp = global->envp;
+	test = env;
 	while (envp[i])
 	{
 		env = ft_env_new(envp[i++]);
-		printf("%s\n",envp[i]);
 		env = env->next;
 	}
-	
+	global->env = env;
+	while (test->next)
+	{
+		printf("%s", test->first);
+		test = test->next;
+	}
 
 	/*while (env)
 	{
