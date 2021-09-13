@@ -29,3 +29,4 @@ t_token *arr_to_list(char **arg)
         ft_add_list(token, TK_ID, arg[i], 0);
     return (token);
 }
+

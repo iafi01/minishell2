@@ -4,22 +4,27 @@ void    ft_unset(t_global *global)
 {
 	int	i;
 	char *find;
+    int		s;
+	char	**res;
+    int     j;
 
-	find = global->token->next;
+	find = global->token->next->next->val;
 	i = 0;
-	printf("%s", find);
-	return ;
-    while (*find == ' ')
-            find++;
-	while (global->envp[i])
+    j = 0;
+	s = ft_get_size(global->envp);
+	res = (char **)malloc(sizeof(char*) * s);
+	while (i < s)
 	{
-		if (!ft_strncmp(global->envp[i], find, ft_strlen(find)))
-		{
-			global->envp[i] = 0;
-            return ;
-		}
+        if (!ft_strncmp(global->envp[j], find, ft_strlen(find)))
+        {
+            j++;
+            continue ;
+        }
+        res[i] = global->envp[j];
 		i++;
+        j++;
 	}
+	global->envp = res;
 }
 
 void	ft_env(t_global *global)
