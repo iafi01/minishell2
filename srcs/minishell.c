@@ -71,6 +71,8 @@ void	set_cmd(t_token *token)
 				token->e_type = CM_ENV;
 			else if (!ft_strncmp((const char*)token->val, "exit", 5))
 				token->e_type = CM_EXIT;
+			else if (!ft_strncmp((const char*)token->val, "$?", 3))
+				token->e_type = EXIT_STATUS;
 		}
 		token = token->next;
 	}

@@ -75,7 +75,7 @@ int	ft_add_list(t_token *list, t_type type, char *val, int apici)
 	prec = list;
 	if (val != NULL && val[0] == '~')
 		list->next = ft_token_new(type, getenv("HOME"), apici, prec);
-	else if (val != NULL && val[0] == '$')
+	else if (val != NULL && val[0] == '$' /*&& val[1] != '?'*/)
 	{
 		dollar = ft_split(val, '$');
 		while (dollar[i])

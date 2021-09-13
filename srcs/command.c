@@ -1,10 +1,14 @@
 #include "../includes/minishell.h"
 
-void    ft_unset(char *find, t_global *global)
+void    ft_unset(t_global *global)
 {
 	int	i;
+	char *find;
 
+	find = global->token->next;
 	i = 0;
+	printf("%s", find);
+	return ;
     while (*find == ' ')
             find++;
 	while (global->envp[i])

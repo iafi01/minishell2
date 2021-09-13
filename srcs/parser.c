@@ -61,6 +61,8 @@ int exec_build_in(t_global *global)
         ft_export(global);
     if (token->e_type == CM_PWD)
         ft_pwd();
+    if (token->e_type == CM_UNS)
+        ft_unset(global);
     if (token->e_type == CM_EXIT)
         return (0);
     return (1);

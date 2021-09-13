@@ -38,7 +38,8 @@ typedef enum e_type
 	CM_EXP,
 	CM_UNS,
 	CM_ENV,
-	CM_EXIT
+	CM_EXIT,
+	EXIT_STATUS
 }	t_type;
 
 typedef struct s_envp
@@ -109,7 +110,7 @@ void	ft_pwd(void);
 void	ft_env(t_global *global);
 void	ft_cd(t_token *token);
 int		ft_echo(t_global *global);
-void    ft_unset(char *find, t_global *global);
+void    ft_unset(t_global *global);
 
 //debug.c
 void 	debug(int d_apici, int s_apici, int prev_apici);
