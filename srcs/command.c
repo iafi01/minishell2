@@ -142,8 +142,6 @@ t_envp	*ft_env_new(char *envp)
 
 void	ft_export(t_global *global)
 {
-	char *s1;
-	char *s2;
 	t_envp *env;
 	t_envp *test;
 	char **envp;
@@ -153,33 +151,29 @@ void	ft_export(t_global *global)
 	i = 0;
 	j = 0;
 	envp = global->envp;
-	test = env;
+	test = ft_env_new("init");
+	env = test;
 	while (envp[i])
 	{
-		env = ft_env_new(envp[i++]);
-		env = env->next;
-	}
-	global->env = env;
-	while (test->next)
-	{
-		printf("%s", test->first);
+		test->next = ft_env_new(envp[i++]);
 		test = test->next;
 	}
-
-	/*while (env)
+	t_envp *s1 = env;
+	t_envp *s2 = env;
+	while (s1)
 	{
-		env = ft_env_new(envp[i]);
-		s1 = env->first;
-		while (env)
+		while (s2)
 		{
-			s2 = env->first;
-			if (ft_strcmp(s1, s2) == 1)
-				env->index++;
-			if (!env->next)
-				break;
-			env = env->next;
-			j++;
+			if (ft_strcmp(s1->first, s2->first) == 1)
+				s1->index++;
+			s2 = s2->next;
 		}
-		i++;
-	}*/
+		s1 = s1->next;
+		s2 = env;
+	}
+	while (s1)
+	{
+		printf("%d", s1->index);
+		s1 = s1->next;
+	}
 }
