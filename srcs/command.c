@@ -148,6 +148,37 @@ void	set_index_export(t_envp *env)
 	}
 }
 
+int sostitute_set(t_global *global)
+{
+	int i;
+	char *s;
+	t_envp *env;
+	int j;
+
+	j = 0;
+	env = global->env;
+	s = global->token->next->next->val;
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == '=' || s[i] == '\0')
+			break ;
+		i++;
+	}
+	while (env)
+	{
+		if (!ft_strncmp(env->first, s + i, ft_strlen(s+i)))
+		{
+			printf("%s==%s",env->first, s+i);
+			global->envp[j] = s;
+			return (1);
+		}
+		j++;
+		env = env->next;
+	}
+	return (0);
+}
+
 void ft_set(t_global *global)
 {
 	int s;
@@ -158,7 +189,8 @@ void ft_set(t_global *global)
 	i = 0;
 	s = ft_get_size(global->envp) + 1;
 	env = malloc(sizeof(char *) * s + 1);
-
+	if (sostitute_set(global))
+		return ;
 	while (i < s - 2)
 	{
 		env[i] = ft_strdup(global->envp[i]);
@@ -181,14 +213,14 @@ void	ft_export(t_global *global)
 	i = 0;
 	envp = global->envp;
 	max = ft_get_size(global->envp);
+	test = ft_env_new("init");
+	env = test;
+	create_export(envp, test);
 	if (global->token->next->next != NULL);
 	{
 		ft_set(global);
 		return ;
 	}
-	test = ft_env_new("init");
-	env = test;
-	create_export(envp, test);
 	set_index_export(env);
 	while (i < max)
 	{
