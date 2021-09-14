@@ -148,6 +148,28 @@ void	set_index_export(t_envp *env)
 	}
 }
 
+void ft_set(t_global *global)
+{
+	int s;
+	char **env;
+	int i;
+	char *str;
+
+	i = 0;
+	s = ft_get_size(global->envp) + 1;
+	env = malloc(sizeof(char *) * s + 1);
+
+	while (i < s - 2)
+	{
+		env[i] = ft_strdup(global->envp[i]);
+		i++;
+	}
+	env[i++] = ft_strdup(global->token->next->next->val);
+	env[i] = ft_strdup(global->envp[i - 1]);
+	env[++i] = '\0';
+	global->envp = env;
+}
+
 void	ft_export(t_global *global)
 {
 	t_envp *env;
@@ -159,6 +181,11 @@ void	ft_export(t_global *global)
 	i = 0;
 	envp = global->envp;
 	max = ft_get_size(global->envp);
+	if (global->token->next->next != NULL);
+	{
+		ft_set(global);
+		return ;
+	}
 	test = ft_env_new("init");
 	env = test;
 	create_export(envp, test);
