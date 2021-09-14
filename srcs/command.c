@@ -168,12 +168,8 @@ void	ft_export(t_global *global)
 				s1->index++;
 			s2 = s2->next;
 		}
+		printf("%s %d\n",s1->first, s1->index);
 		s1 = s1->next;
 		s2 = env;
-	}
-	while (s1)
-	{
-		printf("%d", s1->index);
-		s1 = s1->next;
 	}
 }
