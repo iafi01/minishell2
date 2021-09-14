@@ -98,28 +98,6 @@ void	ft_cd(t_token *token)
 		printf("cd: %s: %s\n", strerror(errno), tmp);
 }
 
-/*
-void	ft_print_alfa_env(char **envp, int	s)
-{
-	int	i;
-
-	i = 0;
-	while (i < s)
-}
-
-void	ft_export(t_token *list, char **envp, int size)
-{
-	if (list->next == NULL || strncmp(list->next->val, "", 2))
-		ft_print_alfa_env(envp, size);
-	else if (list->next && list->next->e_type == TK_ID && list->next->val[0] != '=')
-	{
-		envp = ft_realloc_env(envp);
-		envp[size - 1] = ft_strdup(list->next->val);
-	}
-}
-
-*/
-
 t_envp	*ft_env_new(char *envp)
 {
 	t_envp	*lnew;
@@ -140,24 +118,20 @@ t_envp	*ft_env_new(char *envp)
 	return (lnew);
 }
 
-void	ft_export(t_global *global)
+void create_export(char **envp, t_envp *test)
 {
-	t_envp *env;
-	t_envp *test;
-	char **envp;
 	int i;
-	int j;
 
 	i = 0;
-	j = 0;
-	envp = global->envp;
-	test = ft_env_new("init");
-	env = test;
 	while (envp[i])
 	{
 		test->next = ft_env_new(envp[i++]);
 		test = test->next;
 	}
+}
+
+void	set_index_export(t_envp *env)
+{
 	t_envp *s1 = env;
 	t_envp *s2 = env;
 	while (s1)
@@ -168,8 +142,38 @@ void	ft_export(t_global *global)
 				s1->index++;
 			s2 = s2->next;
 		}
-		printf("%s %d\n",s1->first, s1->index);
+		//printf("%s %d\n",s1->first, s1->index);
 		s1 = s1->next;
 		s2 = env;
+	}
+}
+
+void	ft_export(t_global *global)
+{
+	t_envp *env;
+	t_envp *test;
+	char **envp;
+	int i;
+	int max;
+
+	i = 0;
+	envp = global->envp;
+	max = ft_get_size(global->envp);
+	test = ft_env_new("init");
+	env = test;
+	create_export(envp, test);
+	set_index_export(env);
+	while (i == max - 1)
+	{
+		while (env)
+		{
+			if (env->index == i)
+			{
+				printf("%s=%s", env->first, env->second);
+				i++;
+			}	
+			env = env->next;
+		}
+		env = test->next;
 	}
 }
