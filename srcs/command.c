@@ -163,13 +163,13 @@ void	ft_export(t_global *global)
 	env = test;
 	create_export(envp, test);
 	set_index_export(env);
-	while (i == max - 1)
+	while (i < max)
 	{
 		while (env)
 		{
 			if (env->index == i)
 			{
-				printf("%s=%s", env->first, env->second);
+				printf("%s=%s\n", env->first, env->second);
 				i++;
 			}	
 			env = env->next;
