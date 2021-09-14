@@ -43,12 +43,35 @@ void	ft_pwd(void)
 	printf("%s\n", getcwd(dir, sizeof(dir)));
 }
 
+static char	*ft_var_search(t_global *global, char *val)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (global->envp[i] != NULL)
+	{
+		if (!ft_strncmp(global->envp[i], val, ft_strlen(val)))
+			break;
+		i++;
+	}
+	if (i > global->size)
+		return (NULL);	
+	j = 0;
+	while (global->envp[i][j]!= '=')
+		j++;
+	return (ft_substr(global->envp[i], j + 1, ft_strlen(&global->envp[i][j + 1])));
+}
+
 int ft_echo(t_global *global)
 {
 	t_token *token;
-	int flag;
+	int 	flag;
+	int		var;
+	char	*tmp;
 
 	flag = 0;
+	var = 0;
 	token = global->token;
 	if (!token->next)
 		return (0);
@@ -68,7 +91,21 @@ int ft_echo(t_global *global)
 			token = token->next;
 			continue;
 		}
-		write(1, token->val, ft_strlen(token->val));
+		if (!ft_strncmp(token->val, "$", 1))
+		{
+			token->val++;
+			var = 1;
+		}
+		if(var)
+		{
+			tmp = token->val;
+			token->val = ft_var_search(global, tmp);
+			//inserire un free su tmp?
+		}
+		if (token->val != NULL)
+			write(1, token->val, ft_strlen(token->val));
+		else if (token->val == NULL)
+			ft_putstr_fd("Error", 1);
 		token = token->next;
 		write(1, " ", 1);
 	}

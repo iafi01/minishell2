@@ -75,18 +75,19 @@ int	ft_add_list(t_token *list, t_type type, char *val, int apici)
 	prec = list;
 	if (val != NULL && val[0] == '~')
 		list->next = ft_token_new(type, getenv("HOME"), apici, prec);
-	else if (val != NULL && val[0] == '$' /*&& val[1] != '?'*/)
-	{
-		dollar = ft_split(val, '$');
-		while (dollar[i])
-		{
-			if (getenv(dollar[i]))
-				tmp = ft_strjoin(tmp ,getenv(dollar[i]));
-			i++;
-		}
-		if (tmp)
-			list->next = ft_token_new(type, tmp, apici, prec);
-	}
+	// else if (val != NULL && val[0] == '$' /*&& val[1] != '?'*/)
+	// {
+	// 	dollar = ft_split(val, '$');
+	// 	while (dollar[i])
+	// 	{
+	// 		if (getenv(dollar[i]))
+	// 			tmp = ft_strjoin(tmp ,getenv(dollar[i]));
+	// 		i++;
+	// 	}
+	// 	printf("|%s|\n", tmp);
+	// 	if (tmp)
+	// 		list->next = ft_token_new(type, tmp, apici, prec);
+	// }
 	else
 		list->next = ft_token_new(type, val, apici, prec);
 	if (list->next)

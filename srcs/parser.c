@@ -72,14 +72,14 @@ int exec_build_in(t_global *global)
     return (1);
 }
 
-void    sub_var(t_token *list)
-{
-	while (list != NULL)
-	{
-        if (list->e_type == TK_ID && list->val[0] == '$')
-		{
-			free(list->val);
-		}
-		list = list->next;
-	}
-}
+// void    sub_var(t_token *list)
+// {
+// 	while (list != NULL)
+// 	{
+//         if (list->e_type == TK_ID && list->val[0] == '$')
+// 		{
+// 			free(list->val);
+// 		}
+// 		list = list->next;
+// 	}
+// }
