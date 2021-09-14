@@ -13,18 +13,19 @@ void    ft_unset(t_global *global)
     j = 0;
 	s = ft_get_size(global->envp);
 	res = (char **)malloc(sizeof(char*) * s);
-	while (i < s)
+	while (i < s && global->envp[j])
 	{
         if (!ft_strncmp(global->envp[j], find, ft_strlen(find)))
         {
-            j++;
-            continue ;
-        }
+		    j++;
+			continue ;
+		}
         res[i] = global->envp[j];
 		i++;
         j++;
 	}
-	global->envp = res;
+	if (i != j)
+		global->envp = res;
 }
 
 void	ft_env(t_global *global)
