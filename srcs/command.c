@@ -158,7 +158,7 @@ int sostitute_set(t_global *global)
 	j = 0;
 	env = global->env;
 	s = global->token->next->next->val;
-	i = 0;
+	i = 0;//non sostituisce un bel cazzo di niente
 	while (s[i])
 	{
 		if (s[i] == '=' || s[i] == '\0')
