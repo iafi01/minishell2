@@ -63,12 +63,53 @@ void	ft_free_list(t_token *list)
 	list->next = NULL;
 }
 
+char *ft_alpha_give(char *s)
+{
+	char *new;
+	int i;
+
+	i = 0;
+	new = calloc(sizeof(char) , ft_strlen(s));
+	while (s[i])
+	{
+		if (ft_isalpha(s[i]) || s[i] == '$')
+			new[i] = s[i];
+		else
+			return (new);
+		i++;
+	}
+	if (new[0])
+		return (new);
+	return (NULL);
+}
+
+char *ft_symbols_give(char *s)
+{
+	char *new;
+	int i;
+	int j;
+
+	j = 0;
+	i = 0;
+	new = calloc(sizeof(char) , ft_strlen(s));
+	while (s[i] && s[i] != '$')
+	{
+		if (!ft_isalpha(s[i]))
+			new[j++] = s[i];
+		i++;
+	}
+	if (new[0])
+		return (new);
+	return (NULL);
+}
+
 int	ft_add_list(t_token *list, t_type type, char *val, int apici)
 {
 	t_token *prec;
 	char **dollar;
 	int i;
 	char *tmp;
+
 	i = 0;
 	tmp = calloc(30, sizeof(char));
 	list = ft_find_end(list);
@@ -80,8 +121,12 @@ int	ft_add_list(t_token *list, t_type type, char *val, int apici)
 		dollar = ft_split(val, '$');
 		while (dollar[i])
 		{
-			if (getenv(dollar[i]))
-				tmp = ft_strjoin(tmp ,getenv(dollar[i]));
+			if (getenv(ft_alpha_give(dollar[i])))
+			{
+				tmp = ft_strjoin(tmp ,getenv(ft_alpha_give(dollar[i])));
+				if (ft_symbols_give(dollar[i]))
+					tmp = ft_strjoin(tmp , ft_symbols_give(dollar[i]));
+			}
 			i++;
 		}
 		if (tmp)
