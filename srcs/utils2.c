@@ -1,5 +1,18 @@
 #include "../includes/minishell.h"
 
+int ft_listlen(t_token *token)
+{
+    int i;
+
+    i = 0;
+    while (token)
+    {
+        i++;
+        token = token->next;
+    }
+    return (i);
+}
+
 char **list_to_arr(t_token *token)
 {
     char **arg;
@@ -8,13 +21,13 @@ char **list_to_arr(t_token *token)
     i = 0;
     if (!token->next)
         return (NULL);
+    arg = malloc(sizeof(char *) * ft_listlen(token));
     token = token->next;
     while (token)
     {
         arg[i++] = token->val;
         token = token->next;
     }
-    arg[i] = '\0';
     return (arg);
 }
 

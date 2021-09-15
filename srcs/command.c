@@ -1,5 +1,18 @@
 #include "../includes/minishell.h"
 
+/*int	ft_listlen(t_token *token)
+{
+	int i;
+
+	i = 0;
+	while (token)
+	{
+		token = token->next;
+		i++;
+	}
+	return (i);
+}*/
+
 void    ft_unset(t_global *global)
 {
 	int	i;
@@ -184,7 +197,6 @@ void ft_set(t_global *global)
 	int s;
 	char **env;
 	int i;
-	char *str;
 
 	i = 0;
 	s = ft_get_size(global->envp) + 1;
@@ -198,7 +210,6 @@ void ft_set(t_global *global)
 	}
 	env[i++] = ft_strdup(global->token->next->next->val);
 	env[i] = ft_strdup(global->envp[i - 1]);
-	env[++i] = '\0';
 	global->envp = env;
 }
 
