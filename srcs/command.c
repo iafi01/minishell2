@@ -216,7 +216,7 @@ void	ft_export(t_global *global)
 	test = ft_env_new("init");
 	env = test;
 	create_export(envp, test);
-	if (global->token->next->next != NULL);
+	if (global->token->next->next)
 	{
 		ft_set(global);
 		return ;
