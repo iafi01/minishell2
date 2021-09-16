@@ -21,3 +21,17 @@ void	debug_list(t_token *token)
 		token = token->next;
 	}
 }
+
+/*
+Modificare comando exit
+Ritorni delle built-in -> $?
+I segnali devono funzionare con ctrl-c e ctrl\ concatenati
+Export fix seg_fault e fix errore duplicazione variabile aggiunta
+Token Priority Management
+Runnable executable dei comandi bin e degli eseguibili default es: ./minishell
+Management dei Pipe |
+Management Redirection >
+Management Redirection <
+Management Redirection <<
+Management Redirection >>
+*/
