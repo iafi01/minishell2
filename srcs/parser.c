@@ -38,13 +38,15 @@ int ft_parsing(t_global *global)
         return (0);
     if (!check_tokens_valid(token))
         return (0);
+    if (ft_token_priority(token) < 0)
+        return (0);
     //token priority
     /*
     Qua va creato il sistema che chiama exec_build_in, dai token
     perché sono i token che governano l'esecuzione del programma
     */
-    if (!exec_build_in(global))
-        return (-1);
+    /*if (!exec_build_in(global))
+        return (-1);*/
     return (1);
 }
 

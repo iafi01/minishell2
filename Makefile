@@ -9,7 +9,7 @@ READLINERIGHT = ./includes/libreadline.a
 FOLDER = srcs
 
 SRCS_LIST = minishell.c parsing.c parsing2.c parsing3.c command.c debug.c \
-			parser.c utils.c utils2.c
+			parser.c utils.c utils2.c redirections.c
 
 SRCS = $(addprefix ${FOLDER}/, ${SRCS_LIST})
 

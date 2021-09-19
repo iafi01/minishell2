@@ -138,3 +138,27 @@ int	ft_add_list(t_token *list, t_type type, char *val, int apici)
 		return (1);
 	return (0);
 }
+
+int ft_token_priority(t_token *token)
+{
+	int i;
+
+	i = 0;
+	while (token)
+    {
+        if (token->e_type == TK_GREATER)
+			i = ft_redirect_maggiore(token);
+		else if (token->e_type == TK_DGREA)
+			i = ft_redirect_dmaggiore(token);
+        else if (token->e_type == TK_LOWER)
+			i = ft_redirect_minore(token);
+		else if(token->e_type == TK_DLOW)
+			i = ft_redirect_dminore(token);
+		else if (token->e_type == TK_PIPE)
+			i = ft_redirect_pipe(token);
+		if (i < 0)
+			return (-1);
+        token = token->next;
+    }
+	return (0);
+}
