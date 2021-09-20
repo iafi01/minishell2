@@ -34,19 +34,16 @@ int ft_redirect_pipe(t_global *global, t_token *token)
     if (id == 0)
     {
         close(fd[0]);
-        int x;
-
-        x = exec_build_in(global, primo);
-        write(fd[1], &x, sizeof(int));
+        exec_build_in(global, primo, fd[1]);
         close(fd[1]);
     }
     else
     {
         close(fd[1]);
-        int y;
-        read(fd[0], &y, sizeof(int));
+        char* y;
+        read(fd[0], &y, sizeof(char*));
         close(fd[0]);
-        printf("Got from child%d",y);
+        printf("Got from child%s",y);
     }
 }
 

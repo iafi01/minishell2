@@ -102,19 +102,19 @@ int	    check_apici_pos(char *line);
 
 //parser.c
 int ft_parsing(t_global *global);
-int exec_build_in(t_global *global, t_token *token);
+int exec_build_in(t_global *global, t_token *token, int fd);
 int ft_print_envvar(char *line, t_global *global);
 int	check_apice(char *line);
 
 //command.c
 int ft_tree(t_global *global);
-void	ft_pwd(void);
-void	ft_env(t_global *global);
+void	ft_pwd(int fd);
+void	ft_env(t_global *global, int fd);
 void	ft_cd(t_token *token);
-int		ft_echo(t_global *global);
+int		ft_echo(t_global *global, int fd);
 void    ft_unset(t_global *global);
 int sostitute_set(t_global *global);
-
+void	ft_export(t_global *global, int fd);
 //debug.c
 void 	debug(int d_apici, int s_apici, int prev_apici);
 void	debug_list(t_token *token);
@@ -130,7 +130,6 @@ t_token	*ft_find_end(t_token *list);
 char **list_to_arr(t_token *token);
 t_token *arr_to_list(char **arg);
 //char **ft_copy_env2(char **envp, char *find);
-void	ft_export(t_global *global);
 t_envp	*ft_env_new(char *envp);
 
 //redirections.c

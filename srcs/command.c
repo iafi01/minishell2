@@ -41,7 +41,7 @@ void    ft_unset(t_global *global)
 		global->envp = res;
 }
 
-void	ft_env(t_global *global)
+void	ft_env(t_global *global, int fd)
 {
 	int	i;
 
@@ -50,13 +50,13 @@ void	ft_env(t_global *global)
 		printf("%s\n",global->envp[i++]); 
 }
 
-void	ft_pwd(void)
+void	ft_pwd(int fd)
 {
 	char dir[1024];
 	printf("%s\n", getcwd(dir, sizeof(dir)));
 }
 
-int ft_echo(t_global *global)
+int ft_echo(t_global *global, int fd)
 {
 	t_token *token;
 	int flag;
@@ -68,7 +68,7 @@ int ft_echo(t_global *global)
 	token = token->next;
 	if (token->next == NULL)
 	{
-		write(1, "\n", 1);
+		write(fd, "\n", 1);
 		return (0);
 	}
 	else
@@ -81,12 +81,12 @@ int ft_echo(t_global *global)
 			token = token->next;
 			continue;
 		}
-		write(1, token->val, ft_strlen(token->val));
+		write(fd, token->val, ft_strlen(token->val));
 		token = token->next;
-		write(1, " ", 1);
+		write(fd, " ", 1);
 	}
 	if (flag == 0)
-			write(1, "\n", 1);
+		write(fd, "\n", 1);
 	return (0);
 }
 
@@ -213,7 +213,7 @@ void ft_set(t_global *global)
 	global->envp = env;
 }
 
-void	ft_export(t_global *global)
+void	ft_export(t_global *global, int fd)
 {
 	t_envp *env;
 	t_envp *test;
