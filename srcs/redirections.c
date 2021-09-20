@@ -31,19 +31,22 @@ int ft_redirect_pipe(t_global *global, t_token *token)
         return (1);
     }
     int id = fork();
-    if (id == 0)
+     if (id == 0)
     {
         close(fd[0]);
-        exec_build_in(global, primo, fd[1]);
+        int x;
+        printf("input");
+        scanf("%d", &x);
+        write(fd[1], &x, sizeof(int));
         close(fd[1]);
     }
     else
     {
         close(fd[1]);
-        char* y;
-        read(fd[0], &y, sizeof(char*));
+        int y;
+        read(fd[0], &y, sizeof(int));
         close(fd[0]);
-        printf("Got from child%s",y);
+        printf("%d\n", y);
     }
 }
 
