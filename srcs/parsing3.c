@@ -139,7 +139,7 @@ int	ft_add_list(t_token *list, t_type type, char *val, int apici)
 	return (0);
 }
 
-int ft_token_priority(t_token *token)
+int ft_token_priority(t_global *global, t_token *token)
 {
 	int i;
 
@@ -147,15 +147,15 @@ int ft_token_priority(t_token *token)
 	while (token)
     {
         if (token->e_type == TK_GREATER)
-			i = ft_redirect_maggiore(token);
+			i = ft_redirect_maggiore(global, token);
 		else if (token->e_type == TK_DGREA)
-			i = ft_redirect_dmaggiore(token);
+			i = ft_redirect_dmaggiore(global, token);
         else if (token->e_type == TK_LOWER)
-			i = ft_redirect_minore(token);
+			i = ft_redirect_minore(global, token);
 		else if(token->e_type == TK_DLOW)
-			i = ft_redirect_dminore(token);
+			i = ft_redirect_dminore(global, token);
 		else if (token->e_type == TK_PIPE)
-			i = ft_redirect_pipe(token);
+			i = ft_redirect_pipe(global, token);
 		if (i < 0)
 			return (-1);
         token = token->next;

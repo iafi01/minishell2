@@ -36,11 +36,10 @@ int ft_parsing(t_global *global)
     tmp = ft_find_end(token);
     if (tmp && cerca_token(tmp, TK_ID) != 1 && !ft_is_command(tmp->e_type))
         return (0);
-    if (!check_tokens_valid(token))
+    /*ERRif (!check_tokens_valid(token))
+        return (0);*/
+    if (ft_token_priority(global, token) < 0)
         return (0);
-    if (ft_token_priority(token) < 0)
-        return (0);
-    ft_token_priority(token);
     /*
     Qua va creato il sistema che chiama exec_build_in, dai token
     perché sono i token che governano l'esecuzione del programma
@@ -50,13 +49,8 @@ int ft_parsing(t_global *global)
     return (1);
 }
 
-int exec_build_in(t_global *global)
+int exec_build_in(t_global *global, t_token *token)
 {
-    t_token *token;
-
-    if (!global->token->next)
-        return (0);
-    token = global->token->next;
     if (token->e_type == CM_ECHO)
         ft_echo(global);
     if (token->e_type == CM_ENV)

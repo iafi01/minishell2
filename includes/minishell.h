@@ -95,14 +95,14 @@ int		is_token(char *c);
 void	ft_free_list(t_token *list);
 int		ft_add_list(t_token *list, t_type type, char *val, int apici);
 int	is_token_type(int i);
-int ft_token_priority(t_token *token);
+int ft_token_priority(t_global *global, t_token *token);
 
 //parsing3.c
 int	    check_apici_pos(char *line);
 
 //parser.c
 int ft_parsing(t_global *global);
-int exec_build_in(t_global *global);
+int exec_build_in(t_global *global, t_token *token);
 int ft_print_envvar(char *line, t_global *global);
 int	check_apice(char *line);
 
@@ -134,10 +134,10 @@ void	ft_export(t_global *global);
 t_envp	*ft_env_new(char *envp);
 
 //redirections.c
-int ft_redirect_maggiore(t_token *token);
-int ft_redirect_pipe(t_token *token);
-int ft_redirect_minore(t_token *token);
-int ft_redirect_dmaggiore(t_token *token);
-int ft_redirect_dminore(t_token *token);
+int ft_redirect_maggiore(t_global *global, t_token *token);
+int ft_redirect_pipe(t_global *global, t_token *token);
+int ft_redirect_minore(t_global *global, t_token *token);
+int ft_redirect_dmaggiore(t_global *global, t_token *token);
+int ft_redirect_dminore(t_global *global, t_token *token);
 
 #endif
