@@ -23,9 +23,10 @@ int ft_redirect_pipe(t_global *global, t_token *token)
 
     primo = ft_first_cmd(token);
     secondo = token->next;
+    printf("%s %s\n", primo->val, secondo->val);
     if (!primo || !secondo)
         return (0);
-    if (pipe(fd) == -1)
+    /*if (pipe(fd) == -1)
     {
         printf("Error pipe");
         return (1);
@@ -47,7 +48,7 @@ int ft_redirect_pipe(t_global *global, t_token *token)
         read(fd[0], &y, sizeof(int));
         close(fd[0]);
         printf("%d\n", y);
-    }
+    }*/
 }
 
 int ft_redirect_minore(t_global *global, t_token *token)
