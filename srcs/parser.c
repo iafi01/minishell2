@@ -47,26 +47,26 @@ int ft_parsing(t_global *global)
 
 int exec_build_in(t_global *global, t_token *token, int fd)
 {
-    char **str;
-    str = (char **)malloc(sizeof(char *) * 2);
-    str[0] = "ls";
+    int i;
+
+    i = 1;
     if (token->e_type == CM_ECHO)
-        ft_echo(global, fd);
+        i = ft_echo(global, fd);
     if (token->e_type == CM_ENV)
-        ft_env(global, fd);
+        i = ft_env(global, fd);
     if (token->e_type == CM_CD)
-        ft_cd(global->token->next);
+        i = ft_cd(global->token->next);
     if (token->e_type == CM_EXP)
-        ft_export(global, fd);
+        i = ft_export(global, fd);
     if (token->e_type == CM_PWD)
-        ft_pwd(fd);
+        i = ft_pwd(fd);
     if (token->e_type == CM_UNS)
-        ft_unset(global);
+        i = ft_unset(global);
     if (token->e_type == CM_EXIT)
         return (0);
     if (token->e_type == TK_ID)
         execve(find_path(global->envp, token->val), list_to_arr(token) ,global->envp);
-    return (1);
+    return (i);
 }
 
 void    sub_var(t_token *list)

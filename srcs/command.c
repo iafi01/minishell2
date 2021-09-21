@@ -13,7 +13,7 @@
 	return (i);
 }*/
 
-void    ft_unset(t_global *global)
+int    ft_unset(t_global *global)
 {
 	int	i;
 	char *find;
@@ -39,9 +39,10 @@ void    ft_unset(t_global *global)
 	}
 	if (i != j)
 		global->envp = res;
+	return (0);
 }
 
-void	ft_env(t_global *global, int fd)
+int	ft_env(t_global *global, int fd)
 {
 	int	i;
 
@@ -52,14 +53,16 @@ void	ft_env(t_global *global, int fd)
 		write(fd, "\n", 1);
 		i++;
 	}
+	return (0);
 }
 
-void	ft_pwd(int fd)
+int	ft_pwd(int fd)
 {
 	char dir[1024];
 
 	write(fd, getcwd(dir, sizeof(dir)), ft_strlen(getcwd(dir, sizeof(dir))));
 	write(fd, "\n", 1);
+	return (0);
 }
 
 int ft_echo(t_global *global, int fd)
@@ -96,7 +99,7 @@ int ft_echo(t_global *global, int fd)
 	return (0);
 }
 
-void	ft_cd(t_token *token)
+int	ft_cd(t_token *token)
 {
 	char	*tmp;
 	int		index;
@@ -105,7 +108,7 @@ void	ft_cd(t_token *token)
 	if (token->next == NULL)
 	{
 		index = chdir(getenv("HOME"));
-		return ;
+		return (0);
 	}
 	tmp = token->next->val;
 	if (tmp[0] == '-')
@@ -115,6 +118,7 @@ void	ft_cd(t_token *token)
 			index = chdir(tmp);
 	if(index < 0 && tmp[0] != '-' &&!(tmp == NULL || ft_str_sim(&tmp[0],"~")))
 		printf("cd: %s: %s\n", strerror(errno), tmp);
+	return (0);
 }
 
 t_envp	*ft_env_new(char *envp)
@@ -219,7 +223,7 @@ void ft_set(t_global *global)
 	global->envp = env;
 }
 
-void	ft_export(t_global *global, int fd)
+int	ft_export(t_global *global, int fd)
 {
 	t_envp *env;
 	t_envp *test;
@@ -236,7 +240,7 @@ void	ft_export(t_global *global, int fd)
 	if (global->token->next->next)
 	{
 		ft_set(global);
-		return ;
+		return (0);
 	}
 	set_index_export(env);
 	while (i < max)
@@ -252,4 +256,5 @@ void	ft_export(t_global *global, int fd)
 		}
 		env = test->next;
 	}
+	return (0);
 }

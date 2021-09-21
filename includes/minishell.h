@@ -109,13 +109,13 @@ int	check_apice(char *line);
 
 //command.c
 int ft_tree(t_global *global);
-void	ft_pwd(int fd);
-void	ft_env(t_global *global, int fd);
-void	ft_cd(t_token *token);
+int	ft_pwd(int fd);
+int	ft_env(t_global *global, int fd);
+int	ft_cd(t_token *token);
 int		ft_echo(t_global *global, int fd);
-void    ft_unset(t_global *global);
+int    ft_unset(t_global *global);
 int sostitute_set(t_global *global);
-void	ft_export(t_global *global, int fd);
+int	ft_export(t_global *global, int fd);
 //debug.c
 void 	debug(int d_apici, int s_apici, int prev_apici);
 void	debug_list(t_token *token);
