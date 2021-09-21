@@ -51,7 +51,7 @@ char	*find_path2(char **paths, char *cmd)
 	}
 	if (!paths[i])
 	{
-        printf("Command not found");
+        printf("Command not found\n");
 		return (NULL);
     }
 	if (access(cmd, F_OK) == 0)

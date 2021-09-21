@@ -40,8 +40,8 @@ int ft_parsing(t_global *global)
         return (0);*/
     if (ft_token_priority(global, token) < 0)
         return (0);
-    exec_build_in(global, token, 1);
-
+    else if (exec_build_in(global, token, 1))
+        return (0);
     return (1);
 }
 
