@@ -144,6 +144,7 @@ int ft_token_priority(t_global *global, t_token *token)
 	int i;
 
 	i = 0;
+
 	while (token)
     {
         if (token->e_type == TK_GREATER)

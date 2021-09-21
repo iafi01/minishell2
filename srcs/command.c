@@ -49,7 +49,7 @@ int	ft_env(t_global *global, int fd)
 	i = 0;
 	while (global->envp[i])
 	{
-		write(fd ,global->envp[i], ft_strlen(global->envp[i++]));
+		write(fd ,global->envp[i], ft_strlen(global->envp[i]));
 		write(fd, "\n", 1);
 		i++;
 	}

@@ -74,7 +74,6 @@ typedef struct s_global
 void    sign_handler(int sig);
 void	ft_parse_split(char *line, t_token *token);
 int		ft_get_size(char **envp);
-void	Execution(t_global *global);
 
 //parsing.c
 int     init_parsing(char *line);

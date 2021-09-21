@@ -38,18 +38,34 @@ int ft_parsing(t_global *global)
         return (0);
     /*ERRif (!check_tokens_valid(token))
         return (0);*/
-    if (ft_token_priority(global, token) < 0)
-        return (0);
-    else if (exec_build_in(global, token, 1))
-        return (0);
+    if (ft_check_tokens(token) == 1)
+        if (ft_token_priority(global, token) < 0)
+            return (0);
+    if (ft_check_tokens(token) == 0)
+        if (exec_build_in(global, token, 1) < 0)
+            return (0);
     return (1);
+}
+
+int ft_check_tokens(t_token *token)
+{
+    t_token *tmp;
+
+    tmp = token;
+    while (tmp)
+    {
+        if (is_token_type(tmp->e_type))
+            return (1);
+        tmp = tmp->next;
+    }
+    return (0);
 }
 
 int exec_build_in(t_global *global, t_token *token, int fd)
 {
     int i;
 
-    i = 1;
+    i = 0;
     if (token->e_type == CM_ECHO)
         i = ft_echo(global, fd);
     if (token->e_type == CM_ENV)
@@ -64,8 +80,10 @@ int exec_build_in(t_global *global, t_token *token, int fd)
         i = ft_unset(global);
     if (token->e_type == CM_EXIT)
         return (0);
-    if (token->e_type == TK_ID)
+    int pid = fork();
+    if (pid == 0 && token->e_type == TK_ID)
         execve(find_path(global->envp, token->val), list_to_arr(token) ,global->envp);
+    wait(0);
     return (i);
 }
 
