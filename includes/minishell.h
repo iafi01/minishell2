@@ -73,7 +73,8 @@ typedef struct s_global
 //minishell.c
 void    sign_handler(int sig);
 void	ft_parse_split(char *line, t_token *token);
-int	ft_get_size(char **envp);
+int		ft_get_size(char **envp);
+void	Execution(t_global *global);
 
 //parsing.c
 int     init_parsing(char *line);
@@ -131,6 +132,9 @@ char **list_to_arr(t_token *token);
 t_token *arr_to_list(char **arg);
 //char **ft_copy_env2(char **envp, char *find);
 t_envp	*ft_env_new(char *envp);
+
+char	*find_path(char **envp, char *cmd);
+char	*find_path2(char **paths, char *cmd);
 
 //redirections.c
 int ft_redirect_maggiore(t_global *global, t_token *token);

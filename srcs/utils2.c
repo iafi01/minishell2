@@ -19,15 +19,13 @@ char **list_to_arr(t_token *token)
     int i;
 
     i = 0;
-    if (!token->next)
-        return (NULL);
     arg = malloc(sizeof(char *) * ft_listlen(token));
-    token = token->next;
     while (token)
     {
         arg[i++] = token->val;
         token = token->next;
     }
+    arg[i] = '\0';
     return (arg);
 }
 

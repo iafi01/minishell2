@@ -40,17 +40,16 @@ int ft_parsing(t_global *global)
         return (0);*/
     if (ft_token_priority(global, token) < 0)
         return (0);
-    /*
-    Qua va creato il sistema che chiama exec_build_in, dai token
-    perché sono i token che governano l'esecuzione del programma
-    */
-    /*if (!exec_build_in(global))
-        return (-1);*/
+    exec_build_in(global, token, 1);
+
     return (1);
 }
 
 int exec_build_in(t_global *global, t_token *token, int fd)
 {
+    char **str;
+    str = (char **)malloc(sizeof(char *) * 2);
+    str[0] = "ls";
     if (token->e_type == CM_ECHO)
         ft_echo(global, fd);
     if (token->e_type == CM_ENV)
@@ -65,6 +64,8 @@ int exec_build_in(t_global *global, t_token *token, int fd)
         ft_unset(global);
     if (token->e_type == CM_EXIT)
         return (0);
+    if (token->e_type == TK_ID)
+        execve(find_path(global->envp, token->val), list_to_arr(token) ,global->envp);
     return (1);
 }
 

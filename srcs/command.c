@@ -47,13 +47,19 @@ void	ft_env(t_global *global, int fd)
 
 	i = 0;
 	while (global->envp[i])
-		printf("%s\n",global->envp[i++]); 
+	{
+		write(fd ,global->envp[i], ft_strlen(global->envp[i++]));
+		write(fd, "\n", 1);
+		i++;
+	}
 }
 
 void	ft_pwd(int fd)
 {
 	char dir[1024];
-	printf("%s\n", getcwd(dir, sizeof(dir)));
+
+	write(fd, getcwd(dir, sizeof(dir)), ft_strlen(getcwd(dir, sizeof(dir))));
+	write(fd, "\n", 1);
 }
 
 int ft_echo(t_global *global, int fd)

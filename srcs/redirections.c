@@ -32,8 +32,7 @@ void	free_arr(char **arr)
 	arr = NULL;
 }
 
-char	*
-find_path2(char **paths, char *cmd)
+char	*find_path2(char **paths, char *cmd)
 {
 	int		i;
 	char	*folder;
@@ -45,9 +44,8 @@ find_path2(char **paths, char *cmd)
 		folder = ft_strjoin(paths[i], "/");
 		path = ft_strjoin(folder, cmd);
 		ft_str_delete(&folder);
-        //write (2, path, ft_strlen(path));
 		if (access(path, F_OK) == 0)
-			return (path);
+            return (path);
 		ft_str_delete(&path);
 		i++;
 	}
@@ -71,12 +69,10 @@ char	*find_path(char **envp, char *cmd)
 	while (ft_strncmp(envp[i], "PATH=", 5))
 		i++;
 	paths = ft_split((envp[i]) + 5, ':');
-    int j = 0;
 	path = find_path2(paths, cmd);
-    //write (2, path, ft_strlen(path));
 	if (paths == NULL)
     {
-		write (2, "Path é nullo", 12);
+		write (2, "Path é nullo\n", 13);
         return (NULL);
     }
     free_arr(paths);
@@ -140,6 +136,7 @@ int ft_redirect_pipe(t_global *global, t_token *token)
             return (0);
         }
     }
+    return (0);
 }
 
 /*int ft_redirect_pipe(t_global *global, t_token *token)

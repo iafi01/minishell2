@@ -1,0 +1,14 @@
+total 24
+drwxr-xr-x  13 liafigli  2020_roma  442 Sep 21 12:15 .
+drwx------  12 liafigli  2020_roma  408 Sep 20 16:47 ..
+drwxr-xr-x  15 liafigli  2020_roma  510 Sep 20 17:19 .git
+-rw-r--r--   1 liafigli  2020_roma   46 Sep 15 11:16 .gitignore
+drwxr-xr-x   5 liafigli  2020_roma  170 Sep 16 11:37 .vscode
+-rw-r--r--   1 liafigli  2020_roma  766 Sep 19 13:43 Makefile
+-rw-r--r--   1 liafigli  2020_roma  232 Sep 15 11:16 README.md
+drwxr-xr-x   3 liafigli  2020_roma  102 Sep 15 11:16 includes
+drwxr-xr-x   7 liafigli  2020_roma  238 Sep 21 12:15 libft
+drwxr-xr-x   3 liafigli  2020_roma  102 Sep 15 11:22 minishell.dSYM
+-rw-r--r--   1 liafigli  2020_roma    0 Sep 21 11:34 outfile
+drwxr-xr-x  13 liafigli  2020_roma  442 Sep 21 11:21 srcs
+-rw-r--r--   1 liafigli  2020_roma    0 Sep 21 12:15 wc
