@@ -24,6 +24,33 @@ enum e_type check_tokens_valid(t_token *token)
     return (1);
 }
 
+int check_redirections(t_token *token)
+{
+    int i;
+
+    i = 0;
+    while (token)
+    {
+        if (is_token_type(token->e_type))
+        {
+            if (i == 0)
+            {
+                i = 1;
+            }
+            else
+            {
+                return (-1);
+            }
+        }  
+        else
+        {
+            i = 0;
+        }
+        token = token->next;
+    }
+    return (0);
+}
+
 int ft_parsing(t_global *global)
 {
     t_token *tmp;
@@ -38,6 +65,9 @@ int ft_parsing(t_global *global)
         return (0);
     /*ERRif (!check_tokens_valid(token))
         return (0);*/
+    //controllare se due redirection sono attaccate
+    /*if (check_redirections(token) == -1);
+        return (0);*/ 
     if (ft_check_tokens(token) == 1)
         if (ft_token_priority(global, token) < 0)
             return (0);

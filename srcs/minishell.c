@@ -169,7 +169,6 @@ int	loop(t_global *global)
 		else if (err == -1)
 			return (0);
 		//debug_list(global->token);
-		//Execution(global);
 		ft_free_list(global->token);
 		free(read);
 	}
