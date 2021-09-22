@@ -153,10 +153,11 @@ void create_export(char **envp, t_envp *test)
 	}
 }
 
-void	set_index_export(t_envp *env)
+void	set_index_export(t_global *global, t_envp *env)
 {
 	t_envp *s1 = env;
 	t_envp *s2 = env;
+	t_envp *res;
 	while (s1)
 	{
 		while (s2)
@@ -169,6 +170,7 @@ void	set_index_export(t_envp *env)
 		s1 = s1->next;
 		s2 = env;
 	}
+	global->env = env;
 }
 
 int sostitute_set(t_global *global)
@@ -181,7 +183,7 @@ int sostitute_set(t_global *global)
 	j = 0;
 	env = global->env;
 	s = global->token->next->next->val;
-	i = 0;//non sostituisce un bel cazzo di niente
+	i = 0;
 	while (s[i])
 	{
 		if (s[i] == '=' || s[i] == '\0')
@@ -189,11 +191,12 @@ int sostitute_set(t_global *global)
 		i++;
 	}
 	while (env)
-	{
-		if (!ft_strncmp(env->first, s + i, ft_strlen(s+i)))
+	{	
+		if (!ft_strncmp(env->first, s, i))
 		{
-			printf("%s==%s",env->first, s+i);
-			global->envp[j] = s;
+			printf("%s|%s|%s",env->first, s+i+1, global->envp[j]);
+			env->first = env->first;
+			global->envp[j-1] = s;
 			return (1);
 		}
 		j++;
@@ -237,12 +240,12 @@ int	ft_export(t_global *global, int fd)
 	test = ft_env_new("init");
 	env = test;
 	create_export(envp, test);
+	set_index_export(global, env);
 	if (global->token->next->next)
 	{
 		ft_set(global);
 		return (0);
 	}
-	set_index_export(env);
 	while (i < max)
 	{
 		while (env)
