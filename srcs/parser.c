@@ -94,6 +94,7 @@ int ft_check_tokens(t_token *token)
 int exec_build_in(t_global *global, t_token *token, int fd)
 {
     int i;
+    char **spl;
 
     i = 0;
     if (token->e_type == CM_ECHO)
@@ -108,6 +109,13 @@ int exec_build_in(t_global *global, t_token *token, int fd)
         i = ft_pwd(fd);
     if (token->e_type == CM_UNS)
         i = ft_unset(global);
+    if (token->e_type == TK_ID && ft_split(token->val, '='))
+    {
+        spl = ft_split(token->val, '=');
+        if (!strncmp(token->val, spl[0], ft_strlen(spl[0])))
+            i = sostitute_set(global, 0);
+        return (0);
+    }
     if (token->e_type == CM_EXIT)
         return (0);
     int pid = fork();

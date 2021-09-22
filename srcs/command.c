@@ -173,7 +173,7 @@ void	set_index_export(t_global *global, t_envp *env)
 	global->env = env;
 }
 
-int sostitute_set(t_global *global)
+int sostitute_set(t_global *global, int export)
 {
 	int i;
 	char *s;
@@ -182,7 +182,10 @@ int sostitute_set(t_global *global)
 
 	j = 0;
 	env = global->env;
-	s = global->token->next->next->val;
+	if (export == 1)
+		s = global->token->next->next->val;
+	else
+		s = global->token->next->val;
 	i = 0;
 	while (s[i])
 	{
@@ -192,9 +195,9 @@ int sostitute_set(t_global *global)
 	}
 	while (env)
 	{	
+		//printf("%s|%s|%s\n",env->first, s,global->envp[j]);
 		if (!ft_strncmp(env->first, s, i))
 		{
-			printf("%s|%s|%s",env->first, s+i+1, global->envp[j]);
 			env->first = env->first;
 			global->envp[j-1] = s;
 			return (1);
@@ -214,7 +217,7 @@ void ft_set(t_global *global)
 	i = 0;
 	s = ft_get_size(global->envp) + 1;
 	env = malloc(sizeof(char *) * s + 1);
-	if (sostitute_set(global))
+	if (sostitute_set(global, 1))
 		return ;
 	while (i < s - 2)
 	{
