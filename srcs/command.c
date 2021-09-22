@@ -264,3 +264,24 @@ int	ft_export(t_global *global, int fd)
 	}
 	return (0);
 }
+
+
+int ft_exit(t_global *global)
+{
+	t_token *quit;
+	int var;
+
+	var = 0;
+	if (!global->token->next)
+		return (0);
+	quit = global->token->next;
+	if (quit->next)
+	{
+		var = ft_atoi(quit->next->val);
+		printf("%d ", var);
+		if (var < 0)
+			var = 256 + var;
+		printf("%d", var);
+		exit(var);
+	}
+}
