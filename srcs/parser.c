@@ -112,7 +112,7 @@ int exec_build_in(t_global *global, t_token *token, int fd)
     if (token->e_type == TK_ID && ft_split(token->val, '='))
     {
         spl = ft_split(token->val, '=');
-        if (!strncmp(token->val, spl[0], ft_strlen(spl[0])))
+        if (cerca_variabile(spl[0]) != NULL)
             i = sostitute_set(global, 0);
         return (0);
     }
