@@ -265,23 +265,23 @@ int	ft_export(t_global *global, int fd)
 	return (0);
 }
 
-
 int ft_exit(t_global *global)
 {
-	t_token *quit;
 	int var;
-
+	char **arr;
+	
+	arr = list_to_arr(global->token->next);
 	var = 0;
-	if (!global->token->next)
-		return (0);
-	quit = global->token->next;
-	if (quit->next)
+	if (arr[2])
 	{
-		var = ft_atoi(quit->next->val);
-		printf("%d ", var);
+		write(2, "Too many args\n", ft_strlen("Too many args\n"));
+		return (0);
+	}
+	if (arr[1])
+	{
+		var = ft_atoi(arr[1]);
 		if (var < 0)
 			var = 256 + var;
-		printf("%d", var);
 		exit(var);
 	}
 }

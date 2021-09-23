@@ -35,3 +35,5 @@ git:
 	git add .
 	git commit -m "ft_tree"
 	git push
+x:	re
+	./minishell

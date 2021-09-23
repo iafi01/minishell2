@@ -23,7 +23,7 @@ char **list_to_arr(t_token *token)
     while (token)
     {
         arg[i++] = token->val;
-        printf ("%s\n", arg[i - 1]);
+        //printf ("%s\n", arg[i - 1]);
         token = token->next;
     }
     arg[i] = '\0';
