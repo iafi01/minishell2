@@ -151,7 +151,7 @@ int	loop(t_global *global)
 		read = readline(read);
 		//read = "export";
 		if (read == NULL)
-			return (0);
+			exit(1);
 		if (!strncmp(read, "", 2))
 			continue;
 		add_history(read);

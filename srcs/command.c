@@ -280,8 +280,12 @@ int ft_exit(t_global *global)
 	if (arr[1])
 	{
 		var = ft_atoi(arr[1]);
+		if (!ft_isnum(arr[1]))
+			exit(255);
 		if (var < 0)
 			var = 256 + var;
+		while (var >= 256)
+			var -= 256;
 		exit(var);
 	}
 }
