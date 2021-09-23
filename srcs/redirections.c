@@ -1,20 +1,5 @@
 #include "../includes/minishell.h"
 
-int ft_redirect_maggiore(t_global *global, t_token *token)
-{
-    return (1);
-}
-
-t_token *ft_first_cmd(t_token *list)
-{
-    while (list->prec != NULL && !is_token_type(list->prec->e_type))
-    {
-        list = list->prec;
-    }
-    list = list->next;
-    return (list);
-}
-
 void	free_arr(char **arr)
 {
 	int	i;
@@ -32,6 +17,70 @@ void	free_arr(char **arr)
 	arr = NULL;
 }
 
+int ft_redirect_maggiore(t_global *global, t_token *token)
+{
+    int			fd;
+	t_token		*temp;
+	int			check;
+	char		**strings;
+
+	temp = token;
+	write (2, "\n		Function starts here\n\n", 24);
+	while (1)
+	{
+		fd = open(temp->next->val, O_RDWR | O_CREAT, 0777);
+		if (!temp->next->next || temp->next->next->e_type != 5)
+			break;
+		temp = temp->next->next;
+		temp->e_type = 0;
+	}
+	if (fd == -1)
+	{
+		write (2, "Error in file opening\n", 23);
+		return (-1);
+	}
+	write (2, "1\n", 2);
+	strings = get_options(find_cmd(token));
+	write (2, "2\n", 2);
+	int i = 0;
+	while (strings[i])
+	{
+		printf("%d.   %s\n", i, strings[i]);
+		i++;
+	}
+	//char* str[]={"ls", "-la", NULL};
+	int pid = fork();
+	if (pid == 0)
+	{
+		if ((dup2(fd, STDOUT_FILENO)) == -1)
+		{
+			close (fd);
+			write (2, "Error in file redirection\n", 26);
+			return (-1);
+		}
+		close (fd);
+		if (execve(find_path(global->envp, strings[0]), strings, NULL) == -1)
+        {
+			perror(strerror(errno));
+            exit (1);
+        }
+	}
+	free_arr(strings);
+	wait (0);
+	close (fd);
+	return (1);
+}
+
+t_token *ft_first_cmd(t_token *list)
+{
+    while (list->prec != NULL && !is_token_type(list->prec->e_type))
+    {
+        list = list->prec;
+    }
+    list = list->next;
+    return (list);
+}
+
 char	*find_path2(char **paths, char *cmd)
 {
 	int		i;
@@ -39,13 +88,15 @@ char	*find_path2(char **paths, char *cmd)
 	char	*path;
 
 	i = 0;
+    if (open(cmd, O_RDONLY) != -1)
+		return (cmd);
 	while (paths[i])
 	{
 		folder = ft_strjoin(paths[i], "/");
 		path = ft_strjoin(folder, cmd);
 		ft_str_delete(&folder);
-		if (access(path, F_OK) == 0)
-            return (path);
+		if (open(path, O_RDONLY) != -1)
+			return (path);
 		ft_str_delete(&path);
 		i++;
 	}
@@ -54,7 +105,7 @@ char	*find_path2(char **paths, char *cmd)
         printf("Command not found\n");
 		return (NULL);
     }
-	if (access(cmd, F_OK) == 0)
+	if (open(cmd, O_RDONLY) == 0)
 		return (cmd);
 	return (NULL);
 }
@@ -66,6 +117,7 @@ char	*find_path(char **envp, char *cmd)
 	char	*path;
 
 	i = 0;
+
 	while (ft_strncmp(envp[i], "PATH=", 5))
 		i++;
 	paths = ft_split((envp[i]) + 5, ':');

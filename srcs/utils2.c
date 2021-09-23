@@ -85,6 +85,8 @@ char	*search_path(char **paths, char *cmd)
 	char	*path;
 
 	i = 0;
+	if (open(cmd, O_RDONLY) != -1)
+			return (cmd);
 	while (paths[i])
 	{
 		folder = ft_strjoin(paths[i], "/");
