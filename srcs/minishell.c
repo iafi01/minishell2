@@ -18,7 +18,7 @@ void    sign_handler(int sig)
  	}
 }
 
-int	ft_apici_split(char *line, t_token *token)
+char	*ft_apici_split(char *line, t_token *token)
 {
 	int i;
 	int apici;
@@ -35,18 +35,21 @@ int	ft_apici_split(char *line, t_token *token)
 		apici = 2;
 	while (line[i++])
 	{
-		if (line[i] == 39 && apici == 1)
+		if (line[i] == 32 /*|| is_token(line[i]) > 0*/)
 			break ;
-		else if (line[i] == 34 && apici == 2)
-			break;
+		if (line[i] == 39 || line[i] == 34)
+			if (line[i+1])
+				i++;
+			else 
+				break ;
 		s[0] = line[i];
 		tmp = ft_strjoin(tmp, s);
 	}
 	i++;
-	ft_add_list(token, TK_ID, ft_strdup(tmp), apici);
+	//ft_add_list(token, TK_ID, ft_strdup(tmp), apici);
 	//printf("%s", tmp);
-	free(tmp);
-	return (i);
+	//free(tmp);
+	return (tmp);
 }
 
 void	set_cmd(t_token *token)
@@ -102,7 +105,10 @@ void	ft_parse_split(char *line, t_token *token)
 	while (line[++i])
 	{
 		if (line[i] == 34 || line[i] == 39)
-			i += ft_apici_split(line + i, token);
+		{
+			ft_strjoin(tmp, ft_apici_split(line + i, token));
+			continue ;
+		}
 		if (is_token(line + i) == 0 && line[i] != 32)
 		{
 			s[0] = line[i];
@@ -149,7 +155,7 @@ int	loop(t_global *global)
 		read = ft_strjoin(ft_strjoin("\e[0;32m<\e\033[0;37m", getenv("USER")),
 	           "\033[0;31m>\e \033[0;37m ");
 		read = readline(read);
-		//read = "export";
+		//read = "echo 'ciao'";
 		if (read == NULL)
 		{
 			printf("exit");
