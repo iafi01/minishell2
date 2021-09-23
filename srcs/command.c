@@ -275,8 +275,10 @@ int ft_exit(t_global *global)
 	if (arr[2])
 	{
 		write(2, "Too many args\n", ft_strlen("Too many args\n"));
-		return (0);
+		return (1);
 	}
+	if (arr[0])
+		exit(0);
 	if (arr[1])
 	{
 		var = ft_atoi(arr[1]);
