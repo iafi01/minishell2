@@ -39,7 +39,9 @@ typedef enum e_type
 	CM_UNS,
 	CM_ENV,
 	CM_EXIT,
-	EXIT_STATUS
+	EXIT_STATUS,
+	CM_CMD,
+	CM_OPT
 }	t_type;
 
 typedef struct s_envp
@@ -127,10 +129,16 @@ int	store_token(t_token *list, char *t);
 t_token	*ft_find_end(t_token *list);
 
 //utils2.c
-char **list_to_arr(t_token *token);
+char 	**list_to_arr(t_token *token);
 t_token *arr_to_list(char **arg);
 //char **ft_copy_env2(char **envp, char *find);
 t_envp	*ft_env_new(char *envp);
+char	**get_options(t_token *token);
+t_token *find_cmd(t_token *token);
+int		check_path(t_global *global, t_token *tkn, char *cmd);
+int		check_if_options(t_global *global, t_token *tkn, char *opt);
+int		check_if_cmd(t_token *tkn);
+char	*search_path(char **paths, char *cmd);
 
 char	*find_path(char **envp, char *cmd);
 char	*find_path2(char **paths, char *cmd);

@@ -52,7 +52,7 @@ char	*ft_apici_split(char *line, t_token *token)
 	return (tmp);
 }
 
-void	set_cmd(t_token *token)
+void	set_cmd(t_token *token, t_global *global)
 {
 	if (token->next)
 		token = token->next;
@@ -76,6 +76,10 @@ void	set_cmd(t_token *token)
 				token->e_type = CM_EXIT;
 			else if (!ft_strncmp((const char*)token->val, "$?", 3))
 				token->e_type = EXIT_STATUS;
+			else if (check_path(global, token, token->val) > 0)
+				token->e_type = CM_CMD;
+			else if (check_if_options(global, token, token->val) > 0)
+				token->e_type = CM_OPT;
 		}
 		token = token->next;
 	}
@@ -148,6 +152,8 @@ int	loop(t_global *global)
 {
 	char		*read;
 	int err;
+	int	f;
+
 	while (1)
 	{
 		//signal(SIGINT, sign_handler);
@@ -164,14 +170,17 @@ int	loop(t_global *global)
 		if (!strncmp(read, "", 2))
 			continue;
 		add_history(read);
-		if (init_parsing(read) == 1 && *read != '\0')
+		f = init_parsing(read);
+		if (f == 1 && *read != '\0')
 		{
 			printf("Error Parsing\n");
 			free(read);
 			continue ;
 		}
+		else if (f == -1 && *read != '\0')
+			continue ;
 		ft_parse_split(read, global->token);
-		set_cmd(global->token);
+		set_cmd(global->token, global);
 		if (!ft_strncmp((const char*)global->token->next->val, "exit", 5))
 			ft_exit(global);
 		err = ft_parsing(global);

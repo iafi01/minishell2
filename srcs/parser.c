@@ -3,7 +3,7 @@
 int ft_is_command(enum e_type i)
 {
     if (i == CM_ECHO || i == CM_CD || i == CM_PWD || i == CM_EXP \
-     || i == CM_UNS || i == CM_ENV || i == CM_EXIT)
+     || i == CM_UNS || i == CM_ENV || i == CM_EXIT || CM_CMD)
         return (1);
     return (0);
 }
@@ -118,9 +118,14 @@ int exec_build_in(t_global *global, t_token *token, int fd)
     }
     if (token->e_type == CM_EXIT)
         return (0);
-    int pid = fork();
-    if (pid == 0 && token->e_type == TK_ID)
-        execve(find_path(global->envp, token->val), list_to_arr(token) ,global->envp);
+    if (token->e_type == CM_CMD)
+    {
+        if (fork() == 0)
+        {
+            spl = get_options(token);
+            execve(find_path(global->envp, spl[0]), spl ,global->envp);
+        }
+    }
     wait(0);
     return (i);
 }
