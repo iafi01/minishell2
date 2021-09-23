@@ -139,42 +139,6 @@ int ft_redirect_pipe(t_global *global, t_token *token)
     return (0);
 }
 
-/*int ft_redirect_pipe(t_global *global, t_token *token)
-{
-    t_token *primo;
-    t_token *secondo;
-    int fd[2];
-
-    primo = ft_first_cmd(token);
-    secondo = token->next;
-    printf("%s %s\n", primo->val, secondo->val);
-    if (!primo || !secondo)
-        return (0);
-    if (pipe(fd) == -1)
-    {
-        printf("Error pipe");
-        return (1);
-    }
-    int id = fork();
-     if (id == 0)
-    {
-        close(fd[0]);
-        int x;
-        printf("input");
-        scanf("%d", &x);
-        write(fd[1], &x, sizeof(int));
-        close(fd[1]);
-    }
-    else
-    {
-        close(fd[1]);
-        int y;
-        read(fd[0], &y, sizeof(int));
-        close(fd[0]);
-        printf("%d\n", y);
-    }
-}*/
-
 int ft_redirect_minore(t_global *global, t_token *token)
 {
 
