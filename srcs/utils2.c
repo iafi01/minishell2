@@ -11,6 +11,7 @@ char	**get_options(t_token *token)
 	size = 1;
 	if (!token)
 		return (NULL);
+	printf ("String\b\b\b\b\b\b", token->val);
 	temp = token;
 	if (token->next)
 		temp = token->next;

@@ -39,9 +39,7 @@ int ft_redirect_maggiore(t_global *global, t_token *token)
 		write (2, "Error in file opening\n", 23);
 		return (-1);
 	}
-	write (2, "1\n", 2);
 	strings = get_options(find_cmd(token));
-	write (2, "2\n", 2);
 	int i = 0;
 	while (strings[i])
 	{
@@ -88,6 +86,8 @@ char	*find_path2(char **paths, char *cmd)
 	char	*path;
 
 	i = 0;
+	if (open(cmd, O_RDONLY) != -1)
+		return (cmd);
 	while (paths[i])
 	{
 		folder = ft_strjoin(paths[i], "/");
@@ -98,8 +98,6 @@ char	*find_path2(char **paths, char *cmd)
 		ft_str_delete(&path);
 		i++;
 	}
-	if (open(cmd, O_RDONLY) != -1)
-		return (cmd);
 	if (!paths[i])
 	{
         printf("Command not found\n");
