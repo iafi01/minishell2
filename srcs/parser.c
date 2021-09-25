@@ -51,6 +51,20 @@ int check_redirections(t_token *token)
     return (0);
 }
 
+int ft_check_tokens(t_token *token)
+{
+    t_token *tmp;
+
+    tmp = token;
+    while (tmp)
+    {
+        if (is_token_type(tmp->e_type))
+            return (1);
+        tmp = tmp->next;
+    }
+    return (0);
+}
+
 int ft_parsing(t_global *global)
 {
     t_token *tmp;
@@ -75,20 +89,6 @@ int ft_parsing(t_global *global)
         if (exec_build_in(global, token, 1) < 0)
             return (0);
     return (1);
-}
-
-int ft_check_tokens(t_token *token)
-{
-    t_token *tmp;
-
-    tmp = token;
-    while (tmp)
-    {
-        if (is_token_type(tmp->e_type))
-            return (1);
-        tmp = tmp->next;
-    }
-    return (0);
 }
 
 int exec_build_in(t_global *global, t_token *token, int fd)
@@ -123,8 +123,6 @@ int exec_build_in(t_global *global, t_token *token, int fd)
         if (fork() == 0)
         {
             spl = get_options(token);
-			for (int i = 0; spl[i]; i++)
-				printf ("%d. %s\n", i, spl[i]);
             execve(find_path(global->envp, spl[0]), spl ,NULL);
         }
     }

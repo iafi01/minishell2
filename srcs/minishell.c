@@ -38,10 +38,12 @@ char	*ft_apici_split(char *line, t_token *token)
 		if (line[i] == 32 /*|| is_token(line[i]) > 0*/)
 			break ;
 		if (line[i] == 39 || line[i] == 34)
+		{
 			if (line[i+1])
 				i++;
 			else 
 				break ;
+		}
 		s[0] = line[i];
 		tmp = ft_strjoin(tmp, s);
 	}
@@ -184,7 +186,7 @@ int	loop(t_global *global)
 		if (!ft_strncmp((const char*)global->token->next->val, "exit", 5))
 			ft_exit(global);
 		err = ft_parsing(global);
-		print_tokens(global);
+		//print_tokens(global);
 		if (err == 0)
 			printf("Errore Parser\n");
 		else if (err == -1)

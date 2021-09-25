@@ -117,6 +117,8 @@ int		ft_echo(t_global *global, int fd);
 int    ft_unset(t_global *global);
 int sostitute_set(t_global *global, int export);
 int	ft_export(t_global *global, int fd);
+int ft_exit(t_global *global);
+
 //debug.c
 void 	debug(int d_apici, int s_apici, int prev_apici);
 void	debug_list(t_token *token);
@@ -151,5 +153,7 @@ int ft_redirect_pipe(t_global *global, t_token *token);
 int ft_redirect_minore(t_global *global, t_token *token);
 int ft_redirect_dmaggiore(t_global *global, t_token *token);
 int ft_redirect_dminore(t_global *global, t_token *token);
+
+void	free_arr(char **arr);
 
 #endif

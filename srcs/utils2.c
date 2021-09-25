@@ -11,7 +11,6 @@ char	**get_options(t_token *token)
 	size = 1;
 	if (!token)
 		return (NULL);
-	printf ("String\b\b\b\b\b\b", token->val);
 	temp = token;
 	if (token->next)
 		temp = token->next;
@@ -134,7 +133,7 @@ int	check_path(t_global *global, t_token *tkn, char *cmd)
 		i++;
 	paths = ft_split((global->envp[i]) + 5, ':');
 	path = search_path(paths, cmd);
-	printf ("Path found is: %s\n", path);
+	//printf ("Path found is: %s\n", path);
 	if (!paths || !path)
         return (0);
 	if (check_if_cmd(tkn) == 1)
@@ -176,7 +175,7 @@ char **list_to_arr(t_token *token)
         //printf ("%s\n", arg[i - 1]);
         token = token->next;
     }
-    arg[i] = '\0';
+    arg[i] = 0;
     return (arg);
 }
 

@@ -21,7 +21,6 @@ int ft_redirect_maggiore(t_global *global, t_token *token)
 {
     int			fd;
 	t_token		*temp;
-	int			check;
 	char		**strings;
 
 	temp = token;
@@ -39,7 +38,6 @@ int ft_redirect_maggiore(t_global *global, t_token *token)
 		return (-1);
 	}
 	strings = get_options(find_cmd(token));
-	int i = 0;
 	int pid = fork();
 	if (pid == 0)
 	{
@@ -192,7 +190,6 @@ int ft_redirect_dmaggiore(t_global *global, t_token *token)
 {
     int			fd;
 	t_token		*temp;
-	int			check;
 	char		**strings;
 
 	temp = token;
@@ -210,7 +207,6 @@ int ft_redirect_dmaggiore(t_global *global, t_token *token)
 		return (-1);
 	}
 	strings = get_options(find_cmd(token));
-	int i = 0;
 	int pid = fork();
 	if (pid == 0)
 	{
@@ -234,6 +230,6 @@ int ft_redirect_dmaggiore(t_global *global, t_token *token)
 
 int ft_redirect_dminore(t_global *global, t_token *token)
 {
-
+	
     return (1);
 }
