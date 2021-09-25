@@ -52,7 +52,7 @@ t_token *find_cmd(t_token *token)
 	
 }
 
-int		check_if_options(t_token *tkn, char *opt)
+int		check_if_options(t_global *global, t_token *tkn, char *opt)
 {
 	if (!tkn->prec)
 		return (0);

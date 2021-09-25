@@ -18,7 +18,7 @@
  	}
 }*/
 
-char	*ft_apici_split(char *line)
+char	*ft_apici_split(char *line, t_token *token)
 {
 	int i;
 	int apici;
@@ -80,7 +80,7 @@ void	set_cmd(t_token *token, t_global *global)
 				token->e_type = EXIT_STATUS;
 			else if (check_path(global, token, token->val) > 0)
 				token->e_type = CM_CMD;
-			else if (check_if_options(token, token->val) > 0)
+			else if (check_if_options(global, token, token->val) > 0)
 				token->e_type = CM_OPT;
 		}
 		token = token->next;
@@ -112,7 +112,7 @@ void	ft_parse_split(char *line, t_token *token)
 	{
 		if (line[i] == 34 || line[i] == 39)
 		{
-			ft_strjoin(tmp, ft_apici_split(line + i));
+			ft_strjoin(tmp, ft_apici_split(line + i, token));
 			continue ;
 		}
 		if (is_token(line + i) == 0 && line[i] != 32)

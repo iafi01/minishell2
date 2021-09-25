@@ -140,7 +140,7 @@ t_envp	*ft_env_new(char *envp);
 char	**get_options(t_token *token);
 t_token *find_cmd(t_token *token);
 int		check_path(t_global *global, t_token *tkn, char *cmd);
-int		check_if_options(t_token *tkn, char *opt);
+int		check_if_options(t_global *global, t_token *tkn, char *opt);
 int		check_if_cmd(t_token *tkn);
 char	*search_path(char **paths, char *cmd);
 int		is_path(char *str);
