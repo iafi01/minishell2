@@ -180,10 +180,7 @@ int ft_redirect_pipe(t_global *global, t_token *token)
 
 int ft_redirect_minore(t_global *global, t_token *token)
 {
-
     return (1);
-
-    
 }
 
 int ft_redirect_dmaggiore(t_global *global, t_token *token)
@@ -230,6 +227,6 @@ int ft_redirect_dmaggiore(t_global *global, t_token *token)
 
 int ft_redirect_dminore(t_global *global, t_token *token)
 {
-	
+
     return (1);
 }

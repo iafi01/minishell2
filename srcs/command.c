@@ -157,7 +157,7 @@ void	set_index_export(t_global *global, t_envp *env)
 {
 	t_envp *s1 = env;
 	t_envp *s2 = env;
-	t_envp *res;
+	//t_envp *res;
 	while (s1)
 	{
 		while (s2)
@@ -255,7 +255,10 @@ int	ft_export(t_global *global, int fd)
 		{
 			if (env->index == i)
 			{
-				printf("%s=%s\n", env->first, env->second);
+				write(fd, env->first, ft_strlen(env->first));
+				write(fd, "=", 1);
+				write(fd, env->second, ft_strlen(env->second));
+				write(fd, "\n", 1);
 				i++;
 			}	
 			env = env->next;
@@ -290,4 +293,5 @@ int ft_exit(t_global *global)
 	}
 	if (arr[0])
 		exit(errno);
+	return (errno);
 }
