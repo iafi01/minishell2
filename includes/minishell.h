@@ -120,6 +120,7 @@ int	ft_export(t_global *global, int fd);
 //debug.c
 void 	debug(int d_apici, int s_apici, int prev_apici);
 void	debug_list(t_token *token);
+void	print_tokens(t_global *global);
 
 //utils.c
 char	*cerca_variabile(char *line);
@@ -139,6 +140,7 @@ int		check_path(t_global *global, t_token *tkn, char *cmd);
 int		check_if_options(t_global *global, t_token *tkn, char *opt);
 int		check_if_cmd(t_token *tkn);
 char	*search_path(char **paths, char *cmd);
+int		is_path(char *str);
 
 char	*find_path(char **envp, char *cmd);
 char	*find_path2(char **paths, char *cmd);

@@ -184,6 +184,7 @@ int	loop(t_global *global)
 		if (!ft_strncmp((const char*)global->token->next->val, "exit", 5))
 			ft_exit(global);
 		err = ft_parsing(global);
+		print_tokens(global);
 		if (err == 0)
 			printf("Errore Parser\n");
 		else if (err == -1)

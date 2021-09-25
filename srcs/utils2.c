@@ -79,6 +79,23 @@ int	check_if_cmd(t_token *tkn)
 	return(0);
 }
 
+int		is_path(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (str)
+	{
+		while (str[i])
+		{
+			if (str[i] == '/')
+				return(1);
+			i++;
+		}
+	}
+	return (0);
+}
+
 char	*search_path(char **paths, char *cmd)
 {
 	int		i;
@@ -86,8 +103,6 @@ char	*search_path(char **paths, char *cmd)
 	char	*path;
 
 	i = 0;
-	if (open(cmd, O_RDONLY) != -1)
-			return (cmd);
 	while (paths[i])
 	{
 		folder = ft_strjoin(paths[i], "/");
@@ -98,6 +113,9 @@ char	*search_path(char **paths, char *cmd)
 		ft_str_delete(&path);
 		i++;
 	}
+	if (is_path(cmd))
+		if (open(cmd, O_RDONLY) != -1)
+			return (cmd);
 	if (!paths[i])
 		return (NULL);
 	if (open(path, O_RDONLY) != -1)
@@ -116,6 +134,7 @@ int	check_path(t_global *global, t_token *tkn, char *cmd)
 		i++;
 	paths = ft_split((global->envp[i]) + 5, ':');
 	path = search_path(paths, cmd);
+	printf ("Path found is: %s\n", path);
 	if (!paths || !path)
         return (0);
 	if (check_if_cmd(tkn) == 1)

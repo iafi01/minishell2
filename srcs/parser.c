@@ -61,8 +61,8 @@ int ft_parsing(t_global *global)
     else
         return (0);
     tmp = ft_find_end(token);
-    if (tmp && cerca_token(tmp, TK_ID) != 1 && !ft_is_command(tmp->e_type))
-        return (0);
+    //if (tmp && cerca_token(tmp, TK_ID) != 1 && !ft_is_command(tmp->e_type))
+    //    return (0);
     /*ERRif (!check_tokens_valid(token))
         return (0);*/
     //controllare se due redirection sono attaccate
@@ -123,7 +123,9 @@ int exec_build_in(t_global *global, t_token *token, int fd)
         if (fork() == 0)
         {
             spl = get_options(token);
-            execve(find_path(global->envp, spl[0]), spl ,global->envp);
+			for (int i = 0; spl[i]; i++)
+				printf ("%d. %s\n", i, spl[i]);
+            execve(find_path(global->envp, spl[0]), spl ,NULL);
         }
     }
     wait(0);

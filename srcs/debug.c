@@ -22,6 +22,25 @@ void	debug_list(t_token *token)
 	}
 }
 
+void	print_tokens(t_global *global)
+{
+	t_global *temp;
+
+	temp = global;
+	if (!temp->token)
+		return ;
+	while (temp->token)
+	{
+		printf ("___________________________\n");
+		printf("| "); printf("%s\n", temp->token->val);
+		printf("| "); printf("%d\n", temp->token->e_type);
+		if (!temp->token->next)
+			break;
+		temp->token = temp->token->next;
+	}
+	printf ("___________________________\n");
+}
+
 /*
 Modificare comando exit
 Ritorni delle built-in -> $?
