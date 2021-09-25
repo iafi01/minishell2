@@ -78,6 +78,8 @@ char	*find_path2(char **paths, char *cmd)
 	char	*path;
 
 	i = 0;
+	if (open(cmd, O_RDONLY) != -1)
+		return (cmd);
 	while (paths[i])
 	{
 		folder = ft_strjoin(paths[i], "/");
@@ -88,8 +90,6 @@ char	*find_path2(char **paths, char *cmd)
 		ft_str_delete(&path);
 		i++;
 	}
-	if (open(cmd, O_RDONLY) != -1)
-		return (cmd);
 	if (!paths[i])
 	{
         printf("Command not found\n");

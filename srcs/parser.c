@@ -67,7 +67,7 @@ int ft_parsing(t_global *global)
         return (0);*/
     //controllare se due redirection sono attaccate
     /*if (check_redirections(token) == -1);
-        return (0);*/ 
+        return (0); */
     if (ft_check_tokens(token) == 1)
         if (ft_token_priority(global, token) < 0)
             return (0);
