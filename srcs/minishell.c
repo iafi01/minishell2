@@ -1,6 +1,6 @@
 #include "../includes/minishell.h"
 
-void    sign_handler(int sig)
+/*void    sign_handler(int sig)
 {
  	char		*read;
 
@@ -16,7 +16,7 @@ void    sign_handler(int sig)
 	{
  		ft_putstr_fd("\033[2D\033[0K", 1);
  	}
-}
+}*/
 
 char	*ft_apici_split(char *line)
 {
@@ -158,8 +158,8 @@ int	loop(t_global *global)
 
 	while (1)
 	{
-		//signal(SIGINT, sign_handler);
-		//signal(SIGQUIT, sign_handler);
+		signal(SIGINT, sig_handler);
+		signal(SIGQUIT, sig_handler);
 		read = ft_strjoin(ft_strjoin("\e[0;32m<\e\033[0;37m", getenv("USER")),
 	           "\033[0;31m>\e \033[0;37m ");
 		read = readline(read);

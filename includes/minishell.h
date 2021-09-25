@@ -17,8 +17,9 @@
 # include <sys/ioctl.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-
 # include "../libft/includes/libft.h"
+
+int	exit_status;
 
 typedef enum e_type
 {
@@ -155,5 +156,9 @@ int ft_redirect_dmaggiore(t_global *global, t_token *token);
 int ft_redirect_dminore(t_global *global, t_token *token);
 
 void	free_arr(char **arr);
+
+//signals.c
+
+void	sig_handler(int signum);
 
 #endif
