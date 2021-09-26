@@ -156,7 +156,7 @@ int ft_redirect_dmaggiore(t_global *global, t_token *token);
 int ft_redirect_dminore(t_global *global, t_token *token);
 
 void	free_arr(char **arr);
-
+int first_apice(char *line);
 //signals.c
 
 void	sig_handler(int signum);

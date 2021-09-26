@@ -163,7 +163,7 @@ int	loop(t_global *global)
 		read = ft_strjoin(ft_strjoin("\e[0;32m<\e\033[0;37m", getenv("USER")),
 	           "\033[0;31m>\e \033[0;37m ");
 		read = readline(read);
-		//read = "echo 'ciao'";
+		//read = " echo \"'ciao'\" ";
 		if (read == NULL)
 		{
 			printf("exit");
@@ -191,7 +191,7 @@ int	loop(t_global *global)
 			printf("Errore Parser\n");
 		else if (err == -1)
 			return (0);
-		//debug_list(global->token);
+		debug_list(global->token);
 		ft_free_list(global->token);
 		free(read);
 	}

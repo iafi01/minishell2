@@ -39,13 +39,48 @@ int check_apici(char *line)
 	return (1);
 }
 
+int check_inv(char *line)
+{
+	int i = -1;
+	int fapice = 0;
+
+	fapice = first_apice(line);
+	while (line[i++])
+	{
+		if (line[i] == 34 || line[i] == 39)
+			break;
+	}
+	while (line[i++])
+	{
+		if (line[i] == 34 && fapice == 1)
+		{
+			while (line[i++])
+			{
+				if (line[i] == 34)
+					return (1);
+			}
+			return (0);
+		}
+		else if (line[i] == 39 && fapice == 2)
+		{
+			while (line[i++])
+			{
+				if (line[i] == 39)
+					return (1);
+			}
+			return (0);
+		}
+	}
+	return (0);
+}
+
 int init_parsing(char *line)
 {
 	if (solo_spazi(line))
 		return (1);
 	if (!check_apici(line))
 		return (1);
-	if (!check_apici_pos(line))
+	if (!check_inv(line))
 		return (1);
 	return (0);
 }
