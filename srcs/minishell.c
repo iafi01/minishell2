@@ -158,8 +158,8 @@ int	loop(t_global *global)
 
 	while (1)
 	{
-		signal(SIGINT, sig_handler);
-		signal(SIGQUIT, sig_handler);
+		//signal(SIGINT, sig_handler);
+		//signal(SIGQUIT, sig_handler);
 		read = ft_strjoin(ft_strjoin("\e[0;32m<\e\033[0;37m", getenv("USER")),
 	           "\033[0;31m>\e \033[0;37m ");
 		read = readline(read);

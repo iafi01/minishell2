@@ -1,4 +1,4 @@
-# include "../includes/minishell.h"
+/*# include "../includes/minishell.h"
 
 pid_t pid = 0;
 
@@ -59,3 +59,4 @@ void	sig_handler(int signum)
 		}
 	}
 }
+*/

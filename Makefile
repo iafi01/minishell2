@@ -5,13 +5,13 @@ LIBFT = libft/
 FLAGS = -Wall -Wextra
 LFLAGS = -L libft -lft
 
-RFLAGS = -lreadline -I ./homebrew/Cellar/readline/8.1/include -L ./homebrew/Cellar/readline/8.1/lib
+#RFLAGS = -lreadline -I ./homebrew/Cellar/readline/8.1/include -L ./homebrew/Cellar/readline/8.1/lib
 FOLDER = srcs
 
 SRCS_LIST = minishell.c parsing.c parsing2.c parsing3.c command.c debug.c \
-			parser.c utils.c utils2.c redirections.c signals.c \
+			parser.c utils.c utils2.c redirections.c \
 
-HOMEBREW = homebrew/opt/readline/lib
+#HOMEBREW = homebrew/opt/readline/lib
 
 SRCS = $(addprefix ${FOLDER}/, ${SRCS_LIST})
 
@@ -22,9 +22,9 @@ $(NAME):
 	@gcc -o $(NAME) $(FLAGS) $(SRCS) $(LFLAGS) -I $(HEADER) -lreadline -g
 	@echo "\033[1m$(NAME)\033[0m""\033[32m	Compiled\033[0m"
 
-$(HOMEBREW):
-	mkdir homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew
-	./homebrew/bin/brew install readline
+#$(HOMEBREW):
+#	mkdir homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew
+#	./homebrew/bin/brew install readline
 	
 clean:
 	@make clean -C $(LIBFT) 
