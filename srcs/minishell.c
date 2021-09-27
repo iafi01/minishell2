@@ -146,8 +146,10 @@ void	ft_parse_split(char *line, t_token *token)
 		}
 	}
 	if (line[i] == '\0' && tmp && *tmp != (char)NULL && line[i] != 32)
+	{
 		ft_add_list(token, TK_ID, tmp, 0);
 		// printf("&%s&\n", tmp);
+	}
 }
 
 int	loop(t_global *global)
@@ -191,7 +193,7 @@ int	loop(t_global *global)
 			printf("Errore Parser\n");
 		else if (err == -1)
 			return (0);
-		//debug_list(global->token);
+		// debug_list(global->token);
 		ft_free_list(global->token);
 		free(read);
 	}
