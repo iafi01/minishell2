@@ -9,7 +9,7 @@ LFLAGS = -L libft -lft
 FOLDER = srcs
 
 SRCS_LIST = minishell.c parsing.c parsing2.c parsing3.c command.c debug.c \
-			parser.c utils.c utils2.c redirections.c utils3.c new_parsing.c \
+			parser.c utils.c utils2.c redirections.c utils3.c new_parsing.c command1.c command2.c \
 
 #HOMEBREW = homebrew/opt/readline/lib
 

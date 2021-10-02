@@ -118,15 +118,11 @@ int ft_print_envvar(char *line, t_global *global);
 int	check_apice(char *line);
 
 //command.c
-int ft_tree(t_global *global);
 int	ft_pwd(int fd);
 int	ft_env(t_global *global, int fd);
 int	ft_cd(t_token *token);
 int		ft_echo(t_global *global, int fd);
 int    ft_unset(t_global *global);
-int sostitute_set(t_global *global, int export);
-int	ft_export(t_global *global, int fd);
-int ft_exit(t_global *global);
 
 //debug.c
 void 	debug(int d_apici, int s_apici, int prev_apici);
@@ -173,5 +169,16 @@ void	sig_handler(int signum);
 void	write_b(int n);
 int	ft_get_size(char **envp);
 char **ft_copy_env(char **envp);
+
+//command2.c
+t_envp	*ft_env_new(char *envp);
+void create_export(char **envp, t_envp *test);
+void	set_index_export(t_global *global, t_envp *env);
+int sostitute_set(t_global *global, int export);
+
+//command1.c
+void ft_set(t_global *global);
+int	ft_export(t_global *global, int fd);
+int ft_exit(t_global *global);
 
 #endif
