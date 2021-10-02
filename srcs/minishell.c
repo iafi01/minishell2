@@ -1,23 +1,5 @@
 #include "../includes/minishell.h"
 
-/*void    sign_handler(int sig)
-{
- 	char		*read;
-
- 	read = ft_strjoin(ft_strjoin("\e[0;32m<\e\033[0;37m", getenv("USER")),
- 	           "\033[0;31m>\e \033[0;37m ");
-    if (sig == SIGINT)
-    {
- 		ft_putstr_fd("\033[2D\033[0K", 1);
- 		write(1, "\n", 1);
- 		write(1, read, ft_strlen(read));
- 	}
- 	else if (sig == SIGQUIT)
-	{
- 		ft_putstr_fd("\033[2D\033[0K", 1);
- 	}
-}*/
-
 char	*ft_apici_split(char *line, t_token *token)
 {
 	int i;
@@ -85,16 +67,6 @@ void	set_cmd(t_token *token, t_global *global)
 		}
 		token = token->next;
 	}
-}
-
-void	write_b(int n)
-{
-	while (n > 0)
-	{
-		printf("\b");
-		n--;
-	}
-	return ;
 }
 
 void	ft_parse_split(char *line, t_token *token)
@@ -196,33 +168,6 @@ int	loop(t_global *global)
 		free(read);
 	}
 	return (1);
-}
-
-int	ft_get_size(char **envp)
-{
-	int	i;
-
-	i = 0;
-	while (envp[i] != NULL)
-		i++;
-	return (i);
-}
-
-char **ft_copy_env(char **envp)
-{
-	int		s;
-	int		i;
-	char	**res;
-
-	s = ft_get_size(envp);
-	i = 0;
-	res = (char **)malloc(sizeof(char*) * s);
-	while (i < s)
-	{
-		res[i] = envp[i];
-		i++;
-	}
-	return (res);
 }
 
 int	main(int argc, char **argv, char **envp)

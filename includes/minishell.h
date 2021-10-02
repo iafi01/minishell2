@@ -169,4 +169,9 @@ int first_apice(char *line);
 
 void	sig_handler(int signum);
 
+//utils3.c
+void	write_b(int n);
+int	ft_get_size(char **envp);
+char **ft_copy_env(char **envp);
+
 #endif
