@@ -135,15 +135,9 @@ t_token	*ft_find_end(t_token *list);
 //utils2.c
 char 	**list_to_arr(t_token *token);
 t_token *arr_to_list(char **arg);
-//char **ft_copy_env2(char **envp, char *find);
 t_envp	*ft_env_new(char *envp);
-char	**get_options(t_token *token);
-t_token *find_cmd(t_token *token);
 int		check_path(t_global *global, t_token *tkn, char *cmd);
-int		check_if_options(t_global *global, t_token *tkn, char *opt);
-int		check_if_cmd(t_token *tkn);
 char	*search_path(char **paths, char *cmd);
-int		is_path(char *str);
 
 char	*find_path(char **envp, char *cmd);
 char	*find_path2(char **paths, char *cmd);
@@ -183,6 +177,13 @@ int	is_token(char *c);
 int	is_token_type(int i);
 t_token	*ft_token_new(t_type token, char *val, int apici, t_token *prec);
 void	ft_free_list(t_token *list);
+
+//utils4.c
+char	**get_options(t_token *token);
+t_token *find_cmd(t_token *token);
+int		check_if_options(t_global *global, t_token *tkn, char *opt);
+int	check_if_cmd(t_token *tkn);
+int		is_path(char *str);
 
 
 #endif

@@ -1,5 +1,21 @@
 #include "../includes/minishell.h"
 
+char	*cerca_variabile(char *line)
+{
+    char string[32767];
+    int i;
+
+    i = 0;
+    while (line[i])
+    {
+        string[i] = line[i];
+        if (getenv(string))
+            return (getenv(string));
+        i++;
+    }
+    return (NULL);
+}
+
 void	write_b(int n)
 {
 	while (n > 0)
