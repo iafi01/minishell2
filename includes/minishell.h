@@ -105,7 +105,7 @@ char *ft_alpha_give(char *s);
 char *ft_symbols_give(char *s);
 int	ft_add_list(t_token *list, t_type type, char *val, int apici);
 int ft_token_priority(t_global *global, t_token *token);
-
+int ft_is_command(enum e_type i);
 
 //parser.c
 int ft_parsing(t_global *global);
@@ -151,14 +151,15 @@ int ft_redirect_dminore(t_global *global, t_token *token);
 
 void	free_arr(char **arr);
 int first_apice(char *line);
-//signals.c
 
+//signals.c
 void	sig_handler(int signum);
 
 //utils3.c
 void	write_b(int n);
 int	ft_get_size(char **envp);
 char **ft_copy_env(char **envp);
+enum e_type check_tokens_valid(t_token *token);
 
 //command2.c
 t_envp	*ft_env_new(char *envp);
