@@ -31,6 +31,14 @@ t_command	*ft_state_10(t_token *token)
 	{
 		return (ft_state_10(token->next));
 	}
+	else if (token->e_type == TK_GREATER || token->e_type == TK_DGREA)
+	{
+		return (ft_state_11(token->next));
+	}
+	else if (token->e_type == TK_PIPE)
+	{
+		return (NULL);//da cambiare
+	}
 	else
 	{
 		write(1, "Parsing Error\n", 14);

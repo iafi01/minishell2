@@ -62,6 +62,14 @@ typedef struct s_token
 	struct s_token *prec;
 }	t_token;
 
+typedef struct	s_command
+{
+	char	*cmd;
+	char	*out;
+	char	*in;
+	t_token	*par;
+}				t_command;
+
 typedef struct s_global
 {
     int  	argc;
