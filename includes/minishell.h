@@ -186,5 +186,17 @@ int		check_if_options(t_global *global, t_token *tkn, char *opt);
 int	check_if_cmd(t_token *tkn);
 int		is_path(char *str);
 
+//state.c
+t_command	*ft_state_0(t_token *token);
+t_command	*ft_state_10(t_token *token);
+t_command	*ft_state_1(t_token *token);
+t_command	*ft_state_2(t_token *token);
+t_command	*ft_state_3(t_token *token);
+
+//state2.c
+t_command	*ft_state_4(t_token *token);
+t_command	*ft_state_11(t_token *token);
+t_command	*ft_state_12(t_token *token);
+t_command	*ft_state_13(t_token *token);
 
 #endif
