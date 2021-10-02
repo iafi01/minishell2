@@ -8,6 +8,7 @@ t_command	*ft_state_4(t_token *token)
 	}
 	if (token->e_type == TK_PIPE)
 	{
+		write(1, "Pipe\n", 5);
 		return (NULL);//da creare nuovo comando
 	}
 	else if (token->e_type == TK_GREATER || token->e_type == TK_DGREA)
@@ -39,7 +40,7 @@ t_command	*ft_state_11(t_token *token)
 	{
 		return (NULL);
 	}
-	if (token->e_type == TK_DGREA || token->e_type == TK_GREATER)
+	if (token->e_type == TK_ID)
 		return (ft_state_10(token->next));
 	else
 	{
@@ -54,7 +55,7 @@ t_command	*ft_state_12(t_token *token)
 	{
 		return (NULL);
 	}
-	if (token->e_type == TK_LOWER)
+	if (token->e_type == TK_ID)
 		return (ft_state_10(token->next));
 	else
 	{
@@ -69,7 +70,7 @@ t_command	*ft_state_13(t_token *token)
 	{
 		return (NULL);
 	}
-	if (token->e_type == TK_DLOW)
+	if (token->e_type == TK_ID)
 		return (ft_state_10(token->next));
 	else
 	{

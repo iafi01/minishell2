@@ -45,6 +45,7 @@ t_command	*ft_state_10(t_token *token)
 	}
 	else if (token->e_type == TK_PIPE)
 	{
+		write(1, "Pipe\n", 5);
 		return (NULL);//creare un nuovo comando
 	}
 	else

@@ -163,8 +163,8 @@ int	loop(t_global *global)
 		// 	printf("Errore Parser\n");
 		// else if (err == -1)
 		// 	return (0);
-		debug_list(global->token);
-		ft_state_0(global->token);
+		// debug_list(global->token);
+		ft_state_0(global->token->next);
 		ft_free_list(global->token);
 		free(read);
 	}
