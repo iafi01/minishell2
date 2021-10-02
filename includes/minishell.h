@@ -101,15 +101,11 @@ int	    parsing_comand(char *line);
 int	    solo_spazi(char *line);
 
 //parsing3.c
-t_token	*ft_token_new(t_type token, char *val, int apici, t_token *prec);
-int		is_token(char *c);
-void	ft_free_list(t_token *list);
-int		ft_add_list(t_token *list, t_type type, char *val, int apici);
-int	is_token_type(int i);
+char *ft_alpha_give(char *s);
+char *ft_symbols_give(char *s);
+int	ft_add_list(t_token *list, t_type type, char *val, int apici);
 int ft_token_priority(t_global *global, t_token *token);
 
-//parsing3.c
-int	    check_apici_pos(char *line);
 
 //parser.c
 int ft_parsing(t_global *global);
@@ -180,5 +176,13 @@ int sostitute_set(t_global *global, int export);
 void ft_set(t_global *global);
 int	ft_export(t_global *global, int fd);
 int ft_exit(t_global *global);
+
+//parsing4.c
+t_token	*init_token(int type, char *val);
+int	is_token(char *c);
+int	is_token_type(int i);
+t_token	*ft_token_new(t_type token, char *val, int apici, t_token *prec);
+void	ft_free_list(t_token *list);
+
 
 #endif
