@@ -10,7 +10,7 @@ FOLDER = srcs
 
 SRCS_LIST = minishell.c parsing.c parsing2.c parsing3.c command.c debug.c \
 			parser.c utils.c utils2.c redirections.c utils3.c state.c state2.c \
-			command1.c command2.c parsing4.c \
+			state3.c command1.c command2.c parsing4.c \
 
 #HOMEBREW = homebrew/opt/readline/lib
 

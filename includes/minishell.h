@@ -187,16 +187,19 @@ int	check_if_cmd(t_token *tkn);
 int		is_path(char *str);
 
 //state.c
-t_command	*ft_state_0(t_token *token);
-t_command	*ft_state_10(t_token *token);
-t_command	*ft_state_1(t_token *token);
-t_command	*ft_state_2(t_token *token);
-t_command	*ft_state_3(t_token *token);
+t_command	*ft_state_0(t_token *token, t_command *cmd);
+t_command	*ft_state_10(t_token *token,t_command *cmd);
+t_command	*ft_state_1(t_token *token, t_command *cmd);
+t_command	*ft_state_2(t_token *token, t_command *cmd);
+t_command	*ft_state_3(t_token *token, t_command *cmd);
 
 //state2.c
-t_command	*ft_state_4(t_token *token);
-t_command	*ft_state_11(t_token *token);
-t_command	*ft_state_12(t_token *token);
-t_command	*ft_state_13(t_token *token);
+t_command	*ft_state_4(t_token *token, t_command *cmd);
+t_command	*ft_state_11(t_token *token, t_command *cmd);
+t_command	*ft_state_12(t_token *token, t_command *cmd);
+t_command	*ft_state_13(t_token *token, t_command *cmd);
 
+//state3.c
+t_command	*ft_command_new(void);
+t_command	*ft_cmd_init(t_command *cmd);
 #endif

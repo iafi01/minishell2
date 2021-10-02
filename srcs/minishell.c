@@ -125,6 +125,7 @@ void	ft_parse_split(char *line, t_token *token)
 int	loop(t_global *global)
 {
 	char		*read;
+	t_command	*cmd;
 	// int err;
 	// int	f;
 
@@ -164,7 +165,9 @@ int	loop(t_global *global)
 		// else if (err == -1)
 		// 	return (0);
 		// debug_list(global->token);
-		ft_state_0(global->token->next);
+		cmd = ft_command_new();
+		cmd = ft_cmd_init(cmd);
+		ft_state_0(global->token->next, cmd);
 		ft_free_list(global->token);
 		free(read);
 	}
