@@ -113,3 +113,36 @@ t_command	*ft_state_4(t_token *token)
 		return (NULL);
 	}
 }
+
+t_command	*ft_state_11(t_token *token)
+{
+	if (token->e_type == TK_DGREA || token->e_type == TK_GREATER)
+		return (ft_state_10(token->next));
+	else
+	{
+		write(1, "Parsing Error\n", 14);
+		return (NULL);
+	}
+}
+
+t_command	*ft_state_12(t_token *token)
+{
+	if (token->e_type == TK_LOWER)
+		return (ft_state_10(token->next));
+	else
+	{
+		write(1, "Parsing Error\n", 14);
+		return (NULL);
+	}
+}
+
+t_command	*ft_state_13(t_token *token)
+{
+	if (token->e_type == TK_DLOW)
+		return (ft_state_10(token->next));
+	else
+	{
+		write(1, "Parsing Error\n", 14);
+		return (NULL);
+	}
+}
