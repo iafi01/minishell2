@@ -2,6 +2,10 @@
 
 t_command	*ft_state_0(t_token *token)
 {
+	if (token == NULL)
+	{
+		return (NULL);
+	}
 	if (token->e_type == TK_ID)
 	{
 		return (ft_state_10(token->next));
@@ -27,6 +31,10 @@ t_command	*ft_state_0(t_token *token)
 
 t_command	*ft_state_10(t_token *token)
 {
+	if (token == NULL)
+	{
+		return (NULL);
+	}
 	if (token->e_type == TK_ID)
 	{
 		return (ft_state_10(token->next));
@@ -48,6 +56,10 @@ t_command	*ft_state_10(t_token *token)
 
 t_command	*ft_state_1(t_token *token)
 {
+	if (token == NULL)
+	{
+		return (NULL);
+	}
 	if (token->e_type == TK_ID)
 	{
 		return (ft_state_4(token->next));
@@ -61,6 +73,10 @@ t_command	*ft_state_1(t_token *token)
 
 t_command	*ft_state_2(t_token *token)
 {
+	if (token == NULL)
+	{
+		return (NULL);
+	}
 	if (token->e_type == TK_ID)
 	{
 		return (ft_state_4(token->next));
@@ -74,6 +90,10 @@ t_command	*ft_state_2(t_token *token)
 
 t_command	*ft_state_3(t_token *token)
 {
+	if (token == NULL)
+	{
+		return (NULL);
+	}
 	if (token->e_type == TK_ID)
 	{
 		return (ft_state_4(token->next));

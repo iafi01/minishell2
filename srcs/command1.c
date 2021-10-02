@@ -21,7 +21,7 @@ void ft_set(t_global *global)
 	global->envp = env;
 }
 
-int	ft_export(t_global *global, int fd)
+int	ft_export(t_global *global)
 {
 	t_envp *env;
 	t_envp *test;
@@ -82,4 +82,5 @@ int ft_exit(t_global *global)
 	}
 	if (arr[0])
 		exit(errno);
+	return (0);
 }

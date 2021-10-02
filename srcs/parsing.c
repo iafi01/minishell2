@@ -77,7 +77,7 @@ int check_inv(char *line)
 int init_parsing(char *line)
 {
 	if (solo_spazi(line))
-		return (1);
+		return (-1);
 	if (!check_apici(line))
 		return (1);
 	if (!check_inv(line))

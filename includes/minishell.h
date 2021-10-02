@@ -169,7 +169,7 @@ int sostitute_set(t_global *global, int export);
 
 //command1.c
 void ft_set(t_global *global);
-int	ft_export(t_global *global, int fd);
+int	ft_export(t_global *global);
 int ft_exit(t_global *global);
 
 //parsing4.c
