@@ -14,7 +14,7 @@ t_command	*ft_state_0(t_token *token, t_command *cmd)
 	else if (token->e_type == TK_GREATER || token->e_type == TK_DGREA)
 	{
 		if (token->next != NULL)
-			cmd->out = token->next->val;
+			ft_add_list(cmd->out, TK_ID, token->next->val, 0);
 		else
 		{
 			write(1, "Parsing Error\n", 14);
@@ -49,12 +49,14 @@ t_command	*ft_state_10(t_token *token, t_command *cmd)
 		cmd->par = token;
 	if (token->e_type == TK_ID)
 	{
+		if (cmd->par == NULL)
+			cmd->par = token;
 		return (ft_state_10(token->next, cmd));
 	}
 	else if (token->e_type == TK_GREATER || token->e_type == TK_DGREA)
 	{
 		if (token->next != NULL)
-			cmd->out = token->next->val;
+			ft_add_list(cmd->out, TK_ID, token->next->val, 0);
 		else
 		{
 			write(1, "Parsing Error\n", 14);
@@ -82,6 +84,7 @@ t_command	*ft_state_1(t_token *token, t_command *cmd)
 	}
 	if (token->e_type == TK_ID)
 	{
+		cmd->cmd = token->val;
 		return (ft_state_4(token->next, cmd));
 	}
 	else
@@ -99,6 +102,7 @@ t_command	*ft_state_2(t_token *token, t_command *cmd)
 	}
 	if (token->e_type == TK_ID)
 	{
+		cmd->cmd = token->val;
 		return (ft_state_4(token->next, cmd));
 	}
 	else
@@ -116,6 +120,7 @@ t_command	*ft_state_3(t_token *token, t_command *cmd)
 	}
 	if (token->e_type == TK_ID)
 	{
+		cmd->cmd = token->val;
 		return (ft_state_4(token->next, cmd));
 	}
 	else

@@ -65,8 +65,8 @@ typedef struct s_token
 typedef struct	s_command
 {
 	char	*cmd;
-	char	*out;
-	char	*in;
+	t_token	*out;
+	t_token	*in;
 	t_token	*par;
 }				t_command;
 
