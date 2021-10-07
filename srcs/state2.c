@@ -30,12 +30,24 @@ t_command	*ft_state_4(t_token *token, t_command *cmd)
 	}
 	else if (token->e_type == TK_LOWER)
 	{
-		//da implementare
+		if (token->next != NULL)
+			ft_add_list(cmd->in, TK_ID, token->next->val, 0);
+		else
+		{
+			write(1, "Parsing Error\n", 14);
+			return (NULL);
+		}
 		return (ft_state_2(token->next, cmd));
 	}
 	else if (token->e_type == TK_DLOW)
 	{
-		//da implementare
+		if (token->next != NULL)
+			ft_add_list(cmd->in, TK_ID, token->next->val, 0);
+		else
+		{
+			write(1, "Parsing Error\n", 14);
+			return (NULL);
+		}
 		return (ft_state_3(token->next, cmd));
 	}
 	else
