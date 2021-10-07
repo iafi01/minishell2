@@ -4,12 +4,26 @@ t_command	*ft_state_4(t_token *token, t_command *cmd)
 {
 	if (token == NULL)
 	{
-		return (NULL);
+		return (cmd);
 	}
 	if (token->e_type == TK_PIPE)
 	{
-		write(1, "Pipe\n", 5);
-		return (NULL);//da creare nuovo comando
+		if (cmd->next == NULL)
+		{
+			cmd->next = ft_command_new();
+			ft_cmd_init(cmd->next);
+			if (ft_state_0(token->next, cmd->next) == NULL)
+			{
+				write(1, "Parsing Error\n", 14);
+				return (NULL);
+			}
+		}
+		else
+		{
+			write(1, "Parsing Error\n", 14);
+			return (NULL);
+		}
+		return (cmd);
 	}
 	else if (token->e_type == TK_GREATER || token->e_type == TK_DGREA)
 	{
@@ -42,7 +56,7 @@ t_command	*ft_state_4(t_token *token, t_command *cmd)
 	else if (token->e_type == TK_DLOW)
 	{
 		if (token->next != NULL)
-			ft_add_list(cmd->in, TK_ID, token->next->val, 0);
+			ft_add_list(cmd->here_doc, TK_ID, token->next->val, 0);
 		else
 		{
 			write(1, "Parsing Error\n", 14);

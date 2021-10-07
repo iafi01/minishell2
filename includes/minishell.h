@@ -64,10 +64,12 @@ typedef struct s_token
 
 typedef struct	s_command
 {
-	char	*cmd;
-	t_token	*out;
-	t_token	*in;
-	t_token	*par;
+	char				*cmd;
+	t_token				*out;
+	t_token				*in;
+	t_token				*here_doc;
+	t_token				*par;
+	struct s_command	*next;
 }				t_command;
 
 typedef struct s_global
