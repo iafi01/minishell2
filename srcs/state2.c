@@ -93,7 +93,7 @@ t_command	*ft_state_12(t_token *token, t_command *cmd)
 		return (NULL);
 	}
 	if (token->e_type == TK_ID)
-		return (ft_state_10(token->next, cmd));//da implementare????
+		return (ft_state_10(token->next, cmd));
 	else
 	{
 		write(1, "Parsing Error\n", 14);
@@ -108,7 +108,7 @@ t_command	*ft_state_13(t_token *token, t_command *cmd)
 		return (NULL);
 	}
 	if (token->e_type == TK_ID)
-		return (ft_state_10(token->next, cmd));//da implementare????
+		return (ft_state_10(token->next, cmd));
 	else
 	{
 		write(1, "Parsing Error\n", 14);

@@ -9,13 +9,13 @@ char	*ft_apici_split(char *line)
 
 	s[1] = '\0';
 	apici = 0;
-	i = 0;
+	i = -1;
 	tmp = calloc(30, sizeof(char)); //cambiare 30
 	if (line[i] == 39)
 		apici = 1;
 	else if (line[i] == 34)
 		apici = 2;
-	while (line[i++])
+	while (line[++i])
 	{
 		if (line[i] == 32 /*|| is_token(line[i]) > 0*/)
 			break ;
@@ -69,6 +69,39 @@ char	*ft_apici_split(char *line)
 // 	}
 // }
 
+char *ft_stringa_unica(char *line, int *j)
+{
+	int i;
+	char *tmp;
+	char s[2];
+
+	s[1] = '\0';
+	tmp = calloc(30, sizeof(char));
+	i = 0;
+	while (line[++i])
+	{
+		j[0]++;
+		if (line[i] == 34 || line[i] == 39)
+			break ;
+		s[0] = line[i];
+		tmp = ft_strjoin(tmp, s);
+	}
+	if (line[i + 1] && line[i + 1] != ' ')
+	{
+		while (line[++i])
+		{
+			j[0]++;
+			if (line[i] == NULL || line[i] == ' ' || line[i] == 34 || line[i] == 39)
+				break ;
+			s[0] = line[i];
+			tmp = ft_strjoin(tmp, s);
+		}
+	}
+	if (line[i] == 34 || line[i] == 39)
+		tmp = ft_strjoin(tmp, ft_stringa_unica(line + i, j));
+	return (tmp);
+}
+
 void	ft_parse_split(char *line, t_token *token)
 {
 	int len;
@@ -82,6 +115,14 @@ void	ft_parse_split(char *line, t_token *token)
 	len = ft_strlen(line);
 	while (line[++i])
 	{
+		if (line[i] == 34 || line[i] == 39)
+		{
+			if (line[i] == 34)
+				ft_add_list(token, TK_ID, ft_stringa_unica(line + i, &i), 2);
+			else if (line[i] == 39)
+				ft_add_list(token, TK_ID, ft_stringa_unica(line + i, &i), 1);
+			continue ;
+		}
 		if (line[i] == 34 || line[i] == 39)
 		{
 			ft_strjoin(tmp, ft_apici_split(line + i));
@@ -127,7 +168,7 @@ int	loop(t_global *global)
 	char		*read;
 	t_command	*cmd;
 	// int err;
-	// int	f;
+	int	f;
 
 	while (1)
 	{
@@ -144,17 +185,16 @@ int	loop(t_global *global)
 		}
 		if (!strncmp(read, "", 2))
 			continue;
-		// add_history(read);
-		// f = init_parsing(read);
-		// if (f == 1 && *read != '\0')
-		// {
-		// 	printf("Error Parsing\n");
-		// 	free(read);
-		// 	continue ;
-		// }
+		add_history(read);
+		/*f = init_parsing(read);
+		if (f == 1 && *read != '\0')
+		{
+			printf("Error Parsing\n");
+			free(read);
+			continue ;
+		}*/
 		// else if (f == -1 && *read != '\0')
 		// 	continue ;
-		ft_parse_split(read, global->token);
 		// set_cmd(global->token, global);
 		// if (!ft_strncmp((const char*)global->token->next->val, "exit", 5))
 		// 	ft_exit(global);
@@ -164,7 +204,8 @@ int	loop(t_global *global)
 		// 	printf("Errore Parser\n");
 		// else if (err == -1)
 		// 	return (0);
-		// debug_list(global->token);
+		ft_parse_split(read, global->token);
+		debug_list(global->token);
 		cmd = ft_command_new();
 		cmd = ft_cmd_init(cmd);
 		ft_state_0(global->token->next, cmd);
