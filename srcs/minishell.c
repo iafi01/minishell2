@@ -205,6 +205,7 @@ int	loop(t_global *global)
 		// else if (err == -1)
 		// 	return (0);
 		ft_parse_split(read, global->token);
+		ft_expand(global->token);
 		debug_list(global->token);
 		cmd = ft_command_new();
 		cmd = ft_cmd_init(cmd);

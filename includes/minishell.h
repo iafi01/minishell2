@@ -204,4 +204,9 @@ t_command	*ft_state_13(t_token *token, t_command *cmd);
 //state3.c
 t_command	*ft_command_new(void);
 t_command	*ft_cmd_init(t_command *cmd);
+
+//expander
+void ft_expand(t_global *global);
+void	ft_expander(t_token *list, t_type type, char *val, int apici, t_token *nuovo);
+
 #endif
