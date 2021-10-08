@@ -58,7 +58,7 @@ int	ft_add_list(t_token *list, t_type type, char *val, int apici)
 			tmp = ft_strjoin(tmp, val);
 		list->next = ft_token_new(type, tmp, apici, prec);
 	}
-	else if (val != NULL && val[0] == '$' /*&& val[1] != '?'*/)
+	else if (val != NULL && val[0] == '$' && val[1] && apici != 1)
 	{
 		dollar = ft_split(val, '$');
 		while (dollar[i])
