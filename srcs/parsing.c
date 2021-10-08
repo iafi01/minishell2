@@ -60,22 +60,79 @@ int first_apice_index(char *line)
 	return (i);
 }
 
-int ft_apici_incrociati(char *line, int len)
+char	ft_invert_apici(char c)
+{
+	if (c == 34)
+		c = 39;
+	if (c == 39)
+		c = 34;
+	return (c);
+}
+
+int	ft_store_apici(int *ap, char *line)
+{
+	int	i;
+
+	ap[0] = 0;
+	ap[1] = 0;
+	i = -1;
+	while (line[++i])
+	{
+		if (line[i] == 34 && ap[0] != 0 && ap[1] == 0)
+		{
+			ap[1] = 2;
+			i++;
+			break ;
+		}
+		else if (line[i] == 39 && ap[0] != 0 && ap[1] == 0)
+		{
+			ap[1] = 1;
+			i++;
+			break ;
+		}
+		if (line[i] == 34 && ap[0] == 0)
+			ap[0] = 2;
+		else if (line[i] == 39 && ap[0] == 0)
+			ap[0] = 1;
+	}
+	return (i);
+}
+
+int ft_apici_1(char *line)
 {
 	int i;
-	int first;
+	int	ap[2];
+	
+	i = ft_store_apici(ap, line);
+	if (ap[0] == 1 && ap[1] == 2)
+		return (ft_apici_0(line + i));
+	return (1);
+}
 
-	first = first_apice(line);
-	int first_index = first_apice_index(line);
-	i = 0;
-	while (line[len])
-	{
-		if (line[len] == first)
-			return (ft_apici_incrociati(line+first_index, len));
-		else if ((line[len] == 39 && first == 34) || (line[len] == 34 && first == 39))
-			return (1);
-		len--;
-	}
+int ft_apici_2(char *line)
+{
+	int i;
+	int	ap[2];
+	
+	i = ft_store_apici(ap, line);
+	if (ap[0] == 2 && ap[1] == 1)
+		return (ft_apici_0(line + i));
+	return (1);
+}
+
+int ft_apici_0(char *line)
+{
+	int i;
+	int	ap[2];
+	
+	i = ft_store_apici(ap, line);
+	if ((ap[0] == 1 && ap[1] == 1) || (ap[0] == 2 && ap[1] == 2))
+		return (ft_apici_0(line + i));
+	else if (ap[0] == 2 && ap[1] == 1)
+		return (ft_apici_1(line + i));
+	else if (ap[0] == 1 && ap[1] == 2)
+		return (ft_apici_2(line + i));
+	return (0);
 }
 
 int init_parsing(char *line)
@@ -84,7 +141,7 @@ int init_parsing(char *line)
 		return (-1);
 	if (ft_apici_pari(line))
 		return (1);
-	if (ft_apici_incrociati(line, ft_strlen(line)))
+	if (ft_apici_0(line))
 		return (1);
 	return (0);
 }

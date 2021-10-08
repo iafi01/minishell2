@@ -16,4 +16,5 @@ t_command	*ft_cmd_init(t_command *cmd)
 	cmd->here_doc = ft_token_new(TK_ID, NULL, 0, NULL);
 	cmd->next = NULL;
 	cmd->par = NULL;
+	return (cmd);
 }

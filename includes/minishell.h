@@ -80,12 +80,13 @@ typedef struct s_global
     char 	**args;
 	char	**envp;
 	struct s_envp *env;
+	t_command	*simple_cmd;
 	int		size;
 }   			t_global;
 
 //minishell.c
 void    sign_handler(int sig);
-void	ft_parse_split(char *line, t_token *token);
+void	ft_lexer(char *line, t_token *token);
 int		ft_get_size(char **envp);
 
 //parsing.c
@@ -94,6 +95,9 @@ char    *skip_spaces(char *str);
 int     check_apici(char *line);
 int     cerca_apici(char *line);
 int     control_apici(int s_apici, int d_apici);
+int 	ft_apici_0(char *line);
+int 	ft_apici_1(char *line);
+int 	ft_apici_2(char *line);
 
 
 //parsing2.c

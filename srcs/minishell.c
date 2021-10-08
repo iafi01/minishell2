@@ -91,7 +91,7 @@ char *ft_stringa_unica(char *line, int *j)
 		while (line[++i])
 		{
 			j[0]++;
-			if (line[i] == NULL || line[i] == ' ' || line[i] == 34 || line[i] == 39)
+			if (line[i] == 0 || line[i] == ' ' || line[i] == 34 || line[i] == 39)
 				break ;
 			s[0] = line[i];
 			tmp = ft_strjoin(tmp, s);
@@ -102,7 +102,7 @@ char *ft_stringa_unica(char *line, int *j)
 	return (tmp);
 }
 
-void	ft_parse_split(char *line, t_token *token)
+void	ft_lexer(char *line, t_token *token)
 {
 	int len;
 	int i;
@@ -166,8 +166,6 @@ void	ft_parse_split(char *line, t_token *token)
 int	loop(t_global *global)
 {
 	char		*read;
-	t_command	*cmd;
-	// int err;
 	int	f;
 
 	while (1)
@@ -177,7 +175,6 @@ int	loop(t_global *global)
 		read = ft_strjoin(ft_strjoin("\e[0;32m<\e\033[0;37m", getenv("USER")),
 	           "\033[0;31m>\e \033[0;37m ");
 		read = readline(read);
-		//read = " echo \"'ciao'\" ";
 		if (read == NULL)
 		{
 			printf("exit");
@@ -193,23 +190,11 @@ int	loop(t_global *global)
 			free(read);
 			continue ;
 		}
-		// else if (f == -1 && *read != '\0')
-		// 	continue ;
-		// set_cmd(global->token, global);
-		// if (!ft_strncmp((const char*)global->token->next->val, "exit", 5))
-		// 	ft_exit(global);
-		// err = ft_parsing(global);
-		//print_tokens(global);
-		// if (err == 0)
-		// 	printf("Errore Parser\n");
-		// else if (err == -1)
-		// 	return (0);
-		ft_parse_split(read, global->token);
-		//ft_expand(global->token);
+		ft_lexer(read, global->token);
 		debug_list(global->token);
-		cmd = ft_command_new();
-		cmd = ft_cmd_init(cmd);
-		ft_state_0(global->token->next, cmd);
+		global->simple_cmd = ft_command_new();
+		global->simple_cmd = ft_cmd_init(global->simple_cmd);
+		ft_state_0(global->token->next, global->simple_cmd);
 		ft_free_list(global->token);
 		free(read);
 	}
