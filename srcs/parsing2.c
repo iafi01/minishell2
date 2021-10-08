@@ -23,9 +23,9 @@ int first_apice(char *line)
 	while (line[i++] != '\0')
 	{
 		if (line[i] == 39)
-			return (1);
+			return (39);
 		else if (line[i] == 34)
-			return (2);
+			return (34);
 	}
 	return (0);
 }

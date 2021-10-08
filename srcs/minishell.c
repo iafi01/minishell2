@@ -186,13 +186,13 @@ int	loop(t_global *global)
 		if (!strncmp(read, "", 2))
 			continue;
 		add_history(read);
-		/*f = init_parsing(read);
+		f = init_parsing(read);
 		if (f == 1 && *read != '\0')
 		{
 			printf("Error Parsing\n");
 			free(read);
 			continue ;
-		}*/
+		}
 		// else if (f == -1 && *read != '\0')
 		// 	continue ;
 		// set_cmd(global->token, global);
