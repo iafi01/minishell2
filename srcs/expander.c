@@ -26,6 +26,7 @@ void ft_expander(t_token *list, t_type type, char *val, int apici, t_token *nuov
 	int i;
 	char *tmp;
 
+    i = 0;
     if (val != NULL && val[0] == '~')
         nuovo->next = ft_token_new(type, getenv("HOME"), apici, prec);
     else if (val != NULL && val[0] == '$')

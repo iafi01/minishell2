@@ -51,7 +51,31 @@ int	ft_add_list(t_token *list, t_type type, char *val, int apici)
 	tmp = calloc(30, sizeof(char));
 	list = ft_find_end(list);
 	prec = list;
-	list->next = ft_token_new(type, val, apici, prec);
+	if (val != NULL && val[0] == '~')
+	{
+		tmp = getenv("HOME");
+		if (++val)
+			tmp = ft_strjoin(tmp, val);
+		list->next = ft_token_new(type, tmp, apici, prec);
+	}
+	else if (val != NULL && val[0] == '$' /*&& val[1] != '?'*/)
+	{
+		dollar = ft_split(val, '$');
+		while (dollar[i])
+		{
+			if (getenv(ft_alpha_give(dollar[i])))
+			{
+				tmp = ft_strjoin(tmp ,getenv(ft_alpha_give(dollar[i])));
+				if (ft_symbols_give(dollar[i]))
+					tmp = ft_strjoin(tmp , ft_symbols_give(dollar[i]));
+			}
+			i++;
+		}
+		if (tmp)
+			list->next = ft_token_new(type, tmp, apici, prec);
+	}
+	else
+		list->next = ft_token_new(type, val, apici, prec);
 	if (list->next)
 		return (1);
 	return (0);
