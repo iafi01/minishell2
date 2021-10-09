@@ -69,7 +69,7 @@ char	ft_invert_apici(char c)
 	return (c);
 }
 
-int	ft_store_apici(int *ap, char *line)
+/*int	ft_store_apici(int *ap, char *line)
 {
 	int	i;
 
@@ -96,8 +96,8 @@ int	ft_store_apici(int *ap, char *line)
 			ap[0] = 1;
 	}
 	return (i);
-}
-
+}*/
+/*
 int ft_apici_1(char *line)
 {
 	int i;
@@ -133,15 +133,75 @@ int ft_apici_0(char *line)
 	else if (ap[0] == 1 && ap[1] == 2)
 		return (ft_apici_2(line + i));
 	return (0);
+}*/
+
+int ft_strchr2(const char *s, char c)
+{
+	while (*s && *s != c)
+		s++;
+	if (*s == c)
+		return (1);
+	return (0);
+}
+
+/*int ft_apici_inv(char *line)
+{
+	int i;
+	char *copy;
+	char c;
+	char *ret;
+
+	int j = 0;
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] == 34 || line[i] == 39)
+		{
+			c = line[i];
+			if (ft_strchr2(&line[i + 1], c) == 1)
+			{
+				i++;
+				while (line[i] != c)
+				{
+					copy[j] = line[i];
+					j++;
+					i++;
+				}
+			}
+		}
+
+		ft_strjoin(ret, copy);
+		i++;
+	}
+}*/
+
+int ft_apici_invers(char *line)
+{
+	int i;
+	char c;
+	int count = 0;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] == 34 || line[i] == 39)
+		{
+			c = line[i];
+			count++;
+		}
+		if (line[i] == ' ' && count == 2)
+			return (1);
+		if (count == 1 && line[i] == c)
+			ft_apici_invers(&line[i + 1]);
+		i++;
+	}
 }
 
 int init_parsing(char *line)
 {
 	if (solo_spazi(line))
 		return (-1);
-	if (ft_apici_pari(line))
-		return (1);
-	if (ft_apici_0(line))
+	if (ft_apici_invers(line))
 		return (1);
 	return (0);
 }
