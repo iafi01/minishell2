@@ -150,7 +150,7 @@ char	*find_path2(char **paths, char *cmd);
 
 //redirections.c
 int ft_redirect_maggiore(t_global *global, t_token *token);
-int ft_redirect_pipe(t_global *global, t_token *token);
+int ft_redirect_pipe(t_global *global, t_command *cmd);
 int ft_redirect_minore(t_global *global, t_token *token);
 int ft_redirect_dmaggiore(t_global *global, t_token *token);
 int ft_redirect_dminore(t_global *global, t_token *token);
@@ -192,6 +192,10 @@ int		check_if_options(t_global *global, t_token *tkn, char *opt);
 int	check_if_cmd(t_token *tkn);
 int		is_path(char *str);
 
+// utils5.c
+void    ft_print_error(char *str);
+size_t	get_size_simple_com(t_command *coms);
+
 //state.c
 t_command	*ft_state_0(t_token *token, t_command *cmd);
 t_command	*ft_state_10(t_token *token,t_command *cmd);
@@ -212,5 +216,9 @@ t_command	*ft_cmd_init(t_command *cmd);
 //expander
 void ft_expand(t_global *global);
 void	ft_expander(t_token *list, t_type type, char *val, int apici, t_token *nuovo);
+
+//executor.c
+
+void    ft_exe_commands(t_global * global, t_command * simple_coms);
 
 #endif

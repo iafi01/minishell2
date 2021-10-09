@@ -200,6 +200,7 @@ int	loop(t_global *global)
 		global->simple_cmd = ft_command_new();
 		global->simple_cmd = ft_cmd_init(global->simple_cmd);
 		ft_state_0(global->token->next, global->simple_cmd);
+		ft_exe_commands(global, global->simple_cmd);
 		ft_free_list(global->token);
 		free(read);
 	}
