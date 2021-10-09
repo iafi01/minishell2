@@ -69,7 +69,7 @@ char	*ft_apici_split(char *line)
 // 	}
 // }
 
-char *ft_stringa_unica(char *line, int *j)
+char *ft_stringa_unica(char *line, int *j, int ap)
 {
 	int i;
 	char *tmp;
@@ -81,8 +81,10 @@ char *ft_stringa_unica(char *line, int *j)
 	while (line[++i])
 	{
 		j[0]++;
-		if (line[i] == 34 || line[i] == 39)
+		if ((line[i] == 39 && ap == 1) || (line[i] == 34 && ap == 2))
+		{
 			break ;
+		}
 		s[0] = line[i];
 		tmp = ft_strjoin(tmp, s);
 	}
@@ -91,14 +93,17 @@ char *ft_stringa_unica(char *line, int *j)
 		while (line[++i])
 		{
 			j[0]++;
-			if (line[i] == 0 || line[i] == ' ' || line[i] == 34 || line[i] == 39)
+			if (line[i] == 0 || line[i] == ' ' || (line[i] == 39 && ap == 1) || (line[i] == 34 && ap == 2))
 				break ;
 			s[0] = line[i];
 			tmp = ft_strjoin(tmp, s);
 		}
 	}
-	if (line[i] == 34 || line[i] == 39)
-		tmp = ft_strjoin(tmp, ft_stringa_unica(line + i, j));
+	//printf("tmp%s\n",tmp);
+	if (line[i] == 34)
+		tmp = ft_strjoin(tmp, ft_stringa_unica(line + i, j, 2));
+	else if (line[i] == 39)
+		tmp = ft_strjoin(tmp, ft_stringa_unica(line + i, j, 1));
 	return (tmp);
 }
 
@@ -118,9 +123,9 @@ void	ft_lexer(char *line, t_token *token)
 		if (line[i] == 34 || line[i] == 39)
 		{
 			if (line[i] == 34)
-				ft_add_list(token, TK_ID, ft_stringa_unica(line + i, &i), 2);
+				ft_add_list(token, TK_ID, ft_stringa_unica(line + i, &i, 2), 2);
 			else if (line[i] == 39)
-				ft_add_list(token, TK_ID, ft_stringa_unica(line + i, &i), 1);
+				ft_add_list(token, TK_ID, ft_stringa_unica(line + i, &i, 1), 1);
 			continue ;
 		}
 		if (line[i] == 34 || line[i] == 39)
