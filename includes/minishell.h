@@ -115,7 +115,7 @@ int ft_is_command(enum e_type i);
 
 //parser.c
 int ft_parsing(t_global *global);
-int exec_build_in(t_global *global, t_token *token, int fd);
+int ft_exec_build_in(t_global *global, t_command *cmd, int fdi, int fdo);
 int ft_print_envvar(char *line, t_global *global);
 int	check_apice(char *line);
 
@@ -175,7 +175,7 @@ int sostitute_set(t_global *global, int export);
 
 //command1.c
 void ft_set(t_global *global);
-int	ft_export(t_global *global);
+int	ft_export(t_global *global, int fdo);
 int ft_exit(t_global *global);
 
 //parsing4.c

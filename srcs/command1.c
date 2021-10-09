@@ -21,7 +21,7 @@ void ft_set(t_global *global)
 	global->envp = env;
 }
 
-int	ft_export(t_global *global)
+int	ft_export(t_global *global, int fdo)
 {
 	t_envp *env;
 	t_envp *test;
@@ -47,7 +47,11 @@ int	ft_export(t_global *global)
 		{
 			if (env->index == i)
 			{
-				printf("%s=%s\n", env->first, env->second);
+				write(fdo, env->first, ft_strlen(env->first));
+				write(fdo, "=", 1);
+				write(fdo, env->second, ft_strlen(env->second));
+				write(fdo, "\n", 1);
+		//		printf("%s=%s\n", env->first, env->second);
 				i++;
 			}	
 			env = env->next;

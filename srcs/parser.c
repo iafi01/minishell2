@@ -67,45 +67,6 @@ int ft_check_tokens(t_token *token)
 //     return (1);
 // }
 
-// int exec_build_in(t_global *global, t_token *token, int fd)
-// {
-//     int i;
-//     char **spl;
-
-//     i = 0;
-//     if (token->e_type == CM_ECHO)
-//         i = ft_echo(global, fd);
-//     if (token->e_type == CM_ENV)
-//         i = ft_env(global, fd);
-//     if (token->e_type == CM_CD)
-//         i = ft_cd(global->token->next);
-//     if (token->e_type == CM_EXP)
-//         i = ft_export(global, fd);
-//     if (token->e_type == CM_PWD)
-//         i = ft_pwd(fd);
-//     if (token->e_type == CM_UNS)
-//         i = ft_unset(global);
-//     if (token->e_type == TK_ID && ft_split(token->val, '='))
-//     {
-//         spl = ft_split(token->val, '=');
-//         if (cerca_variabile(spl[0]) != NULL)
-//             i = sostitute_set(global, 0);
-//         return (0);
-//     }
-//     if (token->e_type == CM_EXIT)
-//         return (0);
-//     if (token->e_type == CM_CMD)
-//     {
-//         if (fork() == 0)
-//         {
-//             spl = get_options(token);
-//             execve(find_path(global->envp, spl[0]), spl ,NULL);
-//         }
-//     }
-//     wait(0);
-//     return (i);
-// }
-
 void    sub_var(t_token *list)
 {
 	while (list != NULL)
