@@ -181,20 +181,42 @@ int ft_apici_invers(char *line)
 	char c;
 	int count = 0;
 
-	i = 0;
-	while (line[i])
+	i = -1;
+	//printf("%s\n", line);
+	while (line[++i])
 	{
-		if (line[i] == 34 || line[i] == 39)
+		if (line[i] == 34)
 		{
-			c = line[i];
-			count++;
-		}
-		if (line[i] == ' ' && count == 2)
+			i++;
+			while (line[i])
+			{
+				if (line[i] == 34)
+					if (line[i + 1])
+						return (ft_apici_invers(&line[i + 1]));
+					else
+						return (0);
+				i++;
+			}
 			return (1);
-		if (count == 1 && line[i] == c)
-			ft_apici_invers(&line[i + 1]);
-		i++;
+		}
+		else if (line[i] == 39)
+		{
+			i++;
+			while (line[i])
+			{
+				if (line[i] == 39)
+					if (line[i + 1])
+						return (ft_apici_invers(&line[i + 1]));
+					else
+						return (0);
+				i++;
+			}
+			return (1);
+		}
 	}
+	if (count == 1)
+		return (1);
+	return (0);
 }
 
 int init_parsing(char *line)
