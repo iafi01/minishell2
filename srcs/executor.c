@@ -8,7 +8,7 @@ int    ft_exe_one(t_global * global, t_command *coms)
 
     fdi = STDIN_FILENO;
     fdo = STDOUT_FILENO;
-    //ft_redirect(coms, &fdi, &fdo);
+    ft_redirect(coms, &fdi, &fdo);
     ret = ft_exec_build_in(global, coms, fdi, fdo);
     return (ret);
 }

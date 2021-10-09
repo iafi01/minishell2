@@ -149,11 +149,12 @@ char	*find_path(char **envp, char *cmd);
 char	*find_path2(char **paths, char *cmd);
 
 //redirections.c
-int ft_redirect_maggiore(t_global *global, t_token *token);
-int ft_redirect_pipe(t_global *global, t_command *cmd);
-int ft_redirect_minore(t_global *global, t_token *token);
+int ft_redirect_maggiore(char *file, int *fdo);
+int ft_redirect_minore(char *file, int *fdi);
 int ft_redirect_dmaggiore(t_global *global, t_token *token);
 int ft_redirect_dminore(t_global *global, t_token *token);
+void ft_redirect(t_command * coms, int *fdi, int *fdo);
+
 
 void	free_arr(char **arr);
 int first_apice(char *line);
@@ -220,5 +221,6 @@ void	ft_expander(t_token *list, t_type type, char *val, int apici, t_token *nuov
 //executor.c
 
 void    ft_exe_commands(t_global * global, t_command * simple_coms);
+int		ft_redirect_pipe(t_global *global, t_command *cmd);
 
 #endif
