@@ -27,15 +27,16 @@ int ft_exec_build_in(t_global *global, t_command *cmd, int fdi, int fdo)
     char **spl;
 
     i = 0;
-    if (!ft_strncmp(cmd->cmd, "echo", 5))
+
+    if (!ft_strncmp(str_tolower(cmd->cmd), "echo", 5))
         i = ft_echo(global, fdo);
-    else if (!ft_strncmp(cmd->cmd, "env", 4))
+    else if (!ft_strncmp(str_tolower(cmd->cmd), "env", 4))
         i = ft_env(global, fdo);
     else if (!ft_strncmp(cmd->cmd, "cd", 3))
         i = ft_cd(global->token->next);
     else if (!ft_strncmp(cmd->cmd, "export", 7))
         i = ft_export(global, fdo);
-    else if (!ft_strncmp(cmd->cmd, "pwd", 4))
+    else if (!ft_strncmp(str_tolower(cmd->cmd), "pwd", 4))
         i = ft_pwd(fdo);
     else if (!ft_strncmp(cmd->cmd, "unset", 6))
         i = ft_unset(global);

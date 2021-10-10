@@ -17,3 +17,19 @@ size_t	get_size_simple_com(t_command *coms)
 	}
 	return (count);
 }
+
+char*	str_tolower(char *str)
+{
+	int i;
+	char *ret;
+
+	i = 0;
+	ret = ft_strdup(str);
+	while (ret[i])
+	{
+		if (ret[i] >= 'A' && ret[i] <= 'Z')
+			ret[i] += 32;
+		i++;
+	}
+	return (ret);
+}

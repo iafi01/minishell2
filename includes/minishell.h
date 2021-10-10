@@ -196,6 +196,7 @@ int		is_path(char *str);
 // utils5.c
 void    ft_print_error(char *str);
 size_t	get_size_simple_com(t_command *coms);
+char*	str_tolower(char *str);
 
 //state.c
 t_command	*ft_state_0(t_token *token, t_command *cmd);
