@@ -17,13 +17,16 @@
 // 	arr = NULL;
 // }
 
-int ft_redirect_maggiore(char *file, int *fdo)
+int ft_redirect_maggiore(t_redirect *red, int *fdo)
 {
     int			fd_new;
 
     if (*fdo != STDOUT_FILENO)
         close (*fdo);
-    fd_new = open(file, O_WRONLY | O_CREAT | O_TRUNC);
+    if (red->red_type == TK_GREATER)
+        fd_new = open(red->file, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+    else
+        fd_new = open(red->file, O_WRONLY | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
     if (fd_new < 0)
     {
         ft_print_error("Errore in open\n");
@@ -134,6 +137,8 @@ int ft_redirect_minore(char *file, int *fdi)
 {
     int fd_new;
 
+    if (*fdi != STDIN_FILENO)
+        close (*fdi);
     fd_new = open(file, O_RDONLY);
     if (fd_new < 0)
     {
@@ -141,12 +146,7 @@ int ft_redirect_minore(char *file, int *fdi)
         ft_print_error("Errore open file\n");
         return (-1);
     }
-    if (dup2(fd_new, *fdi) != 0)
-    {
-        ft_print_error("Errore dup2 open\n");
-        return (-1);
-    }
-    close (fd_new);
+    *fdi = fd_new;
     return (0);  
 }
 
@@ -192,26 +192,32 @@ int ft_redirect_minore(char *file, int *fdi)
 // // 	return (1);
 // // }
 
-// int ft_redirect_dminore(t_global *global, t_token *token)
-// {
+int ft_redirect_dminore(t_global *global, t_token *token)
+{
 	
-//     return (1);
-// }
+    return (1);
+}
 
 void    ft_redirect(t_command *coms, int *fdi, int *fdo)
 {
-    t_token *temp;
+    t_list *temp;
 
     temp = coms->in;
-    while (temp->val)
+    while (temp)
     {
-        ft_redirect_minore(temp->val, fdi);
+        ft_redirect_minore(temp->content, fdi);
         temp = temp->next;
     }
     temp = coms->out;
-    while (temp->val)
+    while (temp)
     {
-        ft_redirect_maggiore(temp->val, fdo);
+        ft_redirect_maggiore(temp->content, fdo);
+        temp = temp->next;
+    }
+    temp = coms->here_doc;
+    while (temp)
+    {
+        ft_redirect_dminore(temp->content, fdo);
         temp = temp->next;
     }
 }

@@ -62,13 +62,22 @@ typedef struct s_token
 	struct s_token *prec;
 }	t_token;
 
+typedef	struct s_redirect
+{
+	char	*file;
+	t_type	red_type;
+}			t_redirect;
+
 typedef struct	s_command
 {
 	char				*cmd;
-	t_token				*out;
-	t_token				*in;
-	t_token				*here_doc;
-	t_token				*par;
+//	t_token				*out;
+//	t_token				*in;
+//	t_token				*here_doc;
+	t_list				*out;
+	t_list				*in;
+	t_list				*here_doc;
+	t_list				*par;
 	struct s_command	*next;
 }				t_command;
 
@@ -149,10 +158,10 @@ char	*find_path(char **envp, char *cmd);
 char	*find_path2(char **paths, char *cmd);
 
 //redirections.c
-int ft_redirect_maggiore(char *file, int *fdo);
+int ft_redirect_maggiore(t_redirect *red, int *fdo);
 int ft_redirect_minore(char *file, int *fdi);
-int ft_redirect_dmaggiore(t_global *global, t_token *token);
-int ft_redirect_dminore(t_global *global, t_token *token);
+// int ft_redirect_dmaggiore(t_global *global, t_token *token);
+// int ft_redirect_dminore(t_global *global, t_token *token);
 void ft_redirect(t_command * coms, int *fdi, int *fdo);
 
 
@@ -197,17 +206,19 @@ int		is_path(char *str);
 void    ft_print_error(char *str);
 size_t	get_size_simple_com(t_command *coms);
 char*	str_tolower(char *str);
+t_redirect	*ft_new_redirect(char *file, t_type red_type);
+void	*ft_free_redirect(t_redirect *to_free);
 
 //state.c
 t_command	*ft_state_0(t_token *token, t_command *cmd);
 t_command	*ft_state_10(t_token *token,t_command *cmd);
-t_command	*ft_state_1(t_token *token, t_command *cmd);
+t_command	*ft_state_1(t_token *token, t_command *cmd, t_type red_type);
 t_command	*ft_state_2(t_token *token, t_command *cmd);
 t_command	*ft_state_3(t_token *token, t_command *cmd);
 
 //state2.c
 t_command	*ft_state_4(t_token *token, t_command *cmd);
-t_command	*ft_state_11(t_token *token, t_command *cmd);
+t_command	*ft_state_11(t_token *token, t_command *cmd, t_type red_type);
 t_command	*ft_state_12(t_token *token, t_command *cmd);
 t_command	*ft_state_13(t_token *token, t_command *cmd);
 
