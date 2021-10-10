@@ -192,10 +192,22 @@ int ft_redirect_minore(char *file, int *fdi)
 // // 	return (1);
 // // }
 
-int ft_redirect_dminore(t_global *global, t_token *token)
+void ft_redirect_dminore(t_command *coms, int *fdi, int *fdo)
 {
-	
-    return (1);
+    char *read;
+
+    while (1)
+    {
+        read = readline(read);
+        if (read == NULL)
+        {
+            printf("exit");
+            exit(0);
+        }
+        if (!strncmp(coms, read, ft_strlen(coms) + 1))
+            return ;
+        free(read);
+    }
 }
 
 void    ft_redirect(t_command *coms, int *fdi, int *fdo)
@@ -217,7 +229,7 @@ void    ft_redirect(t_command *coms, int *fdi, int *fdo)
     temp = coms->here_doc;
     while (temp)
     {
-        ft_redirect_dminore(temp->content, fdo);
+        ft_redirect_dminore(temp->content, fdi, fdo);
         temp = temp->next;
     }
 }
