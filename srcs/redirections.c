@@ -195,7 +195,17 @@ int ft_redirect_minore(char *file, int *fdi)
 void ft_redirect_dminore(t_command *coms, int *fdi, int *fdo)
 {
     char *read;
+    int fd;
 
+    if (*fdo != STDOUT_FILENO)
+        close (*fdo);
+    fd = open("here_doc", O_WRONLY | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+    if (fd < 0)
+    {
+        perror("here_doc");
+        ft_print_error("Errore open file\n");
+        return ;
+    }
     while (1)
     {
         read = readline(read);
@@ -204,6 +214,7 @@ void ft_redirect_dminore(t_command *coms, int *fdi, int *fdo)
             printf("exit");
             exit(0);
         }
+        write(fd, read, ft_strlen(read) + 1);
         if (!strncmp(coms, read, ft_strlen(coms) + 1))
             return ;
         free(read);
