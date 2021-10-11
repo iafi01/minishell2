@@ -1,21 +1,21 @@
 #include "../includes/minishell.h"
 
-// void	free_arr(char **arr)
-// {
-// 	int	i;
+void	free_arr(char **arr)
+{
+	int	i;
 
-// 	i = 0;
-// 	if (!arr)
-// 		return ;
-// 	while (arr[i])
-// 	{
-// 		free(*arr);
-// 		*arr = NULL;
-// 		i++;
-// 	}
-// 	free(arr);
-// 	arr = NULL;
-// }
+	i = 0;
+	if (!arr)
+		return ;
+	while (arr[i])
+	{
+		free(*arr);
+		*arr = NULL;
+		i++;
+	}
+	free(arr);
+	arr = NULL;
+}
 
 int ft_redirect_maggiore(t_redirect *red, int *fdo)
 {
@@ -84,54 +84,54 @@ int ft_redirect_maggiore(t_redirect *red, int *fdo)
 //     return (list);
 // }
 
-// char	*find_path2(char **paths, char *cmd)
-// {
-// 	int		i;
-// 	char	*folder;
-// 	char	*path;
+char	*find_path2(char **paths, char *cmd)
+{
+	int		i;
+	char	*folder;
+	char	*path;
 
-// 	i = 0;
-// 	while (paths[i])
-// 	{
-// 		folder = ft_strjoin(paths[i], "/");
-// 		path = ft_strjoin(folder, cmd);
-// 		ft_str_delete(&folder);
-// 		if (open(path, O_RDONLY) != -1)
-// 			return (path);
-// 		ft_str_delete(&path);
-// 		i++;
-// 	}
-// 	if (is_path(cmd))
-// 		if (open(cmd, O_RDONLY) != -1)
-// 			return (cmd);
-// 	if (!paths[i])
-// 	{
-//         printf("Command not found\n");
-// 		return (NULL);
-//     }
-// 	return (NULL);
-// }
+	i = 0;
+	while (paths[i])
+	{
+		folder = ft_strjoin(paths[i], "/");
+		path = ft_strjoin(folder, cmd);
+		ft_str_delete(&folder);
+		if (open(path, O_RDONLY) != -1)
+			return (path);
+		ft_str_delete(&path);
+		i++;
+	}
+	if (is_path(cmd))
+		if (open(cmd, O_RDONLY) != -1)
+			return (cmd);
+	if (!paths[i])
+	{
+        printf("Command not found\n");
+		return (NULL);
+    }
+	return (NULL);
+}
 
-// char	*find_path(char **envp, char *cmd)
-// {
-// 	int		i;
-// 	char	**paths;
-// 	char	*path;
+char	*find_path(char **envp, char *cmd)
+{
+	int		i;
+	char	**paths;
+	char	*path;
 
-// 	i = 0;
+	i = 0;
 
-// 	while (ft_strncmp(envp[i], "PATH=", 5))
-// 		i++;
-// 	paths = ft_split((envp[i]) + 5, ':');
-// 	path = find_path2(paths, cmd);
-// 	if (paths == NULL)
-//     {
-// 		write (2, "Path é nullo\n", 13);
-//         return (NULL);
-//     }
-//     free_arr(paths);
-// 	return (path);
-// }
+	while (ft_strncmp(envp[i], "PATH=", 5))
+		i++;
+	paths = ft_split((envp[i]) + 5, ':');
+	path = find_path2(paths, cmd);
+	if (paths == NULL)
+    {
+		write (2, "Path é nullo\n", 13);
+        return (NULL);
+    }
+    free_arr(paths);
+	return (path);
+}
 
 int ft_redirect_minore(char *file, int *fdi)
 {
