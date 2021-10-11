@@ -56,6 +56,13 @@ int ft_exec_build_in(t_global *global, t_command *cmd, int fdi, int fdo)
     //         execve(find_path(global->envp, spl[0]), spl ,NULL);
     //     }
     // }
+    else
+    {
+        if (fork() == 0)
+        {
+            execve(find_path(global->envp, cmd->cmd), list_to_arr(cmd->par) , NULL);
+        }
+    }
     wait(0);
     return (i);
 }

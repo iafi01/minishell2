@@ -195,19 +195,18 @@ int ft_redirect_minore(char *file, int *fdi)
 void ft_redirect_dminore(t_command *coms, int *fdi, int *fdo)
 {
     char *read;
-    int fd;
+    int fd[2];
+	int ret;
 
-    if (*fdo != STDOUT_FILENO)
-        close (*fdo);
-    fd = open("here_doc", O_WRONLY | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-    if (fd < 0)
-    {
-        perror("here_doc");
-        ft_print_error("Errore open file\n");
-        return ;
-    }
+	ret = pipe(fd);
+    if (*fdi != STDIN_FILENO)
+        close (*fdi);
+	*fdi = fd[0];
+	read = malloc(sizeof(char) * 30);
+	//signals
     while (1)
     {
+		read = ">";
         read = readline(read);
         if (read == NULL)
         {
@@ -217,14 +216,22 @@ void ft_redirect_dminore(t_command *coms, int *fdi, int *fdo)
         write(fd, read, ft_strlen(read) + 1);
         if (!strncmp(coms, read, ft_strlen(coms) + 1))
             return ;
-        free(read);
+        read = ft_memset((void*)read, '\0', ft_strlen(read));
     }
+	free(read);
+	close(fd[1]);
 }
 
 void    ft_redirect(t_command *coms, int *fdi, int *fdo)
 {
     t_list *temp;
 
+	temp = coms->here_doc;
+    while (temp)
+    {
+        ft_redirect_dminore(temp->content, fdi, fdo);
+        temp = temp->next;
+    }
     temp = coms->in;
     while (temp)
     {
@@ -235,12 +242,6 @@ void    ft_redirect(t_command *coms, int *fdi, int *fdo)
     while (temp)
     {
         ft_redirect_maggiore(temp->content, fdo);
-        temp = temp->next;
-    }
-    temp = coms->here_doc;
-    while (temp)
-    {
-        ft_redirect_dminore(temp->content, fdi, fdo);
         temp = temp->next;
     }
 }

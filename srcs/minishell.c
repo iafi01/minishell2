@@ -180,6 +180,7 @@ int	loop(t_global *global)
 		read = ft_strjoin(ft_strjoin("\e[0;32m<\e\033[0;37m", getenv("USER")),
 	           "\033[0;31m>\e \033[0;37m ");
 		read = readline(read);
+		//read = "echo << EOF";
 		if (read == NULL)
 		{
 			printf("exit");
