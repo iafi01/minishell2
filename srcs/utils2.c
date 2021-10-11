@@ -67,6 +67,19 @@ int ft_listlen(t_token *token)
     return (i);
 }
 
+int ft_lstlen(t_list *list)
+{
+    int i;
+
+    i = 0;
+    while (list)
+    {
+        i++;
+        list = list->next;
+    }
+    return (i);
+}
+
 char **list_to_arr(t_token *token)
 {
     char **arg;
@@ -80,8 +93,39 @@ char **list_to_arr(t_token *token)
         //printf ("%s\n", arg[i - 1]);
         token = token->next;
     }
-    arg[i] = 0;
+    arg[i] = NULL;
     return (arg);
+}
+
+char **lst_to_arr(t_list *list)
+{
+    char **arg;
+    int i;
+
+    i = 0;
+    arg = malloc(sizeof(char *) * ft_listlen(list));
+    while (list)
+    {
+        arg[i++] = list->content;
+        //printf ("%s\n", arg[i - 1]);
+        list = list->next;
+    }
+    arg[i] = NULL;
+    return (arg);
+}
+
+char    **arr_add_front(char **arr, char *str, int len)
+{
+	char	**ret;
+	int		i;
+
+	ret = (char **)malloc(sizeof(char *) * len + 1);
+	ret[0] = str;
+	i = -1;
+	while (arr[++i] != NULL)
+		ret[i + 1] = arr[i];
+	free(arr);
+	return (ret);
 }
 
 t_token *arr_to_list(char **arg)

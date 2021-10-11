@@ -214,7 +214,7 @@ void ft_redirect_dminore(t_command *coms, int *fdi, int *fdo)
             exit(0);
         }
         write(fd, read, ft_strlen(read) + 1);
-        if (!strncmp(coms, read, ft_strlen(coms) + 1))
+		if (!strncmp(coms, read, ft_strlen(coms) + 1))
             return ;
         read = ft_memset((void*)read, '\0', ft_strlen(read));
     }

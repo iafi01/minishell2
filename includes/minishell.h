@@ -149,10 +149,13 @@ t_token	*ft_find_end(t_token *list);
 
 //utils2.c
 char 	**list_to_arr(t_token *token);
+char 	**lst_to_arr(t_list *list);
 t_token *arr_to_list(char **arg);
+char    **arr_add_front(char **arr, char *str, int len);
 t_envp	*ft_env_new(char *envp);
 int		check_path(t_global *global, t_token *tkn, char *cmd);
 char	*search_path(char **paths, char *cmd);
+int 	ft_listlen(t_token *token);
 
 char	*find_path(char **envp, char *cmd);
 char	*find_path2(char **paths, char *cmd);
