@@ -84,6 +84,7 @@ typedef struct	s_command
 typedef struct s_global
 {
     int  	argc;
+	int		ret;
     t_token	*token;
     char 	**argv;
     char 	**args;
@@ -189,7 +190,7 @@ int sostitute_set(t_global *global, int export);
 //command1.c
 void ft_set(t_global *global);
 int	ft_export(t_global *global, int fdo);
-int ft_exit(t_global *global);
+void ft_exit(t_global *global);
 
 //parsing4.c
 t_token	*init_token(int type, char *val);

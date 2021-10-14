@@ -61,7 +61,7 @@ int	ft_export(t_global *global, int fdo)
 	return (0);
 }
 
-int ft_exit(t_global *global)
+/*int ft_exit(t_global *global)
 {
 	int var;
 	char **arr;
@@ -87,4 +87,45 @@ int ft_exit(t_global *global)
 	if (arr[0])
 		exit(errno);
 	return (0);
+}*/
+
+/*static void	free_param(t_global *global)
+{
+	free_matrix(global->envp);
+	free_matrix(global->export);
+	free_matrix(global->argv);
+	free_matrix(global->cmds);
+	free(global);
+}*/
+
+void		ft_exit(t_global *global)
+{
+	int i;
+	char *arr;
+
+	arr = list_to_arr(global->token->next);;
+	if (arr[2] == NULL)
+	{
+		write(2, "exit\n bash: exit: too many arguments\n", 38);
+		global->ret = 1;
+	}
+	else
+	{
+		i = 0;
+		while (arr[1] && ft_isdigit(global->argv[1][i]))
+		{
+			i++;
+		}
+		if (arr[1] && global->argv[1][i])
+		{
+			write(2, "exit\nbash: exit: ", 17);
+			write(2, arr[1], ft_strlen(arr[1]));
+			write(2, ": numeric argument required\n", ft_strlen(": numeric argument required\n"));
+			global->ret = 2;
+		}
+		i = (arr[1] && global->ret != 2)
+			? ft_atoi(arr[1]) : global->ret;
+		//free_param(global);
+		exit(i);
+	}
 }

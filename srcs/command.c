@@ -90,6 +90,12 @@ int ft_echo(t_global *global, int fd)
 			token = token->next;
 			continue;
 		}
+		if (!ft_strncmp(token->val, "$?", 3))
+		{
+			ft_putnbr_fd(global->ret, fd);
+			write(fd, "\n", 1);
+			return (0);
+		}
 		write(fd, token->val, ft_strlen(token->val));
 		token = token->next;
 		write(fd, " ", 1);

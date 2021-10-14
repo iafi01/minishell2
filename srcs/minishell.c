@@ -103,7 +103,7 @@ char *ft_stringa_unica(char *line, int *j, int ap)
 	if (line[i] == 34)
 		tmp = ft_strjoin(tmp, ft_stringa_unica(line + i, j, 2));
 	else if (line[i] == 39)
-		tmp = ft_strjoin(tmp, ft_stringa_unica(line + i, j, 1));
+		tmp = ft_strjoin(tmp, ft_stringa_unica(line + i + 1, j, 1));
 	return (tmp);
 }
 
@@ -180,7 +180,6 @@ int	loop(t_global *global)
 		read = ft_strjoin(ft_strjoin("\e[0;32m<\e\033[0;37m", getenv("USER")),
 	           "\033[0;31m>\e \033[0;37m ");
 		read = readline(read);
-		//read = "echo << EOF";
 		if (read == NULL)
 		{
 			printf("exit");
@@ -214,6 +213,7 @@ int	main(int argc, char **argv, char **envp)
 	t_token		*token;
 
 	token = ft_token_new(TK_ID, NULL, 0, NULL);
+	global.ret = 0;
 	global.argc = argc;
 	global.argv = argv;
 	global.token = token;

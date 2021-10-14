@@ -7,6 +7,8 @@ char	*ft_strcat(char *dst, const char *src)
 
 	i = ft_strlen(dst);
 	j = 0;
+	if (!src)
+		return (0);
 	while (src[j])
 	{
 		dst[i] = src[j];

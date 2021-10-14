@@ -49,7 +49,7 @@ int ft_exec_build_in(t_global *global, t_command *cmd, int fdi, int fdo)
     //     return (0);
     // }
     else if (!ft_strncmp(cmd->cmd, "exit", 5))
-        return (0);
+        ft_exit(global);
     // else
     // {
     //     if (fork() == 0)
