@@ -1,5 +1,5 @@
 -cat << non funziona
--echo "prova"'funziona' non funziona
+√echo "prova"'funziona' non funziona
 √exit non é implementato
 √$? non é implementato
 -i segnali non sono implementati

@@ -73,6 +73,7 @@ char *ft_stringa_unica(char *line, int *j, int ap)
 {
 	int i;
 	char *tmp;
+	char	*str;
 	char s[2];
 
 	s[1] = '\0';
@@ -93,8 +94,22 @@ char *ft_stringa_unica(char *line, int *j, int ap)
 		while (line[++i])
 		{
 			j[0]++;
-			if (line[i] == 0 || line[i] == ' ' || (line[i] == 39 && ap == 1) || (line[i] == 34 && ap == 2))
+			if (line[i] == 0 || line[i] == ' ')
+				break ; 
+			else if (line[i] == 39)
+			{
+				str = ft_stringa_unica(line + i, j, 1);
+				tmp = ft_strjoin(tmp, str);
+				i += ft_strlen(str);
 				break ;
+			}
+			else if (line[i] == 34)
+			{
+				str = ft_stringa_unica(line + i, j, 2);
+				tmp = ft_strjoin(tmp, str);
+				i += ft_strlen(str);
+				break ;
+			}
 			s[0] = line[i];
 			tmp = ft_strjoin(tmp, s);
 		}
