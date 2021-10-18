@@ -49,4 +49,5 @@ t_redirect	*ft_new_redirect(char *file, t_type red_type)
 void	*ft_free_redirect(t_redirect *to_free)
 {
 	free(to_free->file);
+	return ((void *)to_free->file);
 }

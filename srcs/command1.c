@@ -39,6 +39,7 @@ int	ft_export(t_global *global, int fdo)
 	if (global->token->next->next)
 	{
 		ft_set(global);
+		global->ret = 0;
 		return (0);
 	}
 	while (i < max)
@@ -58,6 +59,7 @@ int	ft_export(t_global *global, int fdo)
 		}
 		env = test->next;
 	}
+	global->ret = 0;
 	return (0);
 }
 

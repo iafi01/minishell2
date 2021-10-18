@@ -92,7 +92,10 @@ typedef struct s_global
 	struct s_envp *env;
 	t_command	*simple_cmd;
 	int		size;
+	int		pid;
 }   			t_global;
+
+t_global	glbl;
 
 //minishell.c
 void    sign_handler(int sig);
@@ -162,7 +165,7 @@ char	*find_path(char **envp, char *cmd);
 char	*find_path2(char **paths, char *cmd);
 
 //redirections.c
-int ft_redirect_maggiore(t_redirect *red, int *fdo);
+int ft_redirect_maggiore(char *red, int *fdo);
 int ft_redirect_minore(char *file, int *fdi);
 // int ft_redirect_dmaggiore(t_global *global, t_token *token);
 // int ft_redirect_dminore(t_global *global, t_token *token);
@@ -174,6 +177,8 @@ int first_apice(char *line);
 
 //signals.c
 void	sig_handler(int signum);
+void rl_replace_line (const char *text, int clear_undo);
+
 
 //utils3.c
 void	write_b(int n);
@@ -202,8 +207,8 @@ void	ft_free_list(t_token *list);
 //utils4.c
 char	**get_options(t_token *token);
 t_token *find_cmd(t_token *token);
-int		check_if_options(t_global *global, t_token *tkn, char *opt);
-int	check_if_cmd(t_token *tkn);
+int		check_if_options(t_token *tkn, char *opt);
+int		check_if_cmd(t_token *tkn);
 int		is_path(char *str);
 
 // utils5.c
@@ -238,5 +243,6 @@ void	ft_expander(t_token *list, t_type type, char *val, int apici, t_token *nuov
 
 void    ft_exe_commands(t_global * global, t_command * simple_coms);
 int		ft_redirect_pipe(t_global *global, t_command *cmd);
+int		ft_exe_one(t_global * global, t_command *coms);
 
 #endif

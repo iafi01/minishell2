@@ -178,7 +178,6 @@ int ft_strchr2(const char *s, char c)
 int ft_apici_invers(char *line)
 {
 	int i;
-	char c;
 	int count = 0;
 
 	i = -1;
@@ -191,10 +190,12 @@ int ft_apici_invers(char *line)
 			while (line[i])
 			{
 				if (line[i] == 34)
+				{
 					if (line[i + 1])
 						return (ft_apici_invers(&line[i + 1]));
 					else
 						return (0);
+				}
 				i++;
 			}
 			return (1);
@@ -205,10 +206,12 @@ int ft_apici_invers(char *line)
 			while (line[i])
 			{
 				if (line[i] == 39)
+				{
 					if (line[i + 1])
 						return (ft_apici_invers(&line[i + 1]));
 					else
 						return (0);
+				}
 				i++;
 			}
 			return (1);

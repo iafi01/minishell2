@@ -2,7 +2,7 @@
 √echo "prova"'funziona' non funziona
 √exit non é implementato
 √$? non é implementato
--i segnali non sono implementati
+√i segnali non sono implementati
 -controllare leaks
 -controllare norma
 -aggiustare le pipes

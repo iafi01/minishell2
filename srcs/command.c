@@ -39,6 +39,7 @@ int    ft_unset(t_global *global)
 	}
 	if (i != j)
 		global->envp = res;
+	global->ret = 0;
 	return (0);
 }
 
@@ -53,6 +54,7 @@ int	ft_env(t_global *global, int fd)
 		write(fd, "\n", 1);
 		i++;
 	}
+	global->ret = 0;
 	return (0);
 }
 
@@ -62,6 +64,7 @@ int	ft_pwd(int fd)
 
 	write(fd, getcwd(dir, sizeof(dir)), ft_strlen(getcwd(dir, sizeof(dir))));
 	write(fd, "\n", 1);
+	glbl.ret = 0;
 	return (0);
 }
 
@@ -78,6 +81,7 @@ int ft_echo(t_global *global, int fd)
 	if (token->next == NULL)
 	{
 		write(fd, "\n", 1);
+		global->ret = 0;
 		return (0);
 	}
 	else
@@ -94,6 +98,7 @@ int ft_echo(t_global *global, int fd)
 		{
 			ft_putnbr_fd(global->ret, fd);
 			write(fd, "\n", 1);
+			global->ret = 0;
 			return (0);
 		}
 		write(fd, token->val, ft_strlen(token->val));
@@ -102,6 +107,7 @@ int ft_echo(t_global *global, int fd)
 	}
 	if (flag == 0)
 		write(fd, "\n", 1);
+	global->ret = 0;
 	return (0);
 }
 
@@ -114,6 +120,7 @@ int	ft_cd(t_token *token)
 	if (token->next == NULL)
 	{
 		index = chdir(getenv("HOME"));
+		glbl.ret = 0;
 		return (0);
 	}
 	tmp = token->next->val;
@@ -124,5 +131,6 @@ int	ft_cd(t_token *token)
 			index = chdir(tmp);
 	if(index < 0 && tmp[0] != '-' &&!(tmp == NULL || ft_str_sim(&tmp[0],"~")))
 		printf("cd: %s: %s\n", strerror(errno), tmp);
+	glbl.ret = 0;
 	return (0);
 }

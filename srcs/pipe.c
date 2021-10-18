@@ -35,7 +35,7 @@ int ft_redirect_pipe(t_global *global, t_command *cmd)
         }
         close(fd[0]);
         close(fd[1]);
-        ft_exe_one(cmd);
+        ft_exe_one(global, cmd);
         free(cmd);          // lista di comandi, occhio
         exit(0);
     }

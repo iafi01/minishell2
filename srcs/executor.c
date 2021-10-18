@@ -24,7 +24,6 @@ void    ft_exe_commands(t_global *global, t_command * simple_coms)
 int ft_exec_build_in(t_global *global, t_command *cmd, int fdi, int fdo)
 {
     int     i;
-    char    **spl;
     char    **arr;
     pid_t   pid;
     
@@ -61,10 +60,21 @@ int ft_exec_build_in(t_global *global, t_command *cmd, int fdi, int fdo)
     else
     {
         pid = fork();
+        glbl.pid = pid;
         if (pid < 0)
             perror("error");
         if (pid == 0)
         {
+            if (fdi != 0)
+            {
+                dup2(fdi, 0);
+                close(fdi);
+            }
+            if (fdo != 1)
+            {
+                dup2(fdo, 1);
+                close(fdo);
+            }
             ft_lstadd_front(&cmd->par, ft_lstnew(cmd->cmd));
             arr = lst_to_arr(cmd->par);
             execve(find_path(global->envp, cmd->cmd), arr , global->envp);

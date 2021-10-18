@@ -1,6 +1,4 @@
-/*# include "../includes/minishell.h"
-
-pid_t pid = 0;
+# include "../includes/minishell.h"
 
 void	exit_child_process(int signum)
 {
@@ -21,17 +19,17 @@ void	exit_child_process(int signum)
 
 void	is_child_process(int signum)
 {
-	if (!kill(pid, signum))
+	if (!kill(glbl.pid, signum))
 	{
 		if (signum == SIGQUIT)
 		{
 			ft_putstr_fd("Quit: 3\n", 1);
-			exit_status = 131;
+			glbl.ret = 131;
 		}
 		else if (signum == SIGINT)
 		{
 			ft_putchar_fd('\n', 1);
-			exit_status = 130;
+			glbl.ret = 130;
 		}
 	}
 	else
@@ -40,7 +38,7 @@ void	is_child_process(int signum)
 
 void	sig_handler(int signum)
 {
-	if ((signum == SIGINT || signum == SIGQUIT)  && pid != 0)
+	if ((signum == SIGINT || signum == SIGQUIT)  && glbl.pid != 0)
 		is_child_process(signum);
 	else
 	{
@@ -59,4 +57,3 @@ void	sig_handler(int signum)
 		}
 	}
 }
-*/

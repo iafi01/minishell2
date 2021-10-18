@@ -190,8 +190,8 @@ int	loop(t_global *global)
 
 	while (1)
 	{
-		//signal(SIGINT, sig_handler);
-		//signal(SIGQUIT, sig_handler);
+		signal(SIGINT, sig_handler);
+		signal(SIGQUIT, sig_handler);
 		read = ft_strjoin(ft_strjoin("\e[0;32m<\e\033[0;37m", getenv("USER")),
 	           "\033[0;31m>\e \033[0;37m ");
 		read = readline(read);
@@ -224,17 +224,17 @@ int	loop(t_global *global)
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_global	global;
 	t_token		*token;
 
+	glbl.pid = 0;
 	token = ft_token_new(TK_ID, NULL, 0, NULL);
-	global.ret = 0;
-	global.argc = argc;
-	global.argv = argv;
-	global.token = token;
-	global.envp = ft_copy_env(envp);
-	global.size = ft_get_size(envp);
+	glbl.ret = 0;
+	glbl.argc = argc;
+	glbl.argv = argv;
+	glbl.token = token;
+	glbl.envp = ft_copy_env(envp);
+	glbl.size = ft_get_size(envp);
 
-	if (!loop(&global))
+	if (!loop(&glbl))
 		return (0);
 }

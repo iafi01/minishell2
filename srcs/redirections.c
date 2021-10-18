@@ -17,16 +17,16 @@ void	free_arr(char **arr)
 	arr = NULL;
 }
 
-int ft_redirect_maggiore(t_redirect *red, int *fdo)
+int ft_redirect_maggiore(char *red, int *fdo)
 {
     int			fd_new;
 
     if (*fdo != STDOUT_FILENO)
         close (*fdo);
-    if (red->red_type == TK_GREATER)
-        fd_new = open(red->file, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-    else
-        fd_new = open(red->file, O_WRONLY | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+    // if (red->red_type == TK_GREATER)
+    fd_new = open(red, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+    // else
+    //     fd_new = open(red->file, O_WRONLY | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
     if (fd_new < 0)
     {
         ft_print_error("Errore in open\n");
@@ -192,7 +192,7 @@ int ft_redirect_minore(char *file, int *fdi)
 // // 	return (1);
 // // }
 
-void ft_redirect_dminore(t_command *coms, int *fdi, int *fdo)
+void ft_redirect_dminore(char *word, int *fdi)
 {
     char *read;
     int fd[2];
@@ -213,10 +213,11 @@ void ft_redirect_dminore(t_command *coms, int *fdi, int *fdo)
             printf("exit");
             exit(0);
         }
-        write(fd, read, ft_strlen(read) + 1);
-		if (!strncmp(coms, read, ft_strlen(coms) + 1))
+        write(*fdi, read, ft_strlen(read));
+		write(*fdi, "\n", 1);
+		if (!strncmp(word, read, ft_strlen(word) + 1))
             return ;
-        read = ft_memset((void*)read, '\0', ft_strlen(read));
+		read = ft_memset((void*)read, '\0', ft_strlen(read));
     }
 	free(read);
 	close(fd[1]);
@@ -229,19 +230,19 @@ void    ft_redirect(t_command *coms, int *fdi, int *fdo)
 	temp = coms->here_doc;
     while (temp)
     {
-        ft_redirect_dminore(temp->content, fdi, fdo);
+        ft_redirect_dminore((char *)temp->content, fdi);
         temp = temp->next;
     }
     temp = coms->in;
     while (temp)
     {
-        ft_redirect_minore(temp->content, fdi);
+        ft_redirect_minore((char *)temp->content, fdi);
         temp = temp->next;
     }
     temp = coms->out;
     while (temp)
     {
-        ft_redirect_maggiore(temp->content, fdo);
+        ft_redirect_maggiore((char *)temp->content, fdo);
         temp = temp->next;
     }
 }

@@ -103,7 +103,7 @@ char **lst_to_arr(t_list *list)
     int i;
 
     i = 0;
-    arg = malloc(sizeof(char *) * ft_listlen(list));
+    arg = (char **)malloc(sizeof(char *) * ft_lstlen(list));
     while (list)
     {
         arg[i++] = list->content;
