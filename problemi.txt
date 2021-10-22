@@ -5,4 +5,4 @@
 √i segnali non sono implementati
 -controllare leaks
 -controllare norma
--aggiustare le pipes
+√aggiustare le pipes

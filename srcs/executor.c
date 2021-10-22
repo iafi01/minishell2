@@ -78,7 +78,7 @@ int ft_exec_build_in(t_global *global, t_command *cmd, int fdi, int fdo)
             ft_lstadd_front(&cmd->par, ft_lstnew(cmd->cmd));
             arr = lst_to_arr(cmd->par);
             execve(find_path(global->envp, cmd->cmd), arr , global->envp);
-        }
+		}
     }
     wait(0);
     return (i);
