@@ -3,7 +3,7 @@
 int	ft_strcmp(const char *str1, const char *str2)
 {
 	size_t	i;
-    int     n;
+    size_t	n;
 
     n = ft_strlen(str1);
 	if (n == 0)

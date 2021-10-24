@@ -28,6 +28,8 @@ int ft_exec_build_in(t_global *global, t_command *cmd, int fdi, int fdo)
     pid_t   pid;
     
     i = 0;
+    if (cmd->cmd == NULL)
+        return (i);
     if (!ft_strncmp(str_tolower(cmd->cmd), "echo", 5))
         i = ft_echo(global, fdo);
     else if (!ft_strncmp(str_tolower(cmd->cmd), "env", 4))
@@ -66,18 +68,15 @@ int ft_exec_build_in(t_global *global, t_command *cmd, int fdi, int fdo)
         if (pid == 0)
         {
             if (fdi != 0)
-            {
                 dup2(fdi, 0);
-                close(fdi);
-            }
             if (fdo != 1)
-            {
                 dup2(fdo, 1);
-                close(fdo);
-            }
             ft_lstadd_front(&cmd->par, ft_lstnew(cmd->cmd));
             arr = lst_to_arr(cmd->par);
             execve(find_path(global->envp, cmd->cmd), arr , global->envp);
+            close(0);
+            close(1);
+            exit(0);
 		}
     }
     wait(0);

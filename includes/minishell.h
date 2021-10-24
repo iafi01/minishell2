@@ -165,7 +165,7 @@ char	*find_path(char **envp, char *cmd);
 char	*find_path2(char **paths, char *cmd);
 
 //redirections.c
-int ft_redirect_maggiore(char *red, int *fdo);
+int ft_redirect_maggiore(t_redirect *red, int *fdo);
 int ft_redirect_minore(char *file, int *fdi);
 // int ft_redirect_dmaggiore(t_global *global, t_token *token);
 // int ft_redirect_dminore(t_global *global, t_token *token);

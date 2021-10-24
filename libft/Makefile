@@ -34,7 +34,7 @@ HEADER		= includes
 FOLDER		= srcs
 
 CC			= gcc
-#CFLAGS 		= -Wall -Wextra -Werror
+CFLAGS 		= -Wall -Wextra -Werror #-fsanitize=address
 RM			= rm -f
 
 $(NAME):	${OBJS}

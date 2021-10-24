@@ -26,7 +26,6 @@ int ft_redirect_pipe(t_global *global, t_command *cmd)
     }
     if (id == 0) // processo figlio
     {
-        // ft_print_error("processo figlio\n");
         if (dup2(fd[1], STDOUT_FILENO) == -1)
         {
             ft_print_error("Error11\n");
@@ -41,7 +40,6 @@ int ft_redirect_pipe(t_global *global, t_command *cmd)
     }
     else // processo padre
     {
-        // ft_print_error("processo padre\n");
         wait(0);
         if (dup2(fd[0], STDIN_FILENO) == -1)
         {
