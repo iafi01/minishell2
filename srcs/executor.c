@@ -24,10 +24,12 @@ void    ft_exe_commands(t_global *global, t_command * simple_coms)
 int ft_exec_build_in(t_global *global, t_command *cmd, int fdi, int fdo)
 {
     int     i;
+    int     *a;
     char    **arr;
     pid_t   pid;
     
     i = 0;
+    a = &i;
     if (cmd->cmd == NULL)
         return (i);
     if (!ft_strncmp(str_tolower(cmd->cmd), "echo", 5))
@@ -67,18 +69,17 @@ int ft_exec_build_in(t_global *global, t_command *cmd, int fdi, int fdo)
             perror("error");
         if (pid == 0)
         {
-            if (fdi != 0)
-                dup2(fdi, 0);
-            if (fdo != 1)
-                dup2(fdo, 1);
+            dup2(fdi, 0);
+            dup2(fdo, 1);
             ft_lstadd_front(&cmd->par, ft_lstnew(cmd->cmd));
             arr = lst_to_arr(cmd->par);
-            execve(find_path(global->envp, cmd->cmd), arr , global->envp);
+            *a = execve(find_path(global->envp, cmd->cmd), arr , global->envp);
             close(0);
             close(1);
-            exit(0);
+            exit(*a);
 		}
+        else
+            waitpid(pid, 0, 0);
     }
-    wait(0);
     return (i);
 }

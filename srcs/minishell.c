@@ -186,15 +186,19 @@ void	ft_lexer(char *line, t_token *token)
 int	loop(t_global *global)
 {
 	char		*read;
+	char		*user;
 	int	f;
 
 	while (1)
 	{
+		wait(0);
 		signal(SIGINT, sig_handler);
 		signal(SIGQUIT, sig_handler);
-		read = ft_strjoin(ft_strjoin("<", getenv("USER")),
-               "> ");
-		read = readline(read);
+		read = ft_strjoin("<", getenv("USER"));
+		user = ft_strjoin(read, "> ");
+		free(read);
+		read = readline(user);
+		free(user);
 		if (read == NULL)
 		{
 			printf("exit");
@@ -211,7 +215,7 @@ int	loop(t_global *global)
 			continue ;
 		}
 		ft_lexer(read, global->token);
-		debug_list(global->token);
+		// debug_list(global->token);
 		global->simple_cmd = ft_command_new();
 		global->simple_cmd = ft_cmd_init(global->simple_cmd);
 		ft_state_0(global->token->next, global->simple_cmd);
