@@ -69,30 +69,32 @@ char	*ft_apici_split(char *line)
 // 	}
 // }
 
-void	str_2loop(char *line, int *j, char *tmp, char *s)
+char	*str_2loop(char *line, int *j, char *tmp, char *s)
 {
 	char	*str;
+
 	while (line[++j[1]])
 	{
 		j[0]++;
 		if (line[j[1]] == 0 || line[j[1]] == ' ')
-			break ; 
+			return (tmp); 
 		else if (line[j[1]] == 39)
 		{
 			str = ft_stringa_unica(line + j[1], j, 1);
 			tmp = ft_strjoin(tmp, str);
 			j[1] += ft_strlen(str);
-			break ;
+			return (tmp);
 		}
 		else if (line[j[1]] == 34)
 		{
 			str = ft_stringa_unica(line + j[1], j, 2);
 			tmp = ft_strjoin(tmp, str);
 			j[1] += ft_strlen(str);
-			break ;
+			return (tmp);
 		}
 		s[0] = line[j[1]];
 		tmp = ft_strjoin(tmp, s);
+		return (tmp);
 	}
 }
 
@@ -113,9 +115,7 @@ char *ft_stringa_unica(char *line, int *j, int ap)
 		tmp = ft_strjoin(tmp, s);
 	}
 	if (line[j[1] + 1] && line[j[1] + 1] != ' ')
-	{
-		str_2loop(line, j, tmp, s);
-	}
+		tmp = str_2loop(line, j, tmp, s);
 	if (line[j[1]] == 34)
 		tmp = ft_strjoin(tmp, ft_stringa_unica(line + j[1], j, 2));
 	else if (line[j[1]] == 39)
@@ -159,10 +159,8 @@ void	ft_lexer(char *line, t_token *token)
 			continue;
 		if (line[*i] && (is_token(line + *i) || line[*i] == 32))
 		{
-			//printf(":%c", line[i]);
 			if (is_token(line + *i))
 			{
-				//printf("&%c&", line[i]);
 				store_token(token, line + *i);
 				if (is_token(line + *i) == 2)
 					(*i)++;
@@ -170,7 +168,6 @@ void	ft_lexer(char *line, t_token *token)
 			}
 			else if (tmp)
 			{
-				// printf("&%s&\n", tmp);
 				printf("%s", ft_strdup(tmp));
 				write_b(ft_strlen(tmp));
 				ft_add_list(token, TK_ID, ft_strdup(tmp), 0);
@@ -181,7 +178,6 @@ void	ft_lexer(char *line, t_token *token)
 	}
 	if (line[*i] == '\0' && tmp && *tmp != (char)NULL && line[*i] != 32)
 		ft_add_list(token, TK_ID, tmp, 0);
-		// printf("&%s&\n", tmp);
 }
 
 void	loop_core(t_global *global, char *read)
