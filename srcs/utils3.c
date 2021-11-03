@@ -52,19 +52,3 @@ char **ft_copy_env(char **envp)
 	}
 	return (res);
 }
-
-enum e_type check_tokens_valid(t_token *token)
-{
-    if (token->next)
-        token = token->next;
-    while (token)
-    {
-        if (token->e_type != TK_ID && !ft_is_command(token->e_type))
-            if (token->e_type == TK_PIPE || token->e_type == TK_GREATER \
-             || token->e_type == TK_LOWER || token->e_type == TK_DGREA || token->e_type == TK_DLOW)
-                if (token->prec->e_type != TK_ID || token->next->e_type != TK_ID)
-                    return (0);
-        token = token->next;
-    }
-    return (1);
-}

@@ -111,6 +111,7 @@ char    *skip_spaces(char *str);
 int     check_apici(char *line);
 int     cerca_apici(char *line);
 int     control_apici(int s_apici, int d_apici);
+int		ft_apici_invers(char *line);
 int 	ft_apici_0(char *line);
 int 	ft_apici_1(char *line);
 int 	ft_apici_2(char *line);
