@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing4.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dmedas <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/03 23:11:19 by dmedas            #+#    #+#             */
+/*   Updated: 2021/11/03 23:11:20 by dmedas           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 t_token	*init_token(int type, char *val)
@@ -14,7 +26,7 @@ t_token	*init_token(int type, char *val)
 
 int	is_token(char *c)
 {
-	if (*(c+1) && (!ft_strncmp(c, ">>", 2) || !ft_strncmp(c, "<<", 2)))
+	if (*(c + 1) && (!ft_strncmp(c, ">>", 2) || !ft_strncmp(c, "<<", 2)))
 		return (2);
 	if (*c == '>' || *c == '<' || *c == '|')
 		return (1);
@@ -24,7 +36,7 @@ int	is_token(char *c)
 int	is_token_type(int i)
 {
 	if (i == TK_LOWER || i == TK_PIPE || i == TK_GREATER || \
-	 i == TK_DGREA || i == TK_DLOW || i == TK_PIPE)
+		i == TK_DGREA || i == TK_DLOW || i == TK_PIPE)
 		return (1);
 	return (0);
 }
