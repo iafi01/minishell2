@@ -174,9 +174,9 @@ int ft_redirect_minore(char *file, int *fdi);
 // int ft_redirect_dmaggiore(t_global *global, t_token *token);
 // int ft_redirect_dminore(t_global *global, t_token *token);
 void ft_redirect(t_command * coms, int *fdi, int *fdo);
-
-
+char	*find_path2(char **paths, char *cmd);
 void	free_arr(char **arr);
+
 int first_apice(char *line);
 
 //signals.c
