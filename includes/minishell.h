@@ -102,6 +102,8 @@ void    sign_handler(int sig);
 void	ft_lexer(char *line, t_token *token);
 int		ft_get_size(char **envp);
 char	*ft_stringa_unica(char *line, int *j, int ap);
+char	*str_2loop(char *line, int *j, char *tmp, char *s);
+char	*ft_apici_split(char *line);
 
 //parsing.c
 int     init_parsing(char *line);

@@ -8,7 +8,7 @@ LFLAGS = -L libft -lft
 RFLAGS = -lreadline -I ./homebrew/Cellar/readline/8.1.1/include -L ./homebrew/Cellar/readline/8.1.1/lib
 FOLDER = srcs
 
-SRCS_LIST = minishell.c parsing.c parsing2.c parsing3.c command.c debug.c signals.c\
+SRCS_LIST = minishell.c minishell2.c lex_utils.c parsing.c parsing2.c parsing3.c command.c debug.c signals.c\
 			parser.c utils.c utils2.c redirections.c utils3.c utils5.c utils4.c state.c state2.c \
 			state3.c command1.c command2.c parsing4.c expander.c executor.c pipe.c\
 
