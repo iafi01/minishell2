@@ -1,9 +1,31 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   command2.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dmedas <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/03 21:59:25 by dmedas            #+#    #+#             */
+/*   Updated: 2021/11/03 21:59:27 by dmedas           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
+
+int	ft_pwd(int fd)
+{
+	char	dir[1024];
+
+	write(fd, getcwd(dir, sizeof(dir)), ft_strlen(getcwd(dir, sizeof(dir))));
+	write(fd, "\n", 1);
+	glbl.ret = 0;
+	return (0);
+}
 
 t_envp	*ft_env_new(char *envp)
 {
 	t_envp	*lnew;
-	char **c_split;
+	char	**c_split;
 
 	lnew = (t_envp *)malloc(sizeof(t_envp));
 	c_split = ft_split(envp, '=');
@@ -20,9 +42,9 @@ t_envp	*ft_env_new(char *envp)
 	return (lnew);
 }
 
-void create_export(char **envp, t_envp *test)
+void	create_export(char **envp, t_envp *test)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (envp[i])
@@ -34,9 +56,11 @@ void create_export(char **envp, t_envp *test)
 
 void	set_index_export(t_global *global, t_envp *env)
 {
-	t_envp *s1 = env;
-	t_envp *s2 = env;
-	// t_envp *res;
+	t_envp	*s1;
+	t_envp	*s2;
+
+	s1 = env;
+	s2 = env;
 	while (s1)
 	{
 		while (s2)
@@ -45,43 +69,36 @@ void	set_index_export(t_global *global, t_envp *env)
 				s1->index++;
 			s2 = s2->next;
 		}
-		//printf("%s %d\n",s1->first, s1->index);
 		s1 = s1->next;
 		s2 = env;
 	}
 	global->env = env;
 }
 
-int sostitute_set(t_global *global, int export)
+int	sostitute_set(t_global *global, int export)
 {
-	int i;
-	char *s;
-	t_envp *env;
-	int j;
+	int		i;
+	char	*s;
+	t_envp	*env;
+	int		j;
 
-	j = 0;
+	j = -1;
 	env = global->env;
 	if (export == 1)
 		s = global->token->next->next->val;
 	else
 		s = global->token->next->val;
-	i = 0;
-	while (s[i])
-	{
-		if (s[i] == '=' || s[i] == '\0')
-			break ;
-		i++;
-	}
-	while (env)
+	i = -1;
+	while (s[++i] && !(s[i] == '=' || s[i] == '\0'))
+		;
+	while (env || ++j)
 	{	
-		//printf("%s|%s|%s\n",env->first, s,global->envp[j]);
 		if (!ft_strncmp(env->first, s, i))
 		{
 			env->first = env->first;
-			global->envp[j-1] = s;
+			global->envp[j - 1] = s;
 			return (1);
 		}
-		j++;
 		env = env->next;
 	}
 	return (0);

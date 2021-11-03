@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   command1.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dmedas <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/03 21:47:18 by dmedas            #+#    #+#             */
+/*   Updated: 2021/11/03 21:47:20 by dmedas           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
-void ft_set(t_global *global)
+void	ft_set(t_global *global)
 {
-	int s;
-	char **env;
-	int i;
+	int		s;
+	char	**env;
+	int		i;
 
 	i = 0;
 	s = ft_get_size(global->envp) + 1;
@@ -21,17 +33,37 @@ void ft_set(t_global *global)
 	global->envp = env;
 }
 
+void	export_loop(int *i, t_envp *env, int fdo, t_envp *test)
+{
+	while (i[0] < i[1])
+	{
+		while (env)
+		{
+			if (env->index == i[0])
+			{
+				write(fdo, env->first, ft_strlen(env->first));
+				write(fdo, "=", 1);
+				write(fdo, env->second, ft_strlen(env->second));
+				write(fdo, "\n", 1);
+				i[0]++;
+			}	
+			env = env->next;
+		}
+		env = test->next;
+	}
+	return ;
+}
+
 int	ft_export(t_global *global, int fdo)
 {
-	t_envp *env;
-	t_envp *test;
-	char **envp;
-	int i;
-	int max;
+	t_envp	*env;
+	t_envp	*test;
+	char	**envp;
+	int		i[2];
 
-	i = 0;
+	i[0] = 0;
 	envp = global->envp;
-	max = ft_get_size(global->envp);
+	i[1] = ft_get_size(global->envp);
 	test = ft_env_new("init");
 	env = test;
 	create_export(envp, test);
@@ -42,68 +74,28 @@ int	ft_export(t_global *global, int fdo)
 		global->ret = 0;
 		return (0);
 	}
-	while (i < max)
-	{
-		while (env)
-		{
-			if (env->index == i)
-			{
-				write(fdo, env->first, ft_strlen(env->first));
-				write(fdo, "=", 1);
-				write(fdo, env->second, ft_strlen(env->second));
-				write(fdo, "\n", 1);
-		//		printf("%s=%s\n", env->first, env->second);
-				i++;
-			}	
-			env = env->next;
-		}
-		env = test->next;
-	}
+	export_loop(i, env, fdo, test);
 	global->ret = 0;
 	return (0);
 }
 
-/*int ft_exit(t_global *global)
+void	exit_if(char **arr, t_global *global, int i)
 {
-	int var;
-	char **arr;
-	
-	arr = list_to_arr(global->token->next);
-	var = 0;
-	if (arr[2])
+	if (arr[1] && global->argv[1] && global->argv[1][i])
 	{
-		write(2, "Too many args\n", ft_strlen("Too many args\n"));
-		return (1);
+		write(2, "exit\nbash: exit: ", 17);
+		write(2, arr[1], ft_strlen(arr[1]));
+		write(2, ": numeric argument required\n",
+			ft_strlen(": numeric argument required\n"));
+		global->ret = 2;
 	}
-	if (arr[1])
-	{
-		var = ft_atoi(arr[1]);
-		if (!ft_isnum(arr[1]))
-			exit(255);
-		if (var < 0)
-			var = 256 + var;
-		while (var >= 256)
-			var -= 256;
-		exit(var);
-	}
-	if (arr[0])
-		exit(errno);
-	return (0);
-}*/
+	return ;
+}
 
-/*static void	free_param(t_global *global)
+void	ft_exit(t_global *global)
 {
-	free_matrix(global->envp);
-	free_matrix(global->export);
-	free_matrix(global->argv);
-	free_matrix(global->cmds);
-	free(global);
-}*/
-
-void		ft_exit(t_global *global)
-{
-	int i;
-	char **arr;
+	int		i;
+	char	**arr;
 
 	arr = list_to_arr(global->token->next);
 	if (arr[0] && arr[1] && arr[2])
@@ -116,22 +108,11 @@ void		ft_exit(t_global *global)
 		i = 0;
 		while (arr[1] && global->argv[1] && ft_isdigit(global->argv[1][i]))
 			i++;
-		if (arr[1] && global->argv[1] && global->argv[1][i])
-		{
-			write(2, "exit\nbash: exit: ", 17);
-			write(2, arr[1], ft_strlen(arr[1]));
-			write(2, ": numeric argument required\n", ft_strlen(": numeric argument required\n"));
-			global->ret = 2;
-		}
+		exit_if(arr, global, i);
 		if (arr[1] && arr[1] != NULL && global->ret != 2)
-		{
 			i = ft_atoi(arr[1]);
-		}
 		else
 			i = global->ret;
-		// i = (arr[1] && global->ret != 2)
-		// 	? ft_atoi(arr[1]) : global->ret;
-		//free_param(global);
 		exit(i);
 	}
 }

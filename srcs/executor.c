@@ -44,23 +44,8 @@ int ft_exec_build_in(t_global *global, t_command *cmd, int fdi, int fdo)
         i = ft_pwd(fdo);
     else if (!ft_strncmp(cmd->cmd, "unset", 6))
         i = ft_unset(global);
-    // if (cmd->cmd == TK_ID && ft_split(token->val, '='))
-    // {
-    //     spl = ft_split(token->val, '=');
-    //     if (cerca_variabile(spl[0]) != NULL)
-    //         i = sostitute_set(global, 0);
-    //     return (0);
-    // }
     else if (!ft_strncmp(cmd->cmd, "exit", 5))
         ft_exit(global);
-    // else
-    // {
-    //     if (fork() == 0)
-    //     {
-    //         spl = get_options(token);
-    //         execve(find_path(global->envp, spl[0]), spl ,NULL);
-    //     }
-    // }
     else
     {
         pid = fork();
