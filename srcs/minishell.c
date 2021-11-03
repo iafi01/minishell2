@@ -1,11 +1,39 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dmedas <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/03 19:30:48 by dmedas            #+#    #+#             */
+/*   Updated: 2021/11/03 19:30:50 by dmedas           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
+
+int	apici_loop(char *line, int *i, char *s, char **tmp)
+{
+	if (line[*i] == 32 /*|| is_token(line[i]) > 0*/)
+		return (1);
+	if (line[*i] == 39 || line[*i] == 34)
+	{
+		if (line[*i + 1])
+			(*i)++;
+		else 
+			return (1);
+	}
+	s[0] = line[*i];
+	*tmp = ft_strjoin(*tmp, s);
+	return (0);
+}
 
 char	*ft_apici_split(char *line)
 {
-	int i;
-	int apici;
-	char *tmp;
-	char s[2];
+	int		i;
+	int		apici;
+	char	*tmp;
+	char	s[2];
 
 	s[1] = '\0';
 	apici = 0;
@@ -16,19 +44,8 @@ char	*ft_apici_split(char *line)
 	else if (line[i] == 34)
 		apici = 2;
 	while (line[++i])
-	{
-		if (line[i] == 32 /*|| is_token(line[i]) > 0*/)
-			break ;
-		if (line[i] == 39 || line[i] == 34)
-		{
-			if (line[i+1])
-				i++;
-			else 
-				break ;
-		}
-		s[0] = line[i];
-		tmp = ft_strjoin(tmp, s);
-	}
+		if (apici_loop(line, &i, s, &tmp))
+			break;
 	i++;
 	//ft_add_list(token, TK_ID, ft_strdup(tmp), apici);
 	//printf("%s", tmp);
@@ -123,6 +140,54 @@ char *ft_stringa_unica(char *line, int *j, int ap)
 	return (tmp);
 }
 
+int	lex_last_if(char *line, int *i, t_token *token, char *tmp)
+{
+	if (is_token(line + *i))
+	{
+		store_token(token, line + *i);
+		if (is_token(line + *i) == 2)
+			(*i)++;
+		return (0);
+	}
+	else if (tmp)
+	{
+		printf("%s", ft_strdup(tmp));
+		write_b(ft_strlen(tmp));
+		ft_add_list(token, TK_ID, ft_strdup(tmp), 0);
+		ft_memset((void*)tmp, '\0', 30);
+		return (0);
+	}
+	return (1);
+}
+
+int	lex_first_2if(char *line, int *i, t_token *token, char *tmp)
+{
+	if (line[*i] == 34 || line[*i] == 39)
+	{
+		if (line[*i] == 34)
+			ft_add_list(token, TK_ID, ft_stringa_unica(line + *i, i, 2), 2);
+		else if (line[*i] == 39)
+			ft_add_list(token, TK_ID, ft_stringa_unica(line + *i, i, 1), 1);
+		return (1);
+	}
+	if (line[*i] == 34 || line[*i] == 39)
+	{
+		ft_strjoin(tmp, ft_apici_split(line + *i));
+		return (1);
+	}
+	return (0);
+}
+
+void	lex_2nd_if(char *line, int *i, char *s, char **tmp)
+{
+	if (is_token(line + *i) == 0 && line[*i] != 32)
+	{
+		s[0] = line[*i];
+		*tmp = ft_strjoin(*tmp, s);
+		s[0] = '\0';
+	}
+}
+
 void	ft_lexer(char *line, t_token *token)
 {
 	int len;
@@ -136,45 +201,14 @@ void	ft_lexer(char *line, t_token *token)
 	len = ft_strlen(line);
 	while (line[++i[0]])
 	{
-		if (line[*i] == 34 || line[*i] == 39)
-		{
-			if (line[*i] == 34)
-				ft_add_list(token, TK_ID, ft_stringa_unica(line + *i, i, 2), 2);
-			else if (line[*i] == 39)
-				ft_add_list(token, TK_ID, ft_stringa_unica(line + *i, i, 1), 1);
+		if (lex_first_2if(line, i, token, tmp))
 			continue ;
-		}
-		if (line[*i] == 34 || line[*i] == 39)
-		{
-			ft_strjoin(tmp, ft_apici_split(line + *i));
-			continue ;
-		}
-		if (is_token(line + *i) == 0 && line[*i] != 32)
-		{
-			s[0] = line[*i];
-			tmp = ft_strjoin(tmp, s);
-			s[0] = '\0';
-		}
+		lex_2nd_if(line, i, s, &tmp);
 		if (*tmp == (char)NULL && line[*i] == 32)
 			continue;
 		if (line[*i] && (is_token(line + *i) || line[*i] == 32))
-		{
-			if (is_token(line + *i))
-			{
-				store_token(token, line + *i);
-				if (is_token(line + *i) == 2)
-					(*i)++;
-				continue;
-			}
-			else if (tmp)
-			{
-				printf("%s", ft_strdup(tmp));
-				write_b(ft_strlen(tmp));
-				ft_add_list(token, TK_ID, ft_strdup(tmp), 0);
-				ft_memset((void*)tmp, '\0', 30);
-				continue;
-			}
-		}
+			if (lex_last_if(line, i, token, tmp))
+				continue ;
 	}
 	if (line[*i] == '\0' && tmp && *tmp != (char)NULL && line[*i] != 32)
 		ft_add_list(token, TK_ID, tmp, 0);
