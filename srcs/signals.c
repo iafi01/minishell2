@@ -1,4 +1,16 @@
-# include "../includes/minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   signals.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dmedas <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/04 00:46:23 by dmedas            #+#    #+#             */
+/*   Updated: 2021/11/04 00:46:25 by dmedas           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../includes/minishell.h"
 
 void	exit_child_process(int signum)
 {
@@ -38,7 +50,7 @@ void	is_child_process(int signum)
 
 void	sig_handler(int signum)
 {
-	if ((signum == SIGINT || signum == SIGQUIT)  && glbl.pid != 0)
+	if ((signum == SIGINT || signum == SIGQUIT) && glbl.pid != 0)
 		is_child_process(signum);
 	else
 	{
