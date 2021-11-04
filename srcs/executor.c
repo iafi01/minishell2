@@ -80,7 +80,7 @@ int	ft_exec_build_in(t_global *global, t_command *cmd, int fdi, int fdo)
 	else
 	{
 		pid = fork();
-		glbl.pid = pid;
+		g_glbl.pid = pid;
 		if (pid < 0)
 			perror("error");
 		fds[0] = fdi;

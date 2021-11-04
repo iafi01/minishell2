@@ -18,7 +18,7 @@ int	ft_pwd(int fd)
 
 	write(fd, getcwd(dir, sizeof(dir)), ft_strlen(getcwd(dir, sizeof(dir))));
 	write(fd, "\n", 1);
-	glbl.ret = 0;
+	g_glbl.ret = 0;
 	return (0);
 }
 

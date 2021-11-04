@@ -114,7 +114,7 @@ int	ft_cd(t_token *token)
 	if (token->next == NULL)
 	{
 		index = chdir(getenv("HOME"));
-		glbl.ret = 0;
+		g_glbl.ret = 0;
 		return (0);
 	}
 	tmp = token->next->val;
@@ -126,6 +126,6 @@ int	ft_cd(t_token *token)
 	if (index < 0 && tmp[0] != '-'
 		&& !(tmp == NULL || ft_str_sim(&tmp[0], "~")))
 		printf("cd: %s: %s\n", strerror(errno), tmp);
-	glbl.ret = 0;
+	g_glbl.ret = 0;
 	return (0);
 }

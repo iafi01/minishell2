@@ -31,17 +31,17 @@ void	exit_child_process(int signum)
 
 void	is_child_process(int signum)
 {
-	if (!kill(glbl.pid, signum))
+	if (!kill(g_glbl.pid, signum))
 	{
 		if (signum == SIGQUIT)
 		{
 			ft_putstr_fd("Quit: 3\n", 1);
-			glbl.ret = 131;
+			g_glbl.ret = 131;
 		}
 		else if (signum == SIGINT)
 		{
 			ft_putchar_fd('\n', 1);
-			glbl.ret = 130;
+			g_glbl.ret = 130;
 		}
 	}
 	else
@@ -50,7 +50,7 @@ void	is_child_process(int signum)
 
 void	sig_handler(int signum)
 {
-	if ((signum == SIGINT || signum == SIGQUIT) && glbl.pid != 0)
+	if ((signum == SIGINT || signum == SIGQUIT) && g_glbl.pid != 0)
 		is_child_process(signum);
 	else
 	{

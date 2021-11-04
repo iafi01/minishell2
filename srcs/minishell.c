@@ -100,14 +100,14 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_token	*token;
 
-	glbl.pid = 0;
+	g_glbl.pid = 0;
 	token = ft_token_new(TK_ID, NULL, 0, NULL);
-	glbl.ret = 0;
-	glbl.argc = argc;
-	glbl.argv = argv;
-	glbl.token = token;
-	glbl.envp = ft_copy_env(envp);
-	glbl.size = ft_get_size(envp);
-	if (!loop(&glbl))
+	g_glbl.ret = 0;
+	g_glbl.argc = argc;
+	g_glbl.argv = argv;
+	g_glbl.token = token;
+	g_glbl.envp = ft_copy_env(envp);
+	g_glbl.size = ft_get_size(envp);
+	if (!loop(&g_glbl))
 		return (0);
 }
