@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_atof.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dmedas <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/04 02:13:25 by dmedas            #+#    #+#             */
+/*   Updated: 2021/11/04 02:13:27 by dmedas           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 /*
 float		ft_atof(char *str)
@@ -30,7 +42,7 @@ float		ft_atof(char *str)
 }
 */
 
-static int 	ft_first(char *str, int i, int fac)
+static int	ft_first(char *str, int i, int fac)
 {
 	if (str[i] == '-')
 		return (-1);

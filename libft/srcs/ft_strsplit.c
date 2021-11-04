@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strsplit.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dmedas <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/04 02:59:38 by dmedas            #+#    #+#             */
+/*   Updated: 2021/11/04 02:59:39 by dmedas           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
 char	*ft_strnew(size_t size)
@@ -72,8 +84,6 @@ char	**ft_strsplit(char const *s, char c)
 	char	**array;
 	int		count;
 
-	//if (s == NULL || c == (char) NULL)
-	//	return (NULL);
 	count = ft_word_count(s, c, 0);
 	array = (char **)malloc(sizeof(char *) * count + 1);
 	if (array == NULL)
