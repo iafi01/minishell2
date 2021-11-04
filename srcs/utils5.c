@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils5.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dmedas <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/04 01:17:14 by dmedas            #+#    #+#             */
+/*   Updated: 2021/11/04 01:17:15 by dmedas           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
-void    ft_print_error(char *str)
+void	ft_print_error(char *str)
 {
-    write(2, str, ft_strlen(str));
+	write(2, str, ft_strlen(str));
 }
 
 size_t	get_size_simple_com(t_command *coms)
@@ -18,10 +30,10 @@ size_t	get_size_simple_com(t_command *coms)
 	return (count);
 }
 
-char*	str_tolower(char *str)
+char	*str_tolower(char *str)
 {
-	int i;
-	char *ret;
+	int		i;
+	char	*ret;
 
 	i = 0;
 	ret = ft_strdup(str);
@@ -36,7 +48,7 @@ char*	str_tolower(char *str)
 
 t_redirect	*ft_new_redirect(char *file, t_type red_type)
 {
-	t_redirect *new;
+	t_redirect	*new;
 
 	new = malloc(sizeof(new));
 	if (new == NULL)

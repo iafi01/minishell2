@@ -1,12 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dmedas <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/04 01:05:26 by dmedas            #+#    #+#             */
+/*   Updated: 2021/11/04 01:05:27 by dmedas           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 char	*ft_getenv(t_global *global, char *var)
 {
 	char	*variable;
-	int i;
+	int		i;
 
 	i = 0;
-	while (ft_strncmp(global->envp[i], var, ft_strlen(var)) && global->envp[i + 1])
+	while (ft_strncmp(global->envp[i], var,
+			ft_strlen(var)) && global->envp[i + 1])
 		i++;
 	if (ft_strncmp(global->envp[i], var, ft_strlen(var)) == 0)
 	{
@@ -14,12 +27,12 @@ char	*ft_getenv(t_global *global, char *var)
 		return (variable);
 	}
 	printf("error env var \n");
-	return ((char *)NULL);
+	return ((char *) NULL);
 }
 
-int	count_var(char* line)
+int	count_var(char *line)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (line[i])
@@ -31,17 +44,17 @@ int	count_var(char* line)
 	return (ft_strlen(line));
 }
 
-int cerca_token(t_token *token, enum e_type type)
+int	cerca_token(t_token *token, enum e_type type)
 {
-    if (token->next)
+	if (token->next)
 		token = token->next;
 	while (token != NULL)
 	{
 		if (token->e_type == type)
-            return (1);
+			return (1);
 		token = token->next;
 	}
-    return (0);
+	return (0);
 }
 
 t_token	*ft_find_end(t_token *list)

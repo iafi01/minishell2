@@ -1,142 +1,71 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils2.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dmedas <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/04 01:07:51 by dmedas            #+#    #+#             */
+/*   Updated: 2021/11/04 01:07:53 by dmedas           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
-// char	*search_path(char **paths, char *cmd)
-// {
-// 	int		i;
-// 	char	*folder;
-// 	char	*path;
-
-// 	i = 0;
-// 	while (paths[i])
-// 	{
-// 		folder = ft_strjoin(paths[i], "/");
-// 		path = ft_strjoin(folder, cmd);
-// 		ft_str_delete(&folder);
-// 		if (open(path, O_RDONLY) != -1)
-// 			return (path);
-// 		ft_str_delete(&path);
-// 		i++;
-// 	}
-// 	if (is_path(cmd))
-// 		if (open(cmd, O_RDONLY) != -1)
-// 			return (cmd);
-// 	if (!paths[i])
-// 		return (NULL);
-// 	if (open(path, O_RDONLY) != -1)
-// 		return (cmd);
-// 	return (NULL);
-// }
-
-// int	check_path(t_global *global, t_token *tkn, char *cmd)
-// {
-// 	int		i;
-// 	char	**paths;
-// 	char	*path;
-
-// 	i = 0;
-// 	while (ft_strncmp(global->envp[i], "PATH=", 5))
-// 		i++;
-// 	paths = ft_split((global->envp[i]) + 5, ':');
-// 	path = search_path(paths, cmd);
-// 	//printf ("Path found is: %s\n", path);
-// 	if (!paths || !path)
-//         return (0);
-// 	if (check_if_cmd(tkn) == 1)
-// 	{
-// 		free_arr(paths);
-// 		free(path);
-// 		path = NULL;
-// 		return (0);
-// 	}
-//     free_arr(paths);
-// 	free(path);
-// 	path = NULL;
-// return (1);
-// }
-
-int ft_listlen(t_token *token)
+int	ft_listlen(t_token *token)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while (token)
-    {
-        i++;
-        token = token->next;
-    }
-    return (i);
+	i = 0;
+	while (token)
+	{
+		i++;
+		token = token->next;
+	}
+	return (i);
 }
 
-int ft_lstlen(t_list *list)
+int	ft_lstlen(t_list *list)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while (list)
-    {
-        i++;
-        list = list->next;
-    }
-    return (i);
+	i = 0;
+	while (list)
+	{
+		i++;
+		list = list->next;
+	}
+	return (i);
 }
 
-char **list_to_arr(t_token *token)
+char	**list_to_arr(t_token *token)
 {
-    char **arg;
-    int i;
-
-    i = 0;
-    arg = (char **)malloc(sizeof(char *) * ft_listlen(token));
-    while (token)
-    {
-        arg[i++] = token->val;
-        //printf ("%s\n", arg[i - 1]);
-        token = token->next;
-    }
-    arg[i] = NULL;
-    return (arg);
-}
-
-char **lst_to_arr(t_list *list)
-{
-    char **arg;
-    int i;
-
-    i = 0;
-    arg = (char **)malloc(sizeof(char *) * ft_lstlen(list));
-    while (list)
-    {
-        arg[i++] = list->content;
-        //printf ("%s\n", arg[i - 1]);
-        list = list->next;
-    }
-    arg[i] = NULL;
-    return (arg);
-}
-
-char    **arr_add_front(char **arr, char *str, int len)
-{
-	char	**ret;
+	char	**arg;
 	int		i;
 
-	ret = (char **)malloc(sizeof(char *) * len + 1);
-	ret[0] = str;
-	i = -1;
-	while (arr[++i] != NULL)
-		ret[i + 1] = arr[i];
-	free(arr);
-	return (ret);
+	i = 0;
+	arg = (char **)malloc(sizeof(char *) * ft_listlen(token));
+	while (token)
+	{
+		arg[i++] = token->val;
+		token = token->next;
+	}
+	arg[i] = NULL;
+	return (arg);
 }
 
-t_token *arr_to_list(char **arg)
+char	**lst_to_arr(t_list *list)
 {
-    t_token *token;
-    int i;
+	char	**arg;
+	int		i;
 
-    i = 0;
-    token = ft_token_new(TK_ID, NULL, 0, NULL);
-    while (arg[i++])
-        ft_add_list(token, TK_ID, arg[i], 0);
-    return (token);
+	i = 0;
+	arg = (char **)malloc(sizeof(char *) * ft_lstlen(list));
+	while (list)
+	{
+		arg[i++] = list->content;
+		list = list->next;
+	}
+	arg[i] = NULL;
+	return (arg);
 }
-

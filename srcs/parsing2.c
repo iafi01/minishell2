@@ -15,14 +15,14 @@
 int	solo_spazi(char *line)
 {
 	int	i;
-	
+
 	i = 0;
 	while (line[i] != '\0')
 	{
-		if (line[i] != '\t' && line[i] != '\n' && line[i] != '\v'   
+		if (line[i] != '\t' && line[i] != '\n' && line[i] != '\v'
 			&& line[i] != '\f' && line[i] != '\r' && line[i] != 32)
 			return (0);
-        i++;
+		i++;
 	}
 	return (1);
 }

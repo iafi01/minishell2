@@ -1,5 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   debug.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dmedas <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/04 01:23:16 by dmedas            #+#    #+#             */
+/*   Updated: 2021/11/04 01:23:18 by dmedas           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
+/*
 void debug(int d_apici, int s_apici, int prev_apici)
 {
 	printf("\n Debbug:\n");
@@ -41,7 +54,7 @@ void	print_tokens(t_global *global)
 	printf ("___________________________\n");
 }
 
-/*
+
 Modificare comando exit
 Ritorni delle built-in -> $?
 I segnali devono funzionare con ctrl-c e ctrl\ concatenati
