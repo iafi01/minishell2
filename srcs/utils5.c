@@ -63,8 +63,3 @@ void	*ft_free_redirect(t_redirect *to_free)
 	free(to_free->file);
 	return ((void *)to_free->file);
 }
-
-int	return_if_number_is_even()
-{
-	
-}

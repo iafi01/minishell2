@@ -15,6 +15,7 @@
 char	*str_2loop(char *line, int *j, char *tmp, char *s)
 {
 	char	*str;
+	char	*trash;
 
 	while (line[++j[1]])
 	{
@@ -24,19 +25,25 @@ char	*str_2loop(char *line, int *j, char *tmp, char *s)
 		else if (line[j[1]] == 39)
 		{
 			str = ft_stringa_unica(line + j[1], j, 1);
-			tmp = ft_strjoin(tmp, str);
+			trash = ft_strjoin(tmp, str);
+			free(tmp);
+			tmp = trash;
 			j[1] += ft_strlen(str);
 			return (tmp);
 		}
 		else if (line[j[1]] == 34)
 		{
 			str = ft_stringa_unica(line + j[1], j, 2);
-			tmp = ft_strjoin(tmp, str);
+			trash = ft_strjoin(tmp, str);
+			free(tmp);
+			tmp = trash;
 			j[1] += ft_strlen(str);
 			return (tmp);
 		}
 		s[0] = line[j[1]];
-		tmp = ft_strjoin(tmp, s);
+		trash = ft_strjoin(tmp, s);
+		free(tmp);
+		tmp = trash;
 		return (tmp);
 	}
 }
@@ -73,6 +80,38 @@ char	*pre_loop(void)
 	return (read);
 }
 
+//function that frees a list
+void	ft_free_lst(t_list *lst)
+{
+	t_list *tmp;
+
+	while (lst)
+	{
+		tmp = lst->next;
+		free(lst->content);
+		free(lst);
+		lst = tmp;
+	}
+}
+
+
+//function that frees a list of commands
+void	ft_free_cmd(t_command *cmd)
+{
+	t_command *tmp;
+
+	while (cmd)
+	{
+		tmp = cmd;
+		cmd = cmd->next;
+		ft_free_lst(tmp->out);
+		ft_free_lst(tmp->in);
+		ft_free_lst(tmp->here_doc);
+		ft_free_lst(tmp->par);
+		free(tmp);
+	}
+}
+
 int	loop(t_global *global)
 {
 	char	*read;
@@ -92,6 +131,8 @@ int	loop(t_global *global)
 			continue ;
 		}
 		loop_core(global, read);
+		ft_free_list(global->token->next);
+		ft_free_cmd(global->simple_cmd);
 	}
 	return (1);
 }
