@@ -15,6 +15,7 @@
 char	*ft_stringa_unica(char *line, int *j, int ap)
 {
 	char	*tmp;
+	char	*trash;
 	char	s[2];
 
 	s[1] = '\0';
@@ -26,19 +27,31 @@ char	*ft_stringa_unica(char *line, int *j, int ap)
 		if ((line[j[1]] == 39 && ap == 1) || (line[j[1]] == 34 && ap == 2))
 			break ;
 		s[0] = line[j[1]];
-		tmp = ft_strjoin(tmp, s);
+		trash = ft_strjoin(tmp, s);
+		free(tmp);
+		tmp = trash;
 	}
 	if (line[j[1] + 1] && line[j[1] + 1] != ' ')
 		tmp = str_2loop(line, j, tmp, s);
 	if (line[j[1]] == 34)
-		tmp = ft_strjoin(tmp, ft_stringa_unica(line + j[1], j, 2));
+	{
+		trash = ft_strjoin(tmp, ft_stringa_unica(line + j[1], j, 2));
+		free(tmp);
+		tmp = trash;
+	}
 	else if (line[j[1]] == 39)
-		tmp = ft_strjoin(tmp, ft_stringa_unica(line + j[1] + 1, j, 1));
+	{
+		trash = ft_strjoin(tmp, ft_stringa_unica(line + j[1] + 1, j, 1));
+		free(tmp);
+		tmp = trash;
+	}
 	return (tmp);
 }
 
 static int	lex_last_if(char *line, int *i, t_token *token, char *tmp)
 {
+	char	*trash;
+
 	if (is_token(line + *i))
 	{
 		store_token(token, line + *i);
@@ -48,10 +61,12 @@ static int	lex_last_if(char *line, int *i, t_token *token, char *tmp)
 	}
 	else if (tmp)
 	{
-		printf("%s", ft_strdup(tmp));
+		trash = ft_strdup(tmp);
+		printf("%s", trash);
 		write_b(ft_strlen(tmp));
 		ft_add_list(token, TK_ID, ft_strdup(tmp), 0);
 		ft_memset((void *)tmp, '\0', 30);
+		free(trash);
 		return (0);
 	}
 	return (1);
@@ -59,6 +74,8 @@ static int	lex_last_if(char *line, int *i, t_token *token, char *tmp)
 
 static int	lex_first_2if(char *line, int *i, t_token *token, char *tmp)
 {
+	char	*trash;
+
 	if (line[*i] == 34 || line[*i] == 39)
 	{
 		if (line[*i] == 34)
@@ -69,7 +86,9 @@ static int	lex_first_2if(char *line, int *i, t_token *token, char *tmp)
 	}
 	if (line[*i] == 34 || line[*i] == 39)
 	{
-		ft_strjoin(tmp, ft_apici_split(line + *i));
+		trash = ft_strjoin(tmp, ft_apici_split(line + *i));
+		free(tmp);
+		tmp = trash;
 		return (1);
 	}
 	return (0);
@@ -77,10 +96,14 @@ static int	lex_first_2if(char *line, int *i, t_token *token, char *tmp)
 
 static void	lex_2nd_if(char *line, int *i, char *s, char **tmp)
 {
+	char	*trash;
+
 	if (is_token(line + *i) == 0 && line[*i] != 32)
 	{
 		s[0] = line[*i];
-		*tmp = ft_strjoin(*tmp, s);
+		trash = ft_strjoin(*tmp, s);
+		free(*tmp);
+		*tmp = trash;
 		s[0] = '\0';
 	}
 }

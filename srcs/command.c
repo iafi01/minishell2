@@ -28,6 +28,7 @@ int	ft_unset(t_global *global)
 	{
 		if (!ft_strncmp(global->envp[i[1]], find, ft_strlen(find)))
 		{
+			free(global->envp[i[1]]);
 			i[1]++;
 			continue ;
 		}
@@ -36,7 +37,12 @@ int	ft_unset(t_global *global)
 		i[1]++;
 	}
 	if (i[0] != i[1])
+	{
+		free(global->envp);
 		global->envp = res;
+	}
+	else
+		free(res);
 	global->ret = 0;
 	return (0);
 }

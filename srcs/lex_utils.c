@@ -14,6 +14,8 @@
 
 static int	apici_loop(char *line, int *i, char *s, char **tmp)
 {
+	char	*trash;
+
 	if (line[*i] == 32)
 		return (1);
 	if (line[*i] == 39 || line[*i] == 34)
@@ -24,7 +26,9 @@ static int	apici_loop(char *line, int *i, char *s, char **tmp)
 			return (1);
 	}
 	s[0] = line[*i];
-	*tmp = ft_strjoin(*tmp, s);
+	trash = ft_strjoin(*tmp, s);
+	free(*tmp);
+	*tmp = trash;
 	return (0);
 }
 

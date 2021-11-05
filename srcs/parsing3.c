@@ -14,15 +14,23 @@
 
 static void	add_list_loop(char ***dollar, int *i, char *val, char *tmp)
 {
+	char	*trash;
+
 	*i = 0;
 	*dollar = ft_split(val, '$');
 	while (*dollar[*i])
 	{
 		if (getenv(ft_alpha_give(*dollar[*i])))
 		{
-			tmp = ft_strjoin(tmp, getenv(ft_alpha_give(*dollar[*i])));
+			trash = ft_strjoin(tmp, getenv(ft_alpha_give(*dollar[*i])));
+			free(tmp);
+			tmp = trash;
 			if (ft_symbols_give(*dollar[*i]))
-				tmp = ft_strjoin(tmp, ft_symbols_give(*dollar[*i]));
+			{
+				trash = ft_strjoin(tmp, ft_symbols_give(*dollar[*i]));
+				free(tmp);
+				tmp = trash;
+			}
 		}
 		(*i)++;
 	}

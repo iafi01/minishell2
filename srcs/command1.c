@@ -25,11 +25,12 @@ void	ft_set(t_global *global)
 		return ;
 	while (i < s - 2)
 	{
-		env[i] = ft_strdup(global->envp[i]);
+		env[i] = global->envp[i];
 		i++;
 	}
 	env[i++] = ft_strdup(global->token->next->next->val);
-	env[i] = ft_strdup(global->envp[i - 1]);
+	env[i] = global->envp[i - 1];
+	free(global->envp);
 	global->envp = env;
 }
 
