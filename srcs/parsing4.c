@@ -63,7 +63,7 @@ void	ft_free_list(t_token *list)
 		return ;
 	first = list;
 	list = list->next;
-	while (list->next != NULL)
+	while (list != NULL)
 	{
 		next = list->next;
 		if (list->e_type == TK_ID)

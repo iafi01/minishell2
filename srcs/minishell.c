@@ -48,6 +48,47 @@ char	*str_2loop(char *line, int *j, char *tmp, char *s)
 	}
 }
 
+//function that frees a list
+void	ft_free_lst(t_list *lst)
+{
+	t_list *tmp;
+
+	while (lst)
+	{
+		tmp = lst->next;
+		free(lst->content);
+		free(lst);
+		lst = tmp;
+	}
+}
+
+//function that prints the list
+void	ft_print_lst(t_list *lst)
+{
+	while (lst)
+	{
+		ft_putstr(lst->content);
+		lst = lst->next;
+	}
+}
+
+//function that frees a list of commands
+void	ft_free_cmd(t_command *cmd)
+{
+	t_command *tmp;
+
+	while (cmd)
+	{
+		tmp = cmd;
+		cmd = cmd->next;
+		ft_free_lst(tmp->out);
+		ft_free_lst(tmp->in);
+		ft_free_lst(tmp->here_doc);
+		ft_free_lst(tmp->par);
+		free(tmp);
+	}
+}
+
 void	loop_core(t_global *global, char *read)
 {
 	ft_lexer(read, global->token);
@@ -56,6 +97,7 @@ void	loop_core(t_global *global, char *read)
 	ft_state_0(global->token->next, global->simple_cmd);
 	ft_exe_commands(global, global->simple_cmd);
 	ft_free_list(global->token);
+	ft_free_cmd(global->simple_cmd);
 	free(read);
 }
 
@@ -80,38 +122,6 @@ char	*pre_loop(void)
 	return (read);
 }
 
-//function that frees a list
-void	ft_free_lst(t_list *lst)
-{
-	t_list *tmp;
-
-	while (lst)
-	{
-		tmp = lst->next;
-		free(lst->content);
-		free(lst);
-		lst = tmp;
-	}
-}
-
-
-//function that frees a list of commands
-void	ft_free_cmd(t_command *cmd)
-{
-	t_command *tmp;
-
-	while (cmd)
-	{
-		tmp = cmd;
-		cmd = cmd->next;
-		ft_free_lst(tmp->out);
-		ft_free_lst(tmp->in);
-		ft_free_lst(tmp->here_doc);
-		ft_free_lst(tmp->par);
-		free(tmp);
-	}
-}
-
 int	loop(t_global *global)
 {
 	char	*read;
@@ -131,8 +141,6 @@ int	loop(t_global *global)
 			continue ;
 		}
 		loop_core(global, read);
-		ft_free_list(global->token->next);
-		ft_free_cmd(global->simple_cmd);
 	}
 	return (1);
 }

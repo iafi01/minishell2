@@ -131,5 +131,6 @@ void	ft_lexer(char *line, t_token *token)
 				continue ;
 	}
 	if (line[*i] == '\0' && tmp && *tmp != (char) NULL && line[*i] != 32)
-		ft_add_list(token, TK_ID, tmp, 0);
+		ft_add_list(token, TK_ID, ft_strdup(tmp), 0);
+	free(tmp);
 }
