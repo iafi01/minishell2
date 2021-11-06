@@ -56,7 +56,7 @@ char	**ft_copy_env(char **envp)
 
 	s = ft_get_size(envp);
 	i = 0;
-	res = (char **)malloc(sizeof(char *) * s);
+	res = (char **)ft_malloc(sizeof(char *) * s);
 	while (i < s)
 	{
 		res[i] = envp[i];

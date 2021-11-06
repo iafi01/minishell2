@@ -33,6 +33,7 @@ void	ft_exe_commands(t_global *global, t_command *simple_coms)
 		ft_exe_one(global, simple_coms);
 }
 
+
 void	exec_child_proc(int *fds, t_command *cmd, t_global *global, char **arr)
 {
 	dup2(fds[0], 0);
@@ -45,22 +46,33 @@ void	exec_child_proc(int *fds, t_command *cmd, t_global *global, char **arr)
 	exit(0);
 }
 
+//function that frees a pointer in argument and returns true
+int		ft_free(void *ptr)
+{
+	free(ptr);
+	return (1);
+}
+
 int	exec_ifs(t_command *cmd, t_global *global, int fdo)
 {
-	if (!ft_strncmp(str_tolower(cmd->cmd), "echo", 5))
+	char	*trash;
+
+	trash = str_tolower(cmd->cmd);
+	if (!ft_strncmp(trash, "echo", 5) && ft_free(trash))
 		return (ft_echo(global, fdo));
-	else if (!ft_strncmp(str_tolower(cmd->cmd), "env", 4))
+	else if (!ft_strncmp(trash, "env", 4) && ft_free(trash))
 		return (ft_env(global, fdo));
-	else if (!ft_strncmp(cmd->cmd, "cd", 3))
+	else if (!ft_strncmp(cmd->cmd, "cd", 3) && ft_free(trash))
 		return (ft_cd(global->token->next));
-	else if (!ft_strncmp(cmd->cmd, "export", 7))
+	else if (!ft_strncmp(cmd->cmd, "export", 7) && ft_free(trash))
 		return (ft_export(global, fdo));
-	else if (!ft_strncmp(str_tolower(cmd->cmd), "pwd", 4))
+	else if (!ft_strncmp(trash, "pwd", 4) && ft_free(trash))
 		return (ft_pwd(fdo));
-	else if (!ft_strncmp(cmd->cmd, "unset", 6))
+	else if (!ft_strncmp(cmd->cmd, "unset", 6) && ft_free(trash))
 		return (ft_unset(global));
-	else if (!ft_strncmp(cmd->cmd, "exit", 5))
+	else if (!ft_strncmp(cmd->cmd, "exit", 5) && ft_free(trash))
 		ft_exit(global);
+	free(trash);
 	return (-1);
 }
 

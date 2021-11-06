@@ -76,7 +76,7 @@ char	**ft_set_split(const char *s, char *set)
 	int			arr[3];
 
 	*arr = ft_arr(arr);
-	tab = malloc(sizeof(char *) * (count_words(s, set) + 1));
+	tab = ft_malloc(sizeof(char *) * (count_words(s, set) + 1));
 	if (!tab)
 		return (NULL);
 	while (s[++arr[0]])
@@ -84,7 +84,7 @@ char	**ft_set_split(const char *s, char *set)
 		if (!in_s(s[arr[0]], set))
 		{
 			if (arr[2] == 0)
-				tab[arr[1]] = malloc(sizeof(char) * w_s(s, arr[0], set) + 1);
+				tab[arr[1]] = ft_malloc(sizeof(char) * w_s(s, arr[0], set) + 1);
 			if (arr[2] == 0 && !tab)
 				return (NULL);
 			tab[arr[1]][arr[2]] = s[arr[0]];
@@ -160,14 +160,14 @@ char			**ft_set_split(char const *s, char *set)
 	i = -1;
 	j = 0;
 	k = 0;
-	if (!(tab = malloc(sizeof(char *) * (count_words(s, set) + 1))))
+	if (!(tab = ft_malloc(sizeof(char *) * (count_words(s, set) + 1))))
 		return (NULL);
 	while (s[++i])
 	{
 		if (!in_s(s[i], set))
 		{
 			if (k == 0)
-				if (!(tab[j] = malloc(sizeof(char) * w_s(s, i, set) + 1)))
+				if (!(tab[j] = ft_malloc(sizeof(char) * w_s(s, i, set) + 1)))
 					return (NULL);
 			tab[j][k] = s[i];
 			tab[j][++k] = '\0';

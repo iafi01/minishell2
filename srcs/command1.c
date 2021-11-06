@@ -20,7 +20,7 @@ void	ft_set(t_global *global)
 
 	i = 0;
 	s = ft_get_size(global->envp) + 1;
-	env = malloc(sizeof(char *) * s + 1);
+	env = ft_malloc(sizeof(char *) * s + 1);
 	if (sostitute_set(global, 1))
 		return ;
 	while (i < s - 2)

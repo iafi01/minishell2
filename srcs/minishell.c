@@ -91,28 +91,32 @@ void	ft_free_cmd(t_command *cmd)
 
 void	loop_core(t_global *global, char *read)
 {
+	ft_free_list(global->token);
+	g_glbl.token = ft_token_new(TK_ID, NULL, 0, NULL);
 	ft_lexer(read, global->token);
+	free(read);
 	global->simple_cmd = ft_command_new();
 	global->simple_cmd = ft_cmd_init(global->simple_cmd);
 	ft_state_0(global->token->next, global->simple_cmd);
 	ft_exe_commands(global, global->simple_cmd);
-	ft_free_list(global->token);
 	ft_free_cmd(global->simple_cmd);
-	free(read);
 }
 
 char	*pre_loop(void)
 {
 	char	*user;
 	char	*read;
+	char	*trash;
 
 	wait(0);
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, sig_handler);
-	read = ft_strjoin("<", getenv("USER"));
+	trash = getenv("USER");
+	read = ft_strjoin("<", trash);
 	user = ft_strjoin(read, "> ");
 	free(read);
 	read = readline(user);
+	// printf("%p\n", read);
 	free(user);
 	if (read == NULL)
 	{
@@ -147,14 +151,11 @@ int	loop(t_global *global)
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_token	*token;
-
 	g_glbl.pid = 0;
-	token = ft_token_new(TK_ID, NULL, 0, NULL);
 	g_glbl.ret = 0;
 	g_glbl.argc = argc;
 	g_glbl.argv = argv;
-	g_glbl.token = token;
+	g_glbl.token = ft_token_new(TK_ID, NULL, 0, NULL);
 	g_glbl.envp = ft_copy_env(envp);
 	g_glbl.size = ft_get_size(envp);
 	if (!loop(&g_glbl))

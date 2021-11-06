@@ -31,6 +31,11 @@
 # include <readline/history.h>
 # include "../libft/includes/libft.h"
 
+typedef enum e_bool{
+	false,
+	true
+}			t_bool;
+
 typedef enum e_type
 {
 	TK_ID,
@@ -100,6 +105,7 @@ typedef struct s_global
 	t_command		*simple_cmd;
 	int				size;
 	int				pid;
+	t_bool			last;
 }				t_global;
 
 t_global	g_glbl;

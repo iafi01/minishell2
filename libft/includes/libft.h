@@ -15,6 +15,7 @@
 
 # include <stdlib.h>
 # include <unistd.h>
+# include <stdio.h> //da eliminare
 # include "get_next_line.h"
 
 typedef struct s_list
@@ -27,6 +28,7 @@ typedef struct s_list
 ** Libc Functions
 */
 
+void			*ft_malloc(size_t size);
 int				ft_isascii(int c);
 int				ft_isprint(int c);
 int				ft_isalpha(int c);
@@ -61,7 +63,7 @@ void			ft_putstr(char const *s);
 void			ft_putnbr(int n);
 
 /*
-** malloc
+** ft_malloc
 */
 
 void			*ft_calloc(size_t nitems, size_t size);

@@ -50,7 +50,7 @@ t_redirect	*ft_new_redirect(char *file, t_type red_type)
 {
 	t_redirect	*new;
 
-	new = malloc(sizeof(new));
+	new = ft_malloc(sizeof(new));
 	if (new == NULL)
 		return (NULL);
 	new->file = ft_strdup(file);

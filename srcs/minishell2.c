@@ -19,7 +19,7 @@ char	*ft_stringa_unica(char *line, int *j, int ap)
 	char	s[2];
 
 	s[1] = '\0';
-	tmp = calloc(30, sizeof(char));
+	tmp = ft_calloc(30, sizeof(char));
 	j[1] = 0;
 	while (line[++j[1]])
 	{
@@ -66,7 +66,7 @@ static int	lex_last_if(char *line, int *i, t_token *token, char *tmp)
 		write_b(ft_strlen(tmp));
 		ft_add_list(token, TK_ID, ft_strdup(tmp), 0);
 		ft_memset((void *)tmp, '\0', 30);
-		free(trash);
+		free(trash);	
 		return (0);
 	}
 	return (1);
@@ -117,7 +117,7 @@ void	ft_lexer(char *line, t_token *token)
 
 	s[1] = '\0';
 	i[0] = -1;
-	tmp = malloc(sizeof(char) * 30);
+	tmp = ft_malloc(sizeof(char) * 30);
 	len = ft_strlen(line);
 	while (line[++i[0]])
 	{

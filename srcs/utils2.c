@@ -44,7 +44,7 @@ char	**list_to_arr(t_token *token)
 	int		i;
 
 	i = 0;
-	arg = (char **)malloc(sizeof(char *) * ft_listlen(token));
+	arg = (char **)ft_malloc(sizeof(char *) * ft_listlen(token));
 	while (token)
 	{
 		arg[i++] = token->val;
@@ -60,7 +60,7 @@ char	**lst_to_arr(t_list *list)
 	int		i;
 
 	i = 0;
-	arg = (char **)malloc(sizeof(char *) * ft_lstlen(list));
+	arg = (char **)ft_malloc(sizeof(char *) * ft_lstlen(list));
 	while (list)
 	{
 		arg[i++] = list->content;

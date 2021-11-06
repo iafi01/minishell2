@@ -30,7 +30,7 @@ t_command	*ft_command_new(void)
 {
 	t_command	*cmd;
 
-	cmd = (t_command *)malloc(sizeof(t_command));
+	cmd = (t_command *)ft_malloc(sizeof(t_command));
 	return (cmd);
 }
 

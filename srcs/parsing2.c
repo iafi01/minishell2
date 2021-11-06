@@ -33,7 +33,7 @@ char	*ft_alpha_give(char *s)
 	int		i;
 
 	i = 0;
-	new = calloc(sizeof(char), ft_strlen(s));
+	new = ft_calloc(sizeof(char), ft_strlen(s));
 	while (s[i])
 	{
 		if (ft_isalpha(s[i]) || s[i] == '$')
@@ -55,7 +55,7 @@ char	*ft_symbols_give(char *s)
 
 	j = 0;
 	i = 0;
-	new = calloc(sizeof(char), ft_strlen(s));
+	new = ft_calloc(sizeof(char), ft_strlen(s));
 	while (s[i] && s[i] != '$')
 	{
 		if (!ft_isalpha(s[i]))

@@ -51,6 +51,8 @@ static void	child_pipe(int *fd, t_command *cmd, t_global *global)
 	close(fd[1]);
 	ft_exe_one(global, cmd);
 	free(cmd);
+	if (global->last)
+		ft_free_list(global->token);
 	exit(0);
 }
 

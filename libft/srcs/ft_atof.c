@@ -42,6 +42,17 @@ float		ft_atof(char *str)
 }
 */
 
+//function that allocates a pointer of size size and prints its pointer address
+void	*ft_malloc(size_t size)
+{
+	void	*ptr;
+
+	ptr = malloc(size);
+	// printf("%p\n", ptr);
+
+	return (ptr);
+}
+
 static int	ft_first(char *str, int i, int fac)
 {
 	if (str[i] == '-')

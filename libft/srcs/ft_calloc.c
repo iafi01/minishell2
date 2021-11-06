@@ -23,7 +23,8 @@ void	*ft_calloc(size_t nitems, size_t size)
 	void		*dst;
 
 	size_tot = size * nitems;
-	dst = malloc(size_tot);
+	dst = ft_malloc(size_tot);
+	// printf("%p\n", dst);
 	if (!dst)
 		return (0);
 	ft_memset(dst, 0, size_tot);

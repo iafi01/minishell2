@@ -16,7 +16,7 @@ char	*ft_strnew(size_t size)
 {
 	char	*string;
 
-	string = (char *)malloc(sizeof(char) * size + 1);
+	string = (char *)ft_malloc(sizeof(char) * size + 1);
 	if (string == NULL)
 		return (NULL);
 	ft_memset(string, '\0', size + 1);
@@ -85,7 +85,7 @@ char	**ft_strsplit(char const *s, char c)
 	int		count;
 
 	count = ft_word_count(s, c, 0);
-	array = (char **)malloc(sizeof(char *) * count + 1);
+	array = (char **)ft_malloc(sizeof(char *) * count + 1);
 	if (array == NULL)
 		return (NULL);
 	ft_populatearray(count, c, s, array);

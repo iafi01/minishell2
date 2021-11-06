@@ -16,7 +16,7 @@ t_token	*init_token(int type, char *val)
 {
 	t_token	*token;
 
-	token = malloc(sizeof(t_token));
+	token = ft_malloc(sizeof(t_token));
 	if (!token)
 		return (NULL);
 	token->e_type = type;
@@ -45,7 +45,7 @@ t_token	*ft_token_new(t_type token, char *val, int apici, t_token *prec)
 {
 	t_token	*lnew;
 
-	lnew = (t_token *)malloc(sizeof(t_token));
+	lnew = (t_token *)ft_malloc(sizeof(t_token));
 	lnew->prec = prec;
 	lnew->e_type = token;
 	lnew->val = val;
@@ -59,10 +59,13 @@ void	ft_free_list(t_token *list)
 	t_token	*first;
 	t_token	*next;
 
-	if (!list || list->next == NULL)
+	if (!list/* || list->next == NULL*/)
 		return ;
 	first = list;
-	list = list->next;
+	// list = list->next;
+	next = list->next;
+	free(list);
+	list = next;
 	while (list != NULL)
 	{
 		next = list->next;
@@ -72,5 +75,5 @@ void	ft_free_list(t_token *list)
 		list = next;
 	}
 	list = first;
-	list->next = NULL;
+	// list->next = NULL;
 }

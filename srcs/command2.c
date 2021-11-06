@@ -27,7 +27,7 @@ t_envp	*ft_env_new(char *envp)
 	t_envp	*lnew;
 	char	**c_split;
 
-	lnew = (t_envp *)malloc(sizeof(t_envp));
+	lnew = (t_envp *)ft_malloc(sizeof(t_envp));
 	c_split = ft_split(envp, '=');
 	if (c_split[0])
 		lnew->first = c_split[0];

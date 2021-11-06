@@ -42,7 +42,7 @@ char	*ft_apici_split(char *line)
 	s[1] = '\0';
 	apici = 0;
 	i = -1;
-	tmp = calloc(30, sizeof(char));
+	tmp = ft_calloc(30, sizeof(char));
 	if (line[i] == 39)
 		apici = 1;
 	else if (line[i] == 34)

@@ -18,7 +18,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	size_t	i;
 	size_t	j;
 
-	res = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	res = (char *)ft_malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
 	if (!s1 || !s2 || !res)
 		return (0);
 	i = 0;
@@ -40,7 +40,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*str;
 
-	str = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	str = (char *)ft_malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!str)
 		return (NULL);
 	ft_strcpy(str, s1);

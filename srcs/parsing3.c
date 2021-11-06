@@ -50,7 +50,7 @@ int	ft_add_list(t_token *list, t_type type, char *val, int apici)
 	int		i;
 	char	*tmp;
 
-	tmp = calloc(30, sizeof(char));
+	tmp = ft_calloc(30, sizeof(char));
 	list = ft_find_end(list);
 	prec = list;
 	if (val != NULL && val[0] == '~')
@@ -68,6 +68,10 @@ int	ft_add_list(t_token *list, t_type type, char *val, int apici)
 	else
 		list->next = ft_token_new(type, val, apici, prec);
 	if (list->next)
+	{
+		free(tmp);
 		return (1);
+	}
+	free(tmp);
 	return (0);
 }

@@ -79,7 +79,7 @@ void	ft_redirect_dminore(char *word, int *fdi)
 	ret = pipe(fd);
 	if (*fdi != STDIN_FILENO)
 		close (*fdi);
-	read = malloc(sizeof(char) * 30);
+	read = ft_malloc(sizeof(char) * 30);
 	while (1)
 	{
 		read = ">";
@@ -94,7 +94,7 @@ void	ft_redirect_dminore(char *word, int *fdi)
 		write(fd[1], read, ft_strlen(read));
 		write(fd[1], "\n", 1);
 		free(read);
-		read = malloc(sizeof(char) * 30);
+		read = ft_malloc(sizeof(char) * 30);
 		read = ft_memset((void *)read, '\0', 30);
 	}
 }

@@ -23,7 +23,7 @@ int	ft_unset(t_global *global)
 	i[0] = 0;
 	i[1] = 0;
 	s = ft_get_size(global->envp);
-	res = (char **)malloc(sizeof(char *) * s);
+	res = (char **)ft_malloc(sizeof(char *) * s);
 	while (i[0] < s && global->envp[i[1]])
 	{
 		if (!ft_strncmp(global->envp[i[1]], find, ft_strlen(find)))

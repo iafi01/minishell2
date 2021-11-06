@@ -76,7 +76,7 @@ char	*ft_itoa(int n)
 		n /= 10;
 		size++;
 	}
-	str = (char *)malloc(size + 1);
+	str = (char *)ft_malloc(size + 1);
 	if (!str)
 		return (0);
 	*(str + size--) = '\0';
