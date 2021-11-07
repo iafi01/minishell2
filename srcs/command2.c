@@ -39,6 +39,11 @@ t_envp	*ft_env_new(char *envp)
 		lnew->second = NULL;
 	lnew->index = 0;
 	lnew->next = NULL;
+	// if (!ft_strncmp(c_split[0], envp, 5))
+	// {
+	// 	free(c_split[0]);
+	// 	free(c_split);
+	// }
 	return (lnew);
 }
 

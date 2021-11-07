@@ -55,6 +55,21 @@ void	export_loop(int *i, t_envp *env, int fdo, t_envp *test)
 	return ;
 }
 
+//function that frees a list of t_envp
+void	free_envp(t_envp *env)
+{
+	t_envp *tmp;
+
+	while (env)
+	{
+		tmp = env;
+		env = env->next;
+		free(tmp->first);
+		free(tmp->second);
+		free(tmp);
+	}
+}
+
 int	ft_export(t_global *global, int fdo)
 {
 	t_envp	*env;
@@ -65,17 +80,18 @@ int	ft_export(t_global *global, int fdo)
 	i[0] = 0;
 	envp = global->envp;
 	i[1] = ft_get_size(global->envp);
-	test = ft_env_new("init");
-	env = test;
-	create_export(envp, test);
-	set_index_export(global, env);
 	if (global->token->next->next)
 	{
 		ft_set(global);
 		global->ret = 0;
 		return (0);
 	}
+	test = ft_env_new("init");
+	env = test;
+	create_export(envp, test);
+	set_index_export(global, env);
 	export_loop(i, env, fdo, test);
+	free_envp(env);
 	global->ret = 0;
 	return (0);
 }

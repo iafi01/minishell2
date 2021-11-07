@@ -12,6 +12,22 @@
 
 #include "../includes/minishell.h"
 
+void	ft_unset_aux(int *i, int s, char *find, char **res)
+{
+	while (i[0] < s && g_glbl.envp[i[1]])
+	{
+		if (!ft_strncmp(g_glbl.envp[i[1]], find, ft_strlen(find)))
+		{
+			free(g_glbl.envp[i[1]]);
+			i[1]++;
+			continue ;
+		}
+		res[i[0]] = g_glbl.envp[i[1]];
+		i[0]++;
+		i[1]++;
+	}
+}
+
 int	ft_unset(t_global *global)
 {
 	int		i[2];
@@ -24,18 +40,7 @@ int	ft_unset(t_global *global)
 	i[1] = 0;
 	s = ft_get_size(global->envp);
 	res = (char **)ft_malloc(sizeof(char *) * s);
-	while (i[0] < s && global->envp[i[1]])
-	{
-		if (!ft_strncmp(global->envp[i[1]], find, ft_strlen(find)))
-		{
-			free(global->envp[i[1]]);
-			i[1]++;
-			continue ;
-		}
-		res[i[0]] = global->envp[i[1]];
-		i[0]++;
-		i[1]++;
-	}
+	ft_unset_aux(i, s, find, res);
 	if (i[0] != i[1])
 	{
 		free(global->envp);
