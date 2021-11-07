@@ -12,35 +12,46 @@
 
 #include "../includes/minishell.h"
 
-static void	add_list_loop(char ***dollar, int *i, char *val, char *tmp)
+static void	add_list_loop(char ***dollar, int *i, char *val, char **tmp)
 {
 	char	*trash;
+	char	*lezzo;
 
 	*i = 0;
 	*dollar = ft_split(val, '$');
 	while (*dollar[*i])
 	{
-		if (getenv(ft_alpha_give(*dollar[*i])))
+		lezzo = ft_alpha_give(*dollar[*i]);
+		if (getenv(lezzo))
 		{
-			trash = ft_strjoin(tmp, getenv(ft_alpha_give(*dollar[*i])));
-			free(tmp);
-			tmp = trash;
-			if (ft_symbols_give(*dollar[*i]))
+			trash = ft_strjoin(*tmp, getenv(lezzo));
+			free(*tmp);
+			*tmp = trash;
+			free(lezzo);
+			lezzo = ft_symbols_give(*dollar[*i]);
+			if (lezzo)
 			{
-				trash = ft_strjoin(tmp, ft_symbols_give(*dollar[*i]));
-				free(tmp);
-				tmp = trash;
+				trash = ft_strjoin(*tmp, lezzo);
+				free(lezzo);
+				free(*tmp);
+				*tmp = trash;
 			}
 		}
 		(*i)++;
 	}
 }
 
-static void	add_list_if(char *tmp, char **val)
+static void	add_list_if(char **tmp, char **val)
 {
-	tmp = getenv("HOME");
+	char	*trash;
+
+	*tmp = getenv("HOME");
 	if (++(*val))
-		tmp = ft_strjoin(tmp, *val);
+	{
+		trash = ft_strjoin(*tmp, *val);
+		free(*tmp);
+		*tmp = trash;
+	}
 }
 
 int	ft_add_list(t_token *list, t_type type, char *val, int apici)
@@ -55,23 +66,27 @@ int	ft_add_list(t_token *list, t_type type, char *val, int apici)
 	prec = list;
 	if (val != NULL && val[0] == '~')
 	{
-		add_list_if(tmp, &val);
-		list->next = ft_token_new(type, tmp, apici, prec);
+		add_list_if(&tmp, &val);
+		if (tmp)
+		{
+			list->next = ft_token_new(type, ft_strdup(tmp), apici, prec);
+			free(val);
+		}
 	}
 	else if (val != NULL && val[0] == '$'
 		&& val[1] != '?' && val[1] && apici != 1)
 	{
-		add_list_loop(&dollar, &i, val, tmp);
+		add_list_loop(&dollar, &i, val, &tmp);
 		if (tmp)
-			list->next = ft_token_new(type, tmp, apici, prec);
+		{
+			list->next = ft_token_new(type, ft_strdup(tmp), apici, prec);
+			free(val);
+		}
+		free(*dollar);
+		free(dollar);
 	}
 	else
 		list->next = ft_token_new(type, val, apici, prec);
-	if (list->next)
-	{
-		free(tmp);
-		return (1);
-	}
 	free(tmp);
 	return (0);
 }

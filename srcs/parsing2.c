@@ -44,6 +44,7 @@ char	*ft_alpha_give(char *s)
 	}
 	if (new[0])
 		return (new);
+	free(new);
 	return (NULL);
 }
 
@@ -64,5 +65,6 @@ char	*ft_symbols_give(char *s)
 	}
 	if (new[0])
 		return (new);
+	free(new);
 	return (NULL);
 }

@@ -57,7 +57,7 @@ static int	lex_last_if(char *line, int *i, t_token *token, char **tmp)
 			(*i)++;
 		return (0);
 	}
-	else if (tmp)
+	else if (*tmp)
 	{
 		ft_add_list(token, TK_ID, ft_strdup(*tmp), 0);
 		free(*tmp);
