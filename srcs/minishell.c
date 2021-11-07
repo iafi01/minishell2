@@ -46,6 +46,7 @@ char	*str_2loop(char *line, int *j, char *tmp, char *s)
 		tmp = trash;
 		return (tmp);
 	}
+	return (tmp);
 }
 
 //function that frees a list
