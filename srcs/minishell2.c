@@ -48,10 +48,8 @@ char	*ft_stringa_unica(char *line, int *j, int ap)
 	return (tmp);
 }
 
-static int	lex_last_if(char *line, int *i, t_token *token, char *tmp)
+static int	lex_last_if(char *line, int *i, t_token *token, char **tmp)
 {
-	char	*trash;
-
 	if (is_token(line + *i))
 	{
 		store_token(token, line + *i);
@@ -61,12 +59,10 @@ static int	lex_last_if(char *line, int *i, t_token *token, char *tmp)
 	}
 	else if (tmp)
 	{
-		trash = ft_strdup(tmp);
-		printf("%s", trash);
-		write_b(ft_strlen(tmp));
-		ft_add_list(token, TK_ID, ft_strdup(tmp), 0);
-		ft_memset((void *)tmp, '\0', 30);
-		free(trash);	
+		ft_add_list(token, TK_ID, ft_strdup(*tmp), 0);
+		free(*tmp);
+		*tmp = (char *)ft_calloc(30, sizeof(char));
+		ft_memset((void *)(*tmp), '\0', 30);
 		return (0);
 	}
 	return (1);
@@ -117,7 +113,7 @@ void	ft_lexer(char *line, t_token *token)
 
 	s[1] = '\0';
 	i[0] = -1;
-	tmp = ft_malloc(sizeof(char) * 30);
+	tmp = (char *)ft_calloc(30, sizeof(char));
 	len = ft_strlen(line);
 	while (line[++i[0]])
 	{
@@ -127,7 +123,7 @@ void	ft_lexer(char *line, t_token *token)
 		if (*tmp == (char) NULL && line[*i] == 32)
 			continue ;
 		if (line[*i] && (is_token(line + *i) || line[*i] == 32))
-			if (lex_last_if(line, i, token, tmp))
+			if (lex_last_if(line, i, token, &tmp))	
 				continue ;
 	}
 	if (line[*i] == '\0' && tmp && *tmp != (char) NULL && line[*i] != 32)

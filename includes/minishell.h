@@ -110,6 +110,9 @@ typedef struct s_global
 
 t_global	g_glbl;
 
+//debug
+void		ft_print_token(t_token *token);
+
 //minishell.c
 void		sign_handler(int sig);
 void		ft_lexer(char *line, t_token *token);

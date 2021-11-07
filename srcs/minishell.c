@@ -89,6 +89,19 @@ void	ft_free_cmd(t_command *cmd)
 	}
 }
 
+//function that prints a list of t_token *
+void	ft_print_token(t_token *token)
+{
+	write(1, "\n>>", 3);
+	while (token)
+	{
+		ft_putstr(token->val);
+		token = token->next;
+	}
+	write(1, "<<\n", 3);
+}
+
+
 void	loop_core(t_global *global, char *read)
 {
 	ft_free_list(global->token);
