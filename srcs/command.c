@@ -87,7 +87,6 @@ int	echo_loop(t_token *token, int *flag, t_global *global, int fd)
 		}
 		write(fd, token->val, ft_strlen(token->val));
 		token = token->next;
-		write(fd, " ", 1);
 	}
 	if (*flag == 0)
 		write(fd, "\n", 1);
@@ -114,29 +113,4 @@ int	ft_echo(t_global *global, int fd)
 	else
 		token = token->next;
 	return (echo_loop(token, &flag, global, fd));
-}
-
-int	ft_cd(t_token *token)
-{
-	char	*tmp;
-	int		index;
-
-	index = 1;
-	if (token->next == NULL)
-	{
-		index = chdir(getenv("HOME"));
-		g_glbl.ret = 0;
-		return (0);
-	}
-	tmp = token->next->val;
-	if (tmp[0] == '-')
-		index = chdir(getenv("OLDPWD"));
-	if (tmp[0] == 126 && tmp[1] == 47)
-		tmp = ft_strjoin(getenv("HOME"), ft_substr(tmp, 1, ft_strlen(tmp)));
-	index = chdir(tmp);
-	if (index < 0 && tmp[0] != '-'
-		&& !(tmp == NULL || ft_str_sim(&tmp[0], "~")))
-		printf("cd: %s: %s\n", strerror(errno), tmp);
-	g_glbl.ret = 0;
-	return (0);
 }

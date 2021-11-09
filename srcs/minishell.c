@@ -22,23 +22,10 @@ char	*str_2loop(char *line, int *j, char *tmp, char *s)
 		j[0]++;
 		if (line[j[1]] == 0 || line[j[1]] == ' ')
 			return (tmp);
-		else if (line[j[1]] == 39)
+		str = tmp;
+		tmp = str_2if(line, j, tmp);
+		if (tmp != str)
 		{
-			str = ft_stringa_unica(line + j[1], j, 1);
-			trash = ft_strjoin(tmp, str);
-			free(tmp);
-			tmp = trash;
-			j[1] += ft_strlen(str);
-			free(str);
-			return (tmp);
-		}
-		else if (line[j[1]] == 34)
-		{
-			str = ft_stringa_unica(line + j[1], j, 2);
-			trash = ft_strjoin(tmp, str);
-			free(tmp);
-			tmp = trash;
-			j[1] += ft_strlen(str);
 			free(str);
 			return (tmp);
 		}
@@ -50,60 +37,6 @@ char	*str_2loop(char *line, int *j, char *tmp, char *s)
 	}
 	return (tmp);
 }
-
-//function that frees a list
-void	ft_free_lst(t_list *lst)
-{
-	t_list *tmp;
-
-	while (lst)
-	{
-		tmp = lst->next;
-		free(lst->content);
-		free(lst);
-		lst = tmp;
-	}
-}
-
-//function that prints the list
-void	ft_print_lst(t_list *lst)
-{
-	while (lst)
-	{
-		ft_putstr(lst->content);
-		lst = lst->next;
-	}
-}
-
-//function that frees a list of commands
-void	ft_free_cmd(t_command *cmd)
-{
-	t_command *tmp;
-
-	while (cmd)
-	{
-		tmp = cmd;
-		cmd = cmd->next;
-		ft_free_lst(tmp->out);
-		ft_free_lst(tmp->in);
-		ft_free_lst(tmp->here_doc);
-		ft_free_lst(tmp->par);
-		free(tmp);
-	}
-}
-
-//function that prints a list of t_token *
-void	ft_print_token(t_token *token)
-{
-	write(1, "\n>>", 3);
-	while (token)
-	{
-		ft_putstr(token->val);
-		token = token->next;
-	}
-	write(1, "<<\n", 3);
-}
-
 
 void	loop_core(t_global *global, char *read)
 {
@@ -132,7 +65,6 @@ char	*pre_loop(void)
 	user = ft_strjoin(read, "> ");
 	free(read);
 	read = readline(user);
-	// printf("%p\n", read);
 	free(user);
 	if (read == NULL)
 	{

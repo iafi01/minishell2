@@ -48,8 +48,6 @@ void	*ft_malloc(size_t size)
 	void	*ptr;
 
 	ptr = malloc(size);
-	// printf("%p\n", ptr);
-
 	return (ptr);
 }
 

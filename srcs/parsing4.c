@@ -59,10 +59,9 @@ void	ft_free_list(t_token *list)
 	t_token	*first;
 	t_token	*next;
 
-	if (!list/* || list->next == NULL*/)
+	if (!list)
 		return ;
 	first = list;
-	// list = list->next;
 	next = list->next;
 	free(list);
 	list = next;
@@ -75,5 +74,4 @@ void	ft_free_list(t_token *list)
 		list = next;
 	}
 	list = first;
-	// list->next = NULL;
 }

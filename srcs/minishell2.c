@@ -16,7 +16,6 @@ char	*ft_stringa_unica(char *line, int *j, int ap)
 {
 	char	*tmp;
 	char	*trash;
-	char	*trash2;
 	char	s[2];
 
 	s[1] = '\0';
@@ -34,22 +33,7 @@ char	*ft_stringa_unica(char *line, int *j, int ap)
 	}
 	if (line[j[1] + 1] && line[j[1] + 1] != ' ')
 		tmp = str_2loop(line, j, tmp, s);
-	if (line[j[1]] == 34)
-	{
-		trash2 = ft_stringa_unica(line + j[1], j, 2);
-		trash = ft_strjoin(tmp, trash2);
-		free(tmp);
-		free(trash2);
-		tmp = trash;
-	}
-	else if (line[j[1]] == 39)
-	{
-		trash2 = ft_stringa_unica(line + j[1] + 1, j, 1);
-		trash = ft_strjoin(tmp, trash2);
-		free(trash2);
-		free(tmp);
-		tmp = trash;
-	}
+	stringa_unica_aux(line, j, &tmp);
 	return (tmp);
 }
 
@@ -128,7 +112,7 @@ void	ft_lexer(char *line, t_token *token)
 		if (*tmp == (char) NULL && line[*i] == 32)
 			continue ;
 		if (line[*i] && (is_token(line + *i) || line[*i] == 32))
-			if (lex_last_if(line, i, token, &tmp))	
+			if (lex_last_if(line, i, token, &tmp))
 				continue ;
 	}
 	if (line[*i] == '\0' && tmp && *tmp != (char) NULL && line[*i] != 32)

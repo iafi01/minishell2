@@ -33,7 +33,6 @@ void	ft_exe_commands(t_global *global, t_command *simple_coms)
 		ft_exe_one(global, simple_coms);
 }
 
-
 void	exec_child_proc(int *fds, t_command *cmd, t_global *global, char **arr)
 {
 	dup2(fds[0], 0);
@@ -44,13 +43,6 @@ void	exec_child_proc(int *fds, t_command *cmd, t_global *global, char **arr)
 	close(0);
 	close(1);
 	exit(0);
-}
-
-//function that frees a pointer in argument and returns true
-int		ft_free(void *ptr)
-{
-	free(ptr);
-	return (1);
 }
 
 int	exec_ifs(t_command *cmd, t_global *global, int fdo)

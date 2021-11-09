@@ -58,7 +58,7 @@ void	export_loop(int *i, t_envp *env, int fdo, t_envp *test)
 //function that frees a list of t_envp
 void	free_envp(t_envp *env)
 {
-	t_envp *tmp;
+	t_envp	*tmp;
 
 	while (env)
 	{
@@ -94,19 +94,6 @@ int	ft_export(t_global *global, int fdo)
 	free_envp(env);
 	global->ret = 0;
 	return (0);
-}
-
-void	exit_if(char **arr, t_global *global, int i)
-{
-	if (arr[1] && global->argv[1] && global->argv[1][i])
-	{
-		write(2, "exit\nbash: exit: ", 17);
-		write(2, arr[1], ft_strlen(arr[1]));
-		write(2, ": numeric argument required\n",
-			ft_strlen(": numeric argument required\n"));
-		global->ret = 2;
-	}
-	return ;
 }
 
 void	ft_exit(t_global *global)

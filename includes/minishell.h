@@ -158,6 +158,7 @@ int			ft_env(t_global *global, int fd);
 int			ft_cd(t_token *token);
 int			ft_echo(t_global *global, int fd);
 int			ft_unset(t_global *global);
+void		exit_if(char **arr, t_global *global, int i);
 
 //debug.c
 void		debug(int d_apici, int s_apici, int prev_apici);
@@ -200,6 +201,7 @@ void		write_b(int n);
 int			ft_get_size(char **envp);
 char		**ft_copy_env(char **envp);
 t_type		check_tokens_valid(t_token *token);
+void		stringa_unica_aux(char *line, int *j, char **tmp);
 
 //command2.c
 t_envp		*ft_env_new(char *envp);
@@ -225,6 +227,10 @@ t_token		*find_cmd(t_token *token);
 int			check_if_options(t_token *tkn, char *opt);
 int			check_if_cmd(t_token *tkn);
 int			is_path(char *str);
+int			ft_free(void *ptr);
+void		ft_free_lst(t_list *lst);
+void		ft_free_cmd(t_command *cmd);
+char		*str_2if(char *line, int *j, char *tmp);
 
 // utils5.c
 void		ft_print_error(char *str);
