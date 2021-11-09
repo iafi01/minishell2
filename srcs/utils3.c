@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmedas <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: dmedas <dmedas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 01:15:05 by dmedas            #+#    #+#             */
-/*   Updated: 2021/11/04 01:15:07 by dmedas           ###   ########.fr       */
+/*   Updated: 2021/11/09 13:41:00 by dmedas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,27 +63,4 @@ char	**ft_copy_env(char **envp)
 		i++;
 	}
 	return (res);
-}
-
-void	stringa_unica_aux(char *line, int *j, char **tmp)
-{
-	char	*trash;
-	char	*trash2;
-
-	if (line[j[1]] == 34)
-	{
-		trash2 = ft_stringa_unica(line + j[1], j, 2);
-		trash = ft_strjoin(*tmp, trash2);
-		free(*tmp);
-		free(trash2);
-		*tmp = trash;
-	}
-	else if (line[j[1]] == 39)
-	{
-		trash2 = ft_stringa_unica(line + j[1] + 1, j, 1);
-		trash = ft_strjoin(*tmp, trash2);
-		free(trash2);
-		free(*tmp);
-		*tmp = trash;
-	}
 }

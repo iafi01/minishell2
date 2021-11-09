@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmedas <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: dmedas <dmedas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 02:56:10 by dmedas            #+#    #+#             */
-/*   Updated: 2021/11/04 02:56:11 by dmedas           ###   ########.fr       */
+/*   Updated: 2021/11/09 13:12:35 by dmedas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (res);
 }
 */
+
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*str;

@@ -6,7 +6,7 @@
 /*   By: dmedas <dmedas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 19:58:28 by dmedas            #+#    #+#             */
-/*   Updated: 2021/11/09 12:35:10 by dmedas           ###   ########.fr       */
+/*   Updated: 2021/11/09 13:40:54 by dmedas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ char	*ft_stringa_unica(char *line, int *j, int ap)
 	}
 	if (line[j[1] + 1] && line[j[1] + 1] != ' ')
 		tmp = str_2loop(line, j, tmp, s);
-	stringa_unica_aux(line, j, &tmp);
 	return (tmp);
 }
 

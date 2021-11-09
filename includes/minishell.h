@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmedas <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: dmedas <dmedas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 01:29:25 by dmedas            #+#    #+#             */
-/*   Updated: 2021/11/04 01:29:27 by dmedas           ###   ########.fr       */
+/*   Updated: 2021/11/09 12:49:54 by dmedas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,7 @@ void		exit_if(char **arr, t_global *global, int i);
 void		debug(int d_apici, int s_apici, int prev_apici);
 void		debug_list(t_token *token);
 void		print_tokens(t_global *global);
+void		print_str(char *str);
 
 //utils.c
 char		*cerca_variabile(char *line);
