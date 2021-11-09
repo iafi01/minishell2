@@ -29,6 +29,7 @@ char	*str_2loop(char *line, int *j, char *tmp, char *s)
 			free(tmp);
 			tmp = trash;
 			j[1] += ft_strlen(str);
+			free(str);
 			return (tmp);
 		}
 		else if (line[j[1]] == 34)
@@ -38,6 +39,7 @@ char	*str_2loop(char *line, int *j, char *tmp, char *s)
 			free(tmp);
 			tmp = trash;
 			j[1] += ft_strlen(str);
+			free(str);
 			return (tmp);
 		}
 		s[0] = line[j[1]];

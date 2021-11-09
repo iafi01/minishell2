@@ -16,6 +16,7 @@ char	*ft_stringa_unica(char *line, int *j, int ap)
 {
 	char	*tmp;
 	char	*trash;
+	char	*trash2;
 	char	s[2];
 
 	s[1] = '\0';
@@ -35,13 +36,17 @@ char	*ft_stringa_unica(char *line, int *j, int ap)
 		tmp = str_2loop(line, j, tmp, s);
 	if (line[j[1]] == 34)
 	{
-		trash = ft_strjoin(tmp, ft_stringa_unica(line + j[1], j, 2));
+		trash2 = ft_stringa_unica(line + j[1], j, 2);
+		trash = ft_strjoin(tmp, trash2);
 		free(tmp);
+		free(trash2);
 		tmp = trash;
 	}
 	else if (line[j[1]] == 39)
 	{
-		trash = ft_strjoin(tmp, ft_stringa_unica(line + j[1] + 1, j, 1));
+		trash2 = ft_stringa_unica(line + j[1] + 1, j, 1);
+		trash = ft_strjoin(tmp, trash2);
+		free(trash2);
 		free(tmp);
 		tmp = trash;
 	}
