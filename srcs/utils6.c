@@ -6,7 +6,7 @@
 /*   By: dmedas <dmedas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 00:59:13 by dmedas            #+#    #+#             */
-/*   Updated: 2021/11/10 02:43:23 by dmedas           ###   ########.fr       */
+/*   Updated: 2021/11/10 04:20:40 by dmedas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,10 @@ void	str_unica_complement(char *s, char *line, char **tmp, int *j)
 	trash = ft_strjoin(*tmp, s);
 	free(*tmp);
 	*tmp = trash;
+}
+
+void	str_append(char *line, int *j, char **tmp, char *s)
+{
+	if (line[j[1] + 1] && line[j[1] + 1] != ' ')
+		*tmp = str_2loop(line, j, *tmp, s);
 }

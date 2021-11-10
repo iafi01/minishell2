@@ -6,7 +6,7 @@
 /*   By: dmedas <dmedas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 01:29:25 by dmedas            #+#    #+#             */
-/*   Updated: 2021/11/10 02:43:20 by dmedas           ###   ########.fr       */
+/*   Updated: 2021/11/10 04:21:14 by dmedas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -246,6 +246,7 @@ void		*ft_free_redirect(t_redirect *to_free);
 void		dollar_expand(char *line, char **tmp, int *j);
 char		*expand_env_var(char *str, int *i, char *result);
 void		str_unica_complement(char *s, char *line, char **tmp, int *j);
+void		str_append(char *line, int *j, char **tmp, char *s);
 
 //state.c
 t_command	*ft_state_0(t_token *token, t_command *cmd);

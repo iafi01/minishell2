@@ -6,7 +6,7 @@
 /*   By: dmedas <dmedas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 19:58:28 by dmedas            #+#    #+#             */
-/*   Updated: 2021/11/10 02:50:50 by dmedas           ###   ########.fr       */
+/*   Updated: 2021/11/10 04:21:47 by dmedas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,19 @@ char	*ft_stringa_unica(char *line, int *j, int ap)
 		j[0]++;
 		if ((line[j[1]] == 39 && (ap == 1 || ap == 0))
 			|| (line[j[1]] == 34 && (ap == 2 || ap == 0))
-			|| (line[j[1]] == '$' && ft_strncmp(line + j[1], "$?", 3) != 0))
+			|| (line[j[1]] == '$' && ft_strncmp(line + j[1], "$?", 2) != 0))
 		{
 			if (line[j[1]] != '$')
 				j[1]++;
 			break ;
 		}
-		if (line[j[1]] == ' ' || line[j[1]] == '\t' || line[j[1]] == '\0')
+		if (line[j[1]] == ' ' || line[j[1]] == '\t' || line[j[1]] == '\0'
+			|| is_token(&line[j[1]]))
 			return (tmp);
 		str_unica_complement(s, line, &tmp, j);
 	}
 	dollar_expand(line, &tmp, j);
-	if (line[j[1] + 1] && line[j[1] + 1] != ' ')
-		tmp = str_2loop(line, j, tmp, s);
+	str_append(line, j, &tmp, s);
 	return (tmp);
 }
 
@@ -65,7 +65,7 @@ static int	lex_first_2if(char *line, int *i, t_token *token, char *tmp)
 {
 	char	*trash;
 
-	if (line[*i])
+	if (!is_token(&line[*i]) && line[*i] != ' ')
 	{
 		if (line[*i] == 34)
 			ft_add_list(token, TK_ID, ft_stringa_unica(line + *i, i, 2), 2);

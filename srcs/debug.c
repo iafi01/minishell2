@@ -53,8 +53,8 @@ void	print_tokens(t_global *global)
 	}
 	printf ("___________________________\n");
 }
-
-
+*/
+/*
 Modificare comando exit
 Ritorni delle built-in -> $?
 I segnali devono funzionare con ctrl-c e ctrl\ concatenati
