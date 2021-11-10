@@ -6,7 +6,7 @@
 /*   By: dmedas <dmedas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 01:18:51 by dmedas            #+#    #+#             */
-/*   Updated: 2021/11/10 02:29:35 by dmedas           ###   ########.fr       */
+/*   Updated: 2021/11/10 03:03:18 by dmedas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ char	*continue_condition(int *j, char *str, char *line, char *tmp)
 	char	*trash;
 
 	j[1]--;
+	if (line[j[1]] == '\0')
+		return (tmp);
 	str = ft_stringa_unica(line + j[1], j, 0);
 	trash = ft_strjoin(tmp, str);
 	tmp = trash;

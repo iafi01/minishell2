@@ -6,7 +6,7 @@
 /*   By: dmedas <dmedas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 16:01:05 by lmizzoni          #+#    #+#             */
-/*   Updated: 2021/11/09 14:42:23 by dmedas           ###   ########.fr       */
+/*   Updated: 2021/11/10 02:52:24 by dmedas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include <stdlib.h>
 # include <unistd.h>
-# include <stdio.h> //da eliminare
 # include "get_next_line.h"
 
 typedef struct s_list
