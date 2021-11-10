@@ -20,7 +20,7 @@ char	*str_2loop(char *line, int *j, char *tmp, char *s)
 	while (line[++j[1]])
 	{
 		j[0]++;
-		if (line[j[1]] == 0 || line[j[1]] == ' ')
+		if (line[j[1]] == 0 || line[j[1]] == ' ' || line[j[1]] == '\t')
 			return (tmp);
 		str = tmp;
 		tmp = str_2if(line, j, tmp);

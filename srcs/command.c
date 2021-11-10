@@ -81,18 +81,17 @@ int	echo_loop(t_token *token, int *flag, t_global *global, int fd)
 		if (!ft_strncmp(token->val, "$?", 3))
 		{
 			ft_putnbr_fd(global->ret, fd);
-			write(fd, "\n", 1);
-			global->ret = 0;
-			return (0);
+			if (token->next && token->next->e_type == TK_ID)
+				write(fd, " ", 1);
+			token = token->next;
+			continue ;
 		}
 		write(fd, token->val, ft_strlen(token->val));
 		if (token->next && token->next->e_type == TK_ID)
 			write(fd, " ", 1);
 		token = token->next;
 	}
-	if (*flag == 0)
-		write(fd, "\n", 1);
-	global->ret = 0;
+	end_echo(flag, fd, global);
 	return (0);
 }
 

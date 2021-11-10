@@ -12,32 +12,32 @@
 
 #include "../includes/minishell.h"
 
-static void	add_list_loop(char ***dollar, int *i, char *val, char **tmp)
+void	add_list_loop(char ***dollar, int *i, char *val, char **tmp)
 {
-	char	*trash;
-	char	*lezzo;
+	char	*trash[2];
+	int		k;
 
-	*i = 0;
+	*i = -1;
+	k = count_words(val, '$');
 	*dollar = ft_split(val, '$');
-	while (*dollar[*i])
+	while (++(*i) < k)
 	{
-		lezzo = ft_alpha_give(*dollar[*i]);
-		if (getenv(lezzo))
+		trash[1] = ft_alpha_give((*dollar)[*i]);
+		if (getenv(trash[1]))
 		{
-			trash = ft_strjoin(*tmp, getenv(lezzo));
+			trash[0] = ft_strjoin(*tmp, getenv(trash[1]));
 			free(*tmp);
-			*tmp = trash;
-			free(lezzo);
-			lezzo = ft_symbols_give(*dollar[*i]);
-			if (lezzo)
+			*tmp = trash[0];
+			free(trash[1]);
+			trash[1] = ft_symbols_give((*dollar)[*i]);
+			if (trash[1] != NULL)
 			{
-				trash = ft_strjoin(*tmp, lezzo);
-				free(lezzo);
+				trash[0] = ft_strjoin(*tmp, trash[1]);
+				free(trash[1]);
 				free(*tmp);
-				*tmp = trash;
+				*tmp = trash[0];
 			}
 		}
-		(*i)++;
 	}
 }
 
@@ -81,4 +81,11 @@ int	ft_add_list(t_token *list, t_type type, char *val, int apici)
 		list->next = ft_token_new(type, val, apici, list);
 	free(tmp);
 	return (0);
+}
+
+void	end_echo(int *flag, int fd, t_global *global)
+{
+	if (*flag == 0)
+		write(fd, "\n", 1);
+	global->ret = 0;
 }

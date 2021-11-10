@@ -6,7 +6,7 @@
 /*   By: dmedas <dmedas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 01:29:25 by dmedas            #+#    #+#             */
-/*   Updated: 2021/11/09 12:49:54 by dmedas           ###   ########.fr       */
+/*   Updated: 2021/11/10 01:00:05 by dmedas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,7 @@ int			ft_apici_invers(char *line);
 int			ft_apici_0(char *line);
 int			ft_apici_1(char *line);
 int			ft_apici_2(char *line);
+void		add_list_loop(char ***dollar, int *i, char *val, char **tmp);
 
 //parsing2.c
 int			command_by_path(char *line);
@@ -144,6 +145,7 @@ char		*ft_symbols_give(char *s);
 int			ft_add_list(t_token *list, t_type type, char *val, int apici);
 int			ft_token_priority(t_global *global, t_token *token);
 int			ft_is_command(enum e_type i);
+void		end_echo(int *flag, int fd, t_global *global);
 
 //parser.c
 int			ft_parsing(t_global *global);
@@ -239,6 +241,10 @@ size_t		get_size_simple_com(t_command *coms);
 char		*str_tolower(char *str);
 t_redirect	*ft_new_redirect(char *file, t_type red_type);
 void		*ft_free_redirect(t_redirect *to_free);
+
+//utils6.c
+void		dollar_expand(char *line, char **tmp, int *j);
+char		*expand_env_var(char *str, int *i, char *result);
 
 //state.c
 t_command	*ft_state_0(t_token *token, t_command *cmd);

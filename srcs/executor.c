@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmedas <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: dmedas <dmedas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 22:28:11 by dmedas            #+#    #+#             */
-/*   Updated: 2021/11/03 22:28:13 by dmedas           ###   ########.fr       */
+/*   Updated: 2021/11/10 00:48:37 by dmedas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	ft_exec_build_in(t_global *global, t_command *cmd, int fdi, int fdo)
 		if (pid == 0)
 			exec_child_proc(fds, cmd, global, arr);
 		else
-			waitpid(pid, 0, 0);
+			waitpid(pid, &global->ret, 0);
 	}
 	return (i);
 }

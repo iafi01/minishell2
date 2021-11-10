@@ -6,7 +6,7 @@
 /*   By: dmedas <dmedas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 01:18:51 by dmedas            #+#    #+#             */
-/*   Updated: 2021/11/09 13:26:42 by dmedas           ###   ########.fr       */
+/*   Updated: 2021/11/10 02:29:35 by dmedas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,21 +50,16 @@ void	ft_free_lst(t_list *lst)
 	}
 }
 
-//function that frees a list of commands
-void	ft_free_cmd(t_command *cmd)
+char	*continue_condition(int *j, char *str, char *line, char *tmp)
 {
-	t_command	*tmp;
+	char	*trash;
 
-	while (cmd)
-	{
-		tmp = cmd;
-		cmd = cmd->next;
-		ft_free_lst(tmp->out);
-		ft_free_lst(tmp->in);
-		ft_free_lst(tmp->here_doc);
-		ft_free_lst(tmp->par);
-		free(tmp);
-	}
+	j[1]--;
+	str = ft_stringa_unica(line + j[1], j, 0);
+	trash = ft_strjoin(tmp, str);
+	tmp = trash;
+	free(str);
+	return (tmp);
 }
 
 char	*str_2if(char *line, int *j, char *tmp)
@@ -72,6 +67,7 @@ char	*str_2if(char *line, int *j, char *tmp)
 	char	*str;
 	char	*trash;
 
+	str = NULL;
 	if (line[j[1]] == 39)
 	{
 		str = ft_stringa_unica(line + j[1], j, 1);
@@ -90,5 +86,7 @@ char	*str_2if(char *line, int *j, char *tmp)
 		free(str);
 		return (tmp);
 	}
+	else if (line[j[1]] != '\0' && line[j[1] != ' '])
+		return (continue_condition(j, str, line, tmp));
 	return (tmp);
 }

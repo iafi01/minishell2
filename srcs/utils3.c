@@ -6,7 +6,7 @@
 /*   By: dmedas <dmedas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 01:15:05 by dmedas            #+#    #+#             */
-/*   Updated: 2021/11/09 13:41:00 by dmedas           ###   ########.fr       */
+/*   Updated: 2021/11/10 00:57:12 by dmedas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,21 @@ char	**ft_copy_env(char **envp)
 		i++;
 	}
 	return (res);
+}
+
+//function that frees a list of commands
+void	ft_free_cmd(t_command *cmd)
+{
+	t_command	*tmp;
+
+	while (cmd)
+	{
+		tmp = cmd;
+		cmd = cmd->next;
+		ft_free_lst(tmp->out);
+		ft_free_lst(tmp->in);
+		ft_free_lst(tmp->here_doc);
+		ft_free_lst(tmp->par);
+		free(tmp);
+	}
 }

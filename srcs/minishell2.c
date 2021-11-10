@@ -6,7 +6,7 @@
 /*   By: dmedas <dmedas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 19:58:28 by dmedas            #+#    #+#             */
-/*   Updated: 2021/11/09 13:40:54 by dmedas           ###   ########.fr       */
+/*   Updated: 2021/11/10 02:40:23 by dmedas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,25 @@ char	*ft_stringa_unica(char *line, int *j, int ap)
 
 	s[1] = '\0';
 	tmp = ft_calloc(30, sizeof(char));
-	j[1] = 0;
+	j[1] = !(!ap) - 1;
 	while (line[++j[1]])
 	{
 		j[0]++;
-		if ((line[j[1]] == 39 && ap == 1) || (line[j[1]] == 34 && ap == 2))
+		if ((line[j[1]] == 39 && (ap == 1 || ap == 0))
+			|| (line[j[1]] == 34 && (ap == 2 || ap == 0)) || line[j[1]] == '$')
+		{
+			if (line[j[1]] != '$')
+				j[1]++;
 			break ;
+		}
+		if (line[j[1]] == ' ' || line[j[1]] == '\t' || line[j[1]] == '\0')
+			return (tmp);
 		s[0] = line[j[1]];
 		trash = ft_strjoin(tmp, s);
 		free(tmp);
 		tmp = trash;
 	}
+	dollar_expand(line, &tmp, j);
 	if (line[j[1] + 1] && line[j[1] + 1] != ' ')
 		tmp = str_2loop(line, j, tmp, s);
 	return (tmp);
@@ -60,12 +68,17 @@ static int	lex_first_2if(char *line, int *i, t_token *token, char *tmp)
 {
 	char	*trash;
 
-	if (line[*i] == 34 || line[*i] == 39)
+	if (line[*i])
 	{
 		if (line[*i] == 34)
 			ft_add_list(token, TK_ID, ft_stringa_unica(line + *i, i, 2), 2);
 		else if (line[*i] == 39)
 			ft_add_list(token, TK_ID, ft_stringa_unica(line + *i, i, 1), 1);
+		else if (line[*i])
+		{
+			ft_add_list(token, TK_ID, ft_stringa_unica(line + *i, i, 0), 0);
+			(*i)--;
+		}
 		return (1);
 	}
 	if (line[*i] == 34 || line[*i] == 39)

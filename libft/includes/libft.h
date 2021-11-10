@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmizzoni <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dmedas <dmedas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 16:01:05 by lmizzoni          #+#    #+#             */
-/*   Updated: 2021/01/13 16:37:01 by lmizzoni         ###   ########.fr       */
+/*   Updated: 2021/11/09 14:42:23 by dmedas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ void			ft_free_arr(char **arr);
 char			*ft_strcat(char *dst, const char *src);
 char			*ft_strcpy(char *dst, const char *src);
 char			**ft_strsplit(char const *s, char c);
+int				count_words(const char *str, char c);
 
 /*
 ** Bonus

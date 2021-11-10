@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_set_split.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmedas <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: dmedas <dmedas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 02:53:59 by dmedas            #+#    #+#             */
-/*   Updated: 2021/11/04 02:54:01 by dmedas           ###   ########.fr       */
+/*   Updated: 2021/11/09 14:47:10 by dmedas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	in_s(char c, char *str)
 	return (0);
 }
 
-static size_t	count_words(char const *s, char *set)
+static size_t	ft_count_words(char const *s, char *set)
 {
 	int		count;
 	int		is_word;
@@ -76,7 +76,7 @@ char	**ft_set_split(const char *s, char *set)
 	int			arr[3];
 
 	*arr = ft_arr(arr);
-	tab = ft_malloc(sizeof(char *) * (count_words(s, set) + 1));
+	tab = ft_malloc(sizeof(char *) * (ft_count_words(s, set) + 1));
 	if (!tab)
 		return (NULL);
 	while (s[++arr[0]])
@@ -95,7 +95,7 @@ char	**ft_set_split(const char *s, char *set)
 		if ((in_s(s[arr[0]], set) && !in_s(s[arr[0] + 1], set) && arr[2] > 0))
 			arr[2] = 0;
 	}
-	tab[count_words(s, set)] = NULL;
+	tab[ft_count_words(s, set)] = NULL;
 	return (tab);
 }
 
