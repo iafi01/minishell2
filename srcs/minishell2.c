@@ -6,7 +6,7 @@
 /*   By: dmedas <dmedas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 19:58:28 by dmedas            #+#    #+#             */
-/*   Updated: 2021/11/10 02:40:23 by dmedas           ###   ########.fr       */
+/*   Updated: 2021/11/10 02:44:32 by dmedas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 char	*ft_stringa_unica(char *line, int *j, int ap)
 {
 	char	*tmp;
-	char	*trash;
 	char	s[2];
 
 	s[1] = '\0';
@@ -33,10 +32,7 @@ char	*ft_stringa_unica(char *line, int *j, int ap)
 		}
 		if (line[j[1]] == ' ' || line[j[1]] == '\t' || line[j[1]] == '\0')
 			return (tmp);
-		s[0] = line[j[1]];
-		trash = ft_strjoin(tmp, s);
-		free(tmp);
-		tmp = trash;
+		str_unica_complement(s, line, &tmp, j);
 	}
 	dollar_expand(line, &tmp, j);
 	if (line[j[1] + 1] && line[j[1] + 1] != ' ')

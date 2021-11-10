@@ -6,7 +6,7 @@
 /*   By: dmedas <dmedas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 00:59:13 by dmedas            #+#    #+#             */
-/*   Updated: 2021/11/10 01:46:33 by dmedas           ###   ########.fr       */
+/*   Updated: 2021/11/10 02:43:23 by dmedas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,14 @@ void	dollar_expand(char *line, char **tmp, int *j)
 		*tmp = expand_env_var(line, j, *tmp);
 		j[1]--;
 	}
+}
+
+void	str_unica_complement(char *s, char *line, char **tmp, int *j)
+{
+	char	*trash;
+
+	s[0] = line[j[1]];
+	trash = ft_strjoin(*tmp, s);
+	free(*tmp);
+	*tmp = trash;
 }
