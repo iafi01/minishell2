@@ -6,7 +6,7 @@
 /*   By: dmedas <dmedas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 01:29:25 by dmedas            #+#    #+#             */
-/*   Updated: 2021/11/10 04:21:14 by dmedas           ###   ########.fr       */
+/*   Updated: 2021/11/12 17:18:24 by dmedas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,7 @@ int			ft_pwd(int fd);
 int			ft_env(t_global *global, int fd);
 int			ft_cd(t_token *token);
 int			ft_echo(t_global *global, int fd);
-int			ft_unset(t_global *global);
+int			ft_unset(t_global *global, char *find);
 void		exit_if(char **arr, t_global *global, int i);
 
 //debug.c
@@ -213,7 +213,7 @@ void		set_index_export(t_global *global, t_envp *env);
 int			sostitute_set(t_global *global, int export);
 
 //command1.c
-void		ft_set(t_global *global);
+void		ft_set(t_global *global, char *find);
 int			ft_export(t_global *global, int fdo);
 void		ft_exit(t_global *global);
 
@@ -247,6 +247,7 @@ void		dollar_expand(char *line, char **tmp, int *j);
 char		*expand_env_var(char *str, int *i, char *result);
 void		str_unica_complement(char *s, char *line, char **tmp, int *j);
 void		str_append(char *line, int *j, char **tmp, char *s);
+char		*ft_get_env_var(char *var, char **env);
 
 //state.c
 t_command	*ft_state_0(t_token *token, t_command *cmd);

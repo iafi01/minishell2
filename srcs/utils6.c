@@ -6,11 +6,34 @@
 /*   By: dmedas <dmedas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 00:59:13 by dmedas            #+#    #+#             */
-/*   Updated: 2021/11/10 04:20:40 by dmedas           ###   ########.fr       */
+/*   Updated: 2021/11/12 15:45:38 by dmedas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+//function that returns the pointer to the environment variable passed in the argument
+char	*ft_get_env_var(char *var, char **env)
+{
+	int		i;
+	int		j;
+	char	*tmp;
+
+	i = 0;
+	while (env[i])
+	{
+		j = 0;
+		while (env[i][j] && var[j] && env[i][j] == var[j])
+			j++;
+		if (env[i][j] == '=' && !var[j])
+		{
+			tmp = ft_strdup(env[i] + j + 1);
+			return (tmp);
+		}
+		i++;
+	}
+	return (NULL);
+}
 
 char	*expand_env_var(char *str, int *i, char *result)
 {

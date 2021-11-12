@@ -6,7 +6,7 @@
 /*   By: dmedas <dmedas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 01:15:05 by dmedas            #+#    #+#             */
-/*   Updated: 2021/11/10 00:57:12 by dmedas           ###   ########.fr       */
+/*   Updated: 2021/11/12 15:29:15 by dmedas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	**ft_copy_env(char **envp)
 	res = (char **)ft_malloc(sizeof(char *) * s);
 	while (i < s)
 	{
-		res[i] = envp[i];
+		res[i] = ft_strdup(envp[i]);
 		i++;
 	}
 	return (res);

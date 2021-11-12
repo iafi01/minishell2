@@ -12,6 +12,18 @@
 
 #include "../includes/minishell.h"
 
+void	ft_write_matrix(char **matrix, int size)
+{
+	int	i;
+
+	i = 0;
+	while (i < size)
+	{
+		printf("%s\n", matrix[i]);
+		i++;
+	}
+}
+
 void	ft_unset_aux(int *i, int s, char *find, char **res)
 {
 	while (i[0] < s && g_glbl.envp[i[1]])
@@ -28,14 +40,12 @@ void	ft_unset_aux(int *i, int s, char *find, char **res)
 	}
 }
 
-int	ft_unset(t_global *global)
+int	ft_unset(t_global *global, char *find)
 {
 	int		i[2];
-	char	*find;
 	int		s;
 	char	**res;
 
-	find = global->token->next->next->val;
 	i[0] = 0;
 	i[1] = 0;
 	s = ft_get_size(global->envp);
@@ -44,6 +54,7 @@ int	ft_unset(t_global *global)
 	if (i[0] != i[1])
 	{
 		free(global->envp);
+		res[s] = NULL;
 		global->envp = res;
 	}
 	else
@@ -67,19 +78,35 @@ int	ft_env(t_global *global, int fd)
 	return (0);
 }
 
+t_bool	all_n(char *str)
+{
+	int	i;
+
+	i = -1;
+	while (str[++i])
+		if (str[i] != 'n')
+			return (false);
+	return (true);
+}
+
 int	echo_loop(t_token *token, int *flag, t_global *global, int fd)
 {
+	t_bool	first;
+
+	first = true;
 	while (token && !is_token_type(token->e_type))
 	{
 		if (!ft_strncmp(token->val, "-n", 2)
-			&& ft_strncmp(token->val, "-n-", 3))
+			&& first && all_n(token->val + 2))
 		{
 			*flag = 1;
+			first = false;
 			token = token->next;
 			continue ;
 		}
 		if (!ft_strncmp(token->val, "$?", 3))
 		{
+			first = false;
 			ft_putnbr_fd(global->ret, fd);
 			if (token->next && token->next->e_type == TK_ID)
 				write(fd, " ", 1);
@@ -87,6 +114,7 @@ int	echo_loop(t_token *token, int *flag, t_global *global, int fd)
 			continue ;
 		}
 		write(fd, token->val, ft_strlen(token->val));
+		first = false;
 		if (token->next && token->next->e_type == TK_ID)
 			write(fd, " ", 1);
 		token = token->next;

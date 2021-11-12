@@ -3,22 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   command1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmedas <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: dmedas <dmedas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 21:47:18 by dmedas            #+#    #+#             */
-/*   Updated: 2021/11/03 21:47:20 by dmedas           ###   ########.fr       */
+/*   Updated: 2021/11/12 17:22:52 by dmedas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	ft_set(t_global *global)
+void	ft_set(t_global *global, char *find)
 {
 	int		s;
 	char	**env;
 	int		i;
+	char	**split;
 
 	i = 0;
+	split = ft_split(find, '=');
+	if (ft_get_env_var(split[0], global->envp) != NULL)
+		ft_unset(global, split[0]);
 	s = ft_get_size(global->envp) + 1;
 	env = ft_malloc(sizeof(char *) * s + 1);
 	if (sostitute_set(global, 1))
@@ -28,8 +32,9 @@ void	ft_set(t_global *global)
 		env[i] = global->envp[i];
 		i++;
 	}
-	env[i++] = ft_strdup(global->token->next->next->val);
+	env[i++] = ft_strdup(find);
 	env[i] = global->envp[i - 1];
+	env[++i] = NULL;
 	free(global->envp);
 	global->envp = env;
 }
@@ -82,7 +87,7 @@ int	ft_export(t_global *global, int fdo)
 	i[1] = ft_get_size(global->envp);
 	if (global->token->next->next)
 	{
-		ft_set(global);
+		ft_set(global, global->token->next->next->val);
 		global->ret = 0;
 		return (0);
 	}

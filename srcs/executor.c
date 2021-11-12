@@ -6,7 +6,7 @@
 /*   By: dmedas <dmedas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 22:28:11 by dmedas            #+#    #+#             */
-/*   Updated: 2021/11/10 00:48:37 by dmedas           ###   ########.fr       */
+/*   Updated: 2021/11/12 17:19:38 by dmedas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	exec_ifs(t_command *cmd, t_global *global, int fdo)
 	else if (!ft_strncmp(trash, "pwd", 4) && ft_free(trash))
 		return (ft_pwd(fdo));
 	else if (!ft_strncmp(cmd->cmd, "unset", 6) && ft_free(trash))
-		return (ft_unset(global));
+		return (ft_unset(global, global->token->next->next->val));
 	else if (!ft_strncmp(cmd->cmd, "exit", 5) && ft_free(trash))
 		ft_exit(global);
 	free(trash);
@@ -74,6 +74,7 @@ int	ft_exec_build_in(t_global *global, t_command *cmd, int fdi, int fdo)
 	char	**arr;
 	pid_t	pid;
 	int		fds[2];
+	int		ret;
 
 	arr = NULL;
 	if (cmd->cmd == NULL)
@@ -92,7 +93,8 @@ int	ft_exec_build_in(t_global *global, t_command *cmd, int fdi, int fdo)
 		if (pid == 0)
 			exec_child_proc(fds, cmd, global, arr);
 		else
-			waitpid(pid, &global->ret, 0);
+			waitpid(pid, &ret, 0);
 	}
+	global->ret = WEXITSTATUS(ret);
 	return (i);
 }
