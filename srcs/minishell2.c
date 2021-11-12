@@ -23,22 +23,20 @@ char	*ft_stringa_unica(char *line, int *j, int ap)
 	while (line[++j[1]])
 	{
 		j[0]++;
-		if ((line[j[1]] == 39 && (ap == 1 || ap == 0))
-			|| (line[j[1]] == 34 && (ap == 2 || ap == 0))
+		if ((line[j[1]] == 39 && ap == 1)
+			|| (line[j[1]] == 34 && ap == 2)
 			|| (line[j[1]] == '$' && ft_strncmp(line + j[1], "$?", 2) != 0))
 		{
 			if (line[j[1]] != '$')
+			{
 				j[1]++;
-			if (line[j[1]] == 39)
-				ap = 1;
-			if (line[j[1]] == 34)
-				ap = 2;
-			if (ap != 1)
 				break ;
+			}
 		}
 		if (line[j[1]] == ' ' || line[j[1]] == '\t' || line[j[1]] == '\0'
-			|| is_token(&line[j[1]]))	
-			return (tmp);
+			|| is_token(&line[j[1]]))
+			if (ap == 0)
+				return (tmp);
 		str_unica_complement(s, line, &tmp, j);
 	}
 	if (ap != 1)

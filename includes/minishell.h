@@ -97,6 +97,7 @@ typedef struct s_global
 {
 	int				argc;
 	int				ret;
+	t_bool			set;
 	t_token			*token;
 	char			**argv;
 	char			**args;
@@ -106,6 +107,7 @@ typedef struct s_global
 	int				size;
 	int				pid;
 	t_bool			last;
+	t_bool			one;
 }				t_global;
 
 t_global	g_glbl;

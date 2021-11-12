@@ -36,11 +36,13 @@ void	is_child_process(int signum)
 		if (signum == SIGQUIT)
 		{
 			ft_putstr_fd("Quit: 3\n", 1);
+			g_glbl.set = true;
 			g_glbl.ret = 131;
 		}
 		else if (signum == SIGINT)
 		{
 			ft_putchar_fd('\n', 1);
+			g_glbl.set = true;
 			g_glbl.ret = 130;
 		}
 	}

@@ -92,6 +92,7 @@ int	loop(t_global *global)
 
 	while (1)
 	{
+		g_glbl.set = false;
 		read = pre_loop();
 		if (!strncmp(read, "", 2))
 			continue ;

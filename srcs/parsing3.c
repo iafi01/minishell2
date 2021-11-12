@@ -77,7 +77,7 @@ int	ft_add_list(t_token *list, t_type type, char *val, int apici)
 		free(*dollar);
 		free(dollar);
 	}
-	else if (!ft_strncmp(val, "$?", 2))
+	else if (val != NULL && val[0] == '$' && !ft_strncmp(val, "$?", 2))
 		list->next = ft_token_new(type, ft_strjoin(ft_itoa(g_glbl.ret), &val[2]),
 			apici, list);
 	else

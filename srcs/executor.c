@@ -95,6 +95,7 @@ int	ft_exec_build_in(t_global *global, t_command *cmd, int fdi, int fdo)
 		else
 			waitpid(pid, &ret, 0);
 	}
-	global->ret = WEXITSTATUS(ret);
+	if (!g_glbl.set)
+		global->ret = WEXITSTATUS(ret);
 	return (i);
 }
