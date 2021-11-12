@@ -6,7 +6,7 @@
 /*   By: dmedas <dmedas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 19:58:28 by dmedas            #+#    #+#             */
-/*   Updated: 2021/11/12 14:19:38 by dmedas           ###   ########.fr       */
+/*   Updated: 2021/11/12 18:15:33 by dmedas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	*ft_stringa_unica(char *line, int *j, int ap)
 				break ;
 		}
 		if (line[j[1]] == ' ' || line[j[1]] == '\t' || line[j[1]] == '\0'
-			|| is_token(&line[j[1]]))
+			|| is_token(&line[j[1]]))	
 			return (tmp);
 		str_unica_complement(s, line, &tmp, j);
 	}

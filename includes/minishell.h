@@ -6,7 +6,7 @@
 /*   By: dmedas <dmedas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 01:29:25 by dmedas            #+#    #+#             */
-/*   Updated: 2021/11/12 17:18:24 by dmedas           ###   ########.fr       */
+/*   Updated: 2021/11/12 18:14:59 by dmedas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,6 +167,7 @@ void		debug(int d_apici, int s_apici, int prev_apici);
 void		debug_list(t_token *token);
 void		print_tokens(t_global *global);
 void		print_str(char *str);
+void		print_tks(t_token *tokens);
 
 //utils.c
 char		*cerca_variabile(char *line);

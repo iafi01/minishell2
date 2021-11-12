@@ -12,53 +12,78 @@
 
 #include "libft.h"
 
-static int	space(char const *str, int i)
+// static int	space(char const *str, int i)
+// {
+// 	while (str[i])
+// 	{
+// 		if (str[i] == '\t' || str[i] == '\n' || str[i] == '\v'
+// 			|| str[i] == '\f' || str[i] == '\r' || str[i] == 32)
+// 			i++;
+// 		else
+// 			break ;
+// 	}
+// 	return (i);
+// }
+
+// static int	ft_check(int sign)
+// {
+// 	if (sign == 1)
+// 		return (-1);
+// 	return (0);
+// }
+
+// int	ft_atoi(const char *str)
+// {
+// 	int					i;
+// 	int					sign;
+// 	unsigned long long	sum;
+
+// 	sum = 0;
+// 	sign = 1;
+// 	i = 0;
+// 	i = space(str, i);
+// 	if (str[i] == '+' || str[i] == '-')
+// 		if (str[i++] == '-')
+// 			sign *= -1;
+// 	while (str[i])
+// 	{
+// 		if (str[i] >= '0' && str[i] <= '9')
+// 		{
+// 			sum *= 10;
+// 			sum += str[i] - '0';
+// 			i++;
+// 		}
+// 		else
+// 			break ;
+// 	}
+// 	if (i > 19 || sum >= 9223372036854775808ULL)
+// 		return (ft_check(sign));
+// 	return (sum * sign);
+// }
+
+char	*ft_itoa(int n)
 {
-	while (str[i])
+	char		*result;
+
+	result = (char *)malloc(2 * sizeof(char));
+	if (!result)
+		return (0);
+	if (n == -2147483648LL)
+		return (ft_strdup("-2147483648"));
+	if (n < 0)
 	{
-		if (str[i] == '\t' || str[i] == '\n' || str[i] == '\v'
-			|| str[i] == '\f' || str[i] == '\r' || str[i] == 32)
-			i++;
-		else
-			break ;
+		result[0] = '-';
+		result[1] = '\0';
+		result = ft_strjoin(result, ft_itoa(-n));
 	}
-	return (i);
-}
-
-static int	ft_check(int sign)
-{
-	if (sign == 1)
-		return (-1);
-	return (0);
-}
-
-int	ft_atoi(const char *str)
-{
-	int					i;
-	int					sign;
-	unsigned long long	sum;
-
-	sum = 0;
-	sign = 1;
-	i = 0;
-	i = space(str, i);
-	if (str[i] == '+' || str[i] == '-')
-		if (str[i++] == '-')
-			sign *= -1;
-	while (str[i])
+	else if (n >= 10)
+		result = ft_strjoin(ft_itoa(n / 10), ft_itoa(n % 10));
+	else if (n < 10 && n >= 0)
 	{
-		if (str[i] >= '0' && str[i] <= '9')
-		{
-			sum *= 10;
-			sum += str[i] - '0';
-			i++;
-		}
-		else
-			break ;
+		result[0] = n + '0';
+		result[1] = '\0';
 	}
-	if (i > 19 || sum >= 9223372036854775808ULL)
-		return (ft_check(sign));
-	return (sum * sign);
+	return (result);
 }
 
 /*
