@@ -80,6 +80,9 @@ void	str_unica_complement(char *s, char *line, char **tmp, int *j)
 
 void	str_append(char *line, int *j, char **tmp, char *s)
 {
-	if (line[j[1] + 1] && (line[j[1] + 1] == 34 || line[j[1] + 1] == 39))
+	if (line[j[1]] == 0)
+		return ;
+	if (line[j[1] + 1] && line[j[1] + 1]
+		&& (line[j[1] + 1] == 34 || line[j[1] + 1] == 39))
 		*tmp = str_2loop(line, j, *tmp, s);
 }
