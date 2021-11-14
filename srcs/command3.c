@@ -19,6 +19,8 @@ int	ft_cd(t_token *token)
 	char	cwd[1024];
 
 	index = 1;
+	if (!token->next)
+		return (0);
 	ft_set(&g_glbl, ft_strjoin("OLDPWD=", ft_get_env_var("PWD", g_glbl.envp)));
 	if (token->next == NULL)
 	{
