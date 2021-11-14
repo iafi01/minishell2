@@ -23,15 +23,21 @@ char	*ft_stringa_unica(char *line, int *j, int ap)
 	while (line[++j[1]])
 	{
 		j[0]++;
-		if ((line[j[1]] == 39 && ap == 1)
-			|| (line[j[1]] == 34 && ap == 2)
+		if (line[j[1]] == 39
+			|| line[j[1]] == 34
 			|| (line[j[1]] == '$' && ft_strncmp(line + j[1], "$?", 2) != 0))
 		{
-			if (line[j[1]] != '$')
+			if (line[j[1]] != '$' && ((ap == 1 && line[j[1]] == 39)
+				|| (ap == 2 && line[j[1]] == 34)))
 			{
 				j[1]++;
 				break ;
 			}
+			j[0]++;
+			if (line[j[1]] == 34)
+				ap = 2;
+			else if (line[j[1]] == 39)
+				ap = 1;
 		}
 		if (line[j[1]] == ' ' || line[j[1]] == '\t' || line[j[1]] == '\0'
 			|| is_token(&line[j[1]]))
@@ -40,7 +46,7 @@ char	*ft_stringa_unica(char *line, int *j, int ap)
 		str_unica_complement(s, line, &tmp, j);
 	}
 	if (ap != 1)
-		dollar_expand(line, &tmp, j);
+		dollar_expand(line, &tmp, j, ap);
 	str_append(line, j, &tmp, s);
 	return (tmp);
 }

@@ -37,33 +37,43 @@ char	*ft_get_env_var(char *var, char **env)
 
 char	*expand_env_var(char *str, int *i, char *result)
 {
-	int		j;
+	int		j[2];
 	char	*tmp;
 
-	j = i[1] + 1;
-	if (str[i[1]] == '$')
+	j[0] = 0;
+	j[1] = 0;
+	if (str[j[1]] == 34 || str[j[1]] == 39)
 	{
-		i[1]++;
-		while (str[i[1]] && str[*i] != ' '
-			&& str[i[1]] != '\t' && str[i[1]] != '\n' && str[i[1]] != '$'
-			&& str[i[1]] != 39 && str[i[1]] != 34)
-			i[1]++;
-		tmp = ft_substr(str, j, i[1] - j);
+		j[0]++;
+		j[1]++;
+	}
+	if (str[j[1]] == '$')
+	{
+		j[0]++;
+		j[1]++;
+		while (str[j[1]] && str[*i] != ' '
+			&& str[j[1]] != '\t' && str[j[1]] != '\n' && str[j[1]] != '$'
+			&& str[j[1]] != 39 && str[j[1]] != 34)
+			j[1]++;
+		tmp = ft_substr(str, j[0], j[1] - j[0]);
 		if (tmp)
 		{
-			result = ft_strjoin(result, getenv(tmp));
-			*i += ft_strlen(tmp) + 1;
+			// result = ft_strjoin(result, );
+			free(result);
+			result = ft_get_env_var(tmp, g_glbl.envp);
+			*i += ft_strlen(result) + 1;
 			free(tmp);
 		}
 	}
 	return (result);
 }
 
-void	dollar_expand(char *line, char **tmp, int *j)
+void	dollar_expand(char *line, char **tmp, int *j, int ap)
 {
-	if (line[j[1]] == '$')
+	line++;
+	if (*(*tmp + !(!ap)) == '$' || **tmp == '$')
 	{
-		*tmp = expand_env_var(line, j, *tmp);
+		*tmp = expand_env_var(*tmp, j, *tmp);
 		j[1]--;
 	}
 }
@@ -72,6 +82,8 @@ void	str_unica_complement(char *s, char *line, char **tmp, int *j)
 {
 	char	*trash;
 
+	if (line[j[1]] == 34 || line[j[1]] == 39)
+		return ;
 	s[0] = line[j[1]];
 	trash = ft_strjoin(*tmp, s);
 	free(*tmp);
@@ -82,7 +94,8 @@ void	str_append(char *line, int *j, char **tmp, char *s)
 {
 	if (line[j[1]] == 0)
 		return ;
-	if (line[j[1] + 1] && line[j[1] + 1]
-		&& (line[j[1] + 1] == 34 || line[j[1] + 1] == 39))
+	if (line[j[1]] && line[j[1] + 1]
+		// && (line[j[1]] == 34 || line[j[1]] == 39)
+		)
 		*tmp = str_2loop(line, j, *tmp, s);
 }

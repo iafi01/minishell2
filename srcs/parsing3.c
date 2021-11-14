@@ -56,8 +56,8 @@ static void	add_list_if(char **tmp, char **val)
 
 int	ft_add_list(t_token *list, t_type type, char *val, int apici)
 {
-	char	**dollar;
-	int		i;
+	// char	**dollar;
+	// int		i;
 	char	*tmp;
 
 	tmp = ft_calloc(30, sizeof(char));
@@ -68,15 +68,17 @@ int	ft_add_list(t_token *list, t_type type, char *val, int apici)
 		list->next = ft_token_new(type, ft_strdup(tmp), apici, list);
 		free(val);
 	}
-	else if (val != NULL && val[0] == '$'
-		&& val[1] != '?' && val[1] && apici != 1)
-	{
-		add_list_loop(&dollar, &i, val, &tmp);
-		list->next = ft_token_new(type, ft_strdup(tmp), apici, list);
-		free(val);
-		free(*dollar);
-		free(dollar);
-	}
+	// else if (val != NULL && val[0] == '$'
+	// 	&& val[1] != '?' && val[1] && apici != 1)
+	// {
+	// 	printf("|%s|\n", val);
+	// 	add_list_loop(&dollar, &i, val, &tmp);
+	// 	tmp = val;
+	// 	list->next = ft_token_new(type, ft_strdup(tmp), apici, list);
+	// 	free(val);
+	// 	free(*dollar);
+	// 	free(dollar);
+	// }
 	else if (val != NULL && val[0] == '$' && !ft_strncmp(val, "$?", 2))
 		list->next = ft_token_new(type, ft_strjoin(ft_itoa(g_glbl.ret), &val[2]),
 			apici, list);

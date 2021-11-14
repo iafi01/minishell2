@@ -246,7 +246,7 @@ t_redirect	*ft_new_redirect(char *file, t_type red_type);
 void		*ft_free_redirect(t_redirect *to_free);
 
 //utils6.c
-void		dollar_expand(char *line, char **tmp, int *j);
+void		dollar_expand(char *line, char **tmp, int *j, int ap);
 char		*expand_env_var(char *str, int *i, char *result);
 void		str_unica_complement(char *s, char *line, char **tmp, int *j);
 void		str_append(char *line, int *j, char **tmp, char *s);
