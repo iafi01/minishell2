@@ -47,7 +47,7 @@ char	*expand_env_var(char *str, int *i, char *result)
 		j[0]++;
 		j[1]++;
 	}
-	if (str[j[1]] == '$')
+	if (str[j[1]] == '$' && str[j[1] + 1] != '?')
 	{
 		j[0]++;
 		j[1]++;
@@ -61,7 +61,13 @@ char	*expand_env_var(char *str, int *i, char *result)
 			// result = ft_strjoin(result, );
 			free(result);
 			result = ft_get_env_var(tmp, g_glbl.envp);
-			*i += ft_strlen(result) + 1;
+			i[0]--;
+			if (!result)
+			{
+				result = ft_strdup("");
+				j[0] -= ft_strlen(tmp) + 1;
+			}
+			// *i += ft_strlen(result) + 1;
 			free(tmp);
 		}
 	}
@@ -92,8 +98,6 @@ void	str_unica_complement(char *s, char *line, char **tmp, int *j)
 
 void	str_append(char *line, int *j, char **tmp, char *s)
 {
-	if (line[j[1]] == 0)
-		return ;
 	if (line[j[1]] && line[j[1] + 1]
 		// && (line[j[1]] == 34 || line[j[1]] == 39)
 		)

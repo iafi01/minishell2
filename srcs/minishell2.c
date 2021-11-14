@@ -31,9 +31,9 @@ char	*ft_stringa_unica(char *line, int *j, int ap)
 				|| (ap == 2 && line[j[1]] == 34)))
 			{
 				j[1]++;
+
 				break ;
 			}
-			j[0]++;
 			if (line[j[1]] == 34)
 				ap = 2;
 			else if (line[j[1]] == 39)
@@ -48,6 +48,8 @@ char	*ft_stringa_unica(char *line, int *j, int ap)
 	if (ap != 1)
 		dollar_expand(line, &tmp, j, ap);
 	str_append(line, j, &tmp, s);
+	if (line[j[1]] == '\0')
+		j[0] = -1;
 	return (tmp);
 }
 
@@ -126,7 +128,11 @@ void	ft_lexer(char *line, t_token *token)
 	while (line[++i[0]])
 	{
 		if (lex_first_2if(line, i, token, tmp))
+		{
+			if (i[0] < 0)
+				break ;
 			continue ;
+		}
 		lex_2nd_if(line, i, s, &tmp);
 		if (*tmp == (char) NULL && line[*i] == 32)
 			continue ;
