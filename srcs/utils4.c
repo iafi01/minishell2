@@ -39,11 +39,16 @@ int	ft_free(void *ptr)
 //function that frees a list
 void	ft_free_lst(t_list *lst)
 {
-	t_list	*tmp;
+	t_list		*tmp;
+	t_redirect	*red;
 
 	while (lst)
 	{
 		tmp = lst->next;
+		red = (t_redirect *)lst->content;
+		if (red->red_type == TK_DGREA || red->red_type == TK_GREATER 
+			|| red->red_type == TK_LOWER || red->red_type == TK_DLOW)
+			free(red->file);
 		free(lst->content);
 		free(lst);
 		lst = tmp;

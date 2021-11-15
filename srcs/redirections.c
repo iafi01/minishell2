@@ -73,17 +73,18 @@ int	ft_redirect_minore(char *file, int *fdi)
 void	ft_redirect_dminore(char *word, int *fdi)
 {
 	char	*read;
+	char	*tmp;
 	int		fd[2];
 	int		ret;
 
 	ret = pipe(fd);
 	if (*fdi != STDIN_FILENO)
 		close (*fdi);
-	read = ft_malloc(sizeof(char) * 30);
+	// read = ft_malloc(sizeof(char) * 30);
 	while (1)
 	{
-		read = ">";
-		read = readline(read);
+		tmp = ">";
+		read = readline(tmp);
 		if (!ft_strncmp(read, word, ft_strlen(word) + 1))
 		{
 			free(read);
@@ -94,8 +95,8 @@ void	ft_redirect_dminore(char *word, int *fdi)
 		write(fd[1], read, ft_strlen(read));
 		write(fd[1], "\n", 1);
 		free(read);
-		read = ft_malloc(sizeof(char) * 30);
-		read = ft_memset((void *)read, '\0', 30);
+		// read = ft_malloc(sizeof(char) * 30);
+		// read = ft_memset((void *)read, '\0', 30);
 	}
 }
 

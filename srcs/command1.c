@@ -25,6 +25,9 @@ void	ft_set(t_global *global, char *find)
 		ft_unset(global, split[0]);
 	s = ft_get_size(global->envp) + 1;
 	env = ft_malloc(sizeof(char *) * s + 1);
+	free(split[0]);
+	free(split[1]);
+	free(split);
 	if (sostitute_set(global, 1))
 		return ;
 	while (i < s - 2)
