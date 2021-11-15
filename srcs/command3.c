@@ -15,30 +15,52 @@
 int	ft_cd(t_token *token)
 {
 	char	*tmp;
+	char	*trash;
+	char 	*str;
 	int		index;
 	char	cwd[1024];
 
 	index = 1;
-	if (!token->next)
-		return (0);
-	ft_set(&g_glbl, ft_strjoin("OLDPWD=", ft_get_env_var("PWD", g_glbl.envp)));
 	if (token->next == NULL)
 	{
-		index = chdir(getenv("HOME"));
+		trash = ft_get_env_var("HOME", g_glbl.envp);
+		index = chdir(trash);
+		free(trash);
 		g_glbl.ret = 0;
 		return (0);
 	}
+	trash = ft_get_env_var("PWD", g_glbl.envp);
+	tmp = ft_strjoin("OLDPWD=", trash);
+	ft_set(&g_glbl, tmp);
+	free(trash);
+	free(tmp);
+	tmp = NULL;
 	tmp = token->next->val;
-	if (tmp[0] == '-')
-		index = chdir(getenv("OLDPWD"));
-	if (tmp[0] == 126 && tmp[1] == 47)
-		tmp = ft_strjoin(getenv("HOME"), ft_substr(tmp, 1, ft_strlen(tmp)));
+	if (tmp && tmp[0] == '-')
+	{
+		trash = ft_get_env_var("OLDPWD", g_glbl.envp);
+		index = chdir(trash);
+		free(trash);
+	}
+	if (tmp && ft_strlen(tmp) > 1 && tmp[0] == 126 && tmp[1] == 47)
+	{
+		trash = ft_substr(tmp, 1, ft_strlen(tmp));
+		str = ft_get_env_var("HOME", g_glbl.envp);
+		free(tmp);
+		tmp = ft_strjoin(str, trash);
+		free(str);
+		free(trash);
+	}
 	index = chdir(tmp);
+	if (index < 0)
+		return (0);
 	getcwd(cwd, sizeof(cwd));
-	ft_set(&g_glbl, ft_strjoin("PWD=", cwd));
-	if (index < 0 && tmp[0] != '-'
-		&& !(tmp == NULL || ft_str_sim(&tmp[0], "~")))
-		printf("cd: %s: %s\n", strerror(errno), tmp);
+	trash = ft_strjoin("PWD=", cwd);
+	ft_set(&g_glbl, trash);
+	free(trash);
+	// if (index < 0 && tmp[0] != '-'
+	// 	&& !(tmp == NULL || ft_str_sim(&tmp[0], "~")))
+	// 	printf("cd: %s: %s\n", strerror(errno), tmp);
 	g_glbl.ret = 0;
 	return (0);
 }

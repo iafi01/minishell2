@@ -17,12 +17,17 @@ void	ft_set(t_global *global, char *find)
 	int		s;
 	char	**env;
 	int		i;
+	char	*tmp;
 	char	**split;
 
 	i = 0;
 	split = ft_split(find, '=');
-	if (ft_get_env_var(split[0], global->envp) != NULL)
+	tmp = ft_get_env_var(split[0], global->envp);
+	if (tmp != NULL)
+	{
 		ft_unset(global, split[0]);
+		free(tmp);
+	}
 	s = ft_get_size(global->envp) + 1;
 	env = ft_malloc(sizeof(char *) * s + 1);
 	free(split[0]);
