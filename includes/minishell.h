@@ -252,6 +252,10 @@ void		str_unica_complement(char *s, char *line, char **tmp, int *j);
 void		str_append(char *line, int *j, char **tmp, char *s);
 char		*ft_get_env_var(char *var, char **env);
 
+//utils7.c
+t_bool		all_n(char *str);
+void		free_envp(t_envp *env);
+
 //state.c
 t_command	*ft_state_0(t_token *token, t_command *cmd);
 t_command	*ft_state_10(t_token *token, t_command *cmd);

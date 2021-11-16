@@ -16,7 +16,7 @@ int	ft_cd(t_token *token)
 {
 	char	*tmp;
 	char	*trash;
-	char 	*str;
+	char	*str;
 	int		index;
 	char	cwd[1024];
 
@@ -58,9 +58,9 @@ int	ft_cd(t_token *token)
 	trash = ft_strjoin("PWD=", cwd);
 	ft_set(&g_glbl, trash);
 	free(trash);
-	// if (index < 0 && tmp[0] != '-'
-	// 	&& !(tmp == NULL || ft_str_sim(&tmp[0], "~")))
-	// 	printf("cd: %s: %s\n", strerror(errno), tmp);
+	if (index < 0 && tmp[0] != '-'
+		&& !(tmp == NULL || ft_str_sim(&tmp[0], "~")))
+		printf("cd: %s: %s\n", strerror(errno), tmp);
 	g_glbl.ret = 0;
 	return (0);
 }
@@ -76,4 +76,19 @@ void	exit_if(char **arr, t_global *global, int i)
 		global->ret = 2;
 	}
 	return ;
+}
+
+int	ft_env(t_global *global, int fd)
+{
+	int	i;
+
+	i = 0;
+	while (global->envp[i])
+	{
+		write(fd, global->envp[i], ft_strlen(global->envp[i]));
+		write(fd, "\n", 1);
+		i++;
+	}
+	global->ret = 0;
+	return (0);
 }

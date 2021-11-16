@@ -130,7 +130,10 @@ void	ft_lexer(char *line, t_token *token)
 		if (lex_first_2if(line, i, token, tmp))
 		{
 			if (i[0] < 0)
+			{
+				i[0] = ft_strlen(line) - 1;
 				break ;
+			}
 			continue ;
 		}
 		lex_2nd_if(line, i, s, &tmp);

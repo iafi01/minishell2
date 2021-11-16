@@ -56,12 +56,13 @@ char	**ft_copy_env(char **envp)
 
 	s = ft_get_size(envp);
 	i = 0;
-	res = (char **)ft_malloc(sizeof(char *) * s);
+	res = (char **)ft_malloc(sizeof(char *) * (s + 1));
 	while (i < s)
 	{
 		res[i] = ft_strdup(envp[i]);
 		i++;
 	}
+	res[i] = NULL;
 	return (res);
 }
 

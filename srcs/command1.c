@@ -12,39 +12,43 @@
 
 #include "../includes/minishell.h"
 
+void	ft_set_aux(int *i, char ***env, t_global *global, char *find)
+{
+	while (i < i[1] - 2)
+	{
+		(*env)[i[0]] = global->envp[i[0]];
+		(*i)++;
+	}
+	(*env)[(*i)++] = ft_strdup(find);
+	(*env)[*i] = global->envp[*i - 1];
+	(*env)[++(*i)] = NULL;
+	free(global->envp);
+	global->envp = (*env);
+	return ;
+}
+
 void	ft_set(t_global *global, char *find)
 {
-	int		s;
 	char	**env;
-	int		i;
+	int		i[2];
 	char	*tmp;
 	char	**split;
 
-	i = 0;
+	*i = 0;
 	split = ft_split(find, '=');
 	tmp = ft_get_env_var(split[0], global->envp);
 	if (tmp != NULL)
 	{
 		ft_unset(global, split[0]);
-		free(tmp);
 	}
-	s = ft_get_size(global->envp) + 1;
-	env = ft_malloc(sizeof(char *) * s + 1);
+	i[1] = ft_get_size(global->envp) + 1;
+	env = ft_malloc(sizeof(char *) * (i[1] + 2));
 	free(split[0]);
 	free(split[1]);
 	free(split);
 	if (sostitute_set(global, 1))
 		return ;
-	while (i < s - 2)
-	{
-		env[i] = global->envp[i];
-		i++;
-	}
-	env[i++] = ft_strdup(find);
-	env[i] = global->envp[i - 1];
-	env[++i] = NULL;
-	free(global->envp);
-	global->envp = env;
+	ft_set_aux(i, &env, global, find);
 }
 
 void	export_loop(int *i, t_envp *env, int fdo, t_envp *test)
@@ -66,21 +70,6 @@ void	export_loop(int *i, t_envp *env, int fdo, t_envp *test)
 		env = test->next;
 	}
 	return ;
-}
-
-//function that frees a list of t_envp
-void	free_envp(t_envp *env)
-{
-	t_envp	*tmp;
-
-	while (env)
-	{
-		tmp = env;
-		env = env->next;
-		free(tmp->first);
-		free(tmp->second);
-		free(tmp);
-	}
 }
 
 int	ft_export(t_global *global, int fdo)
