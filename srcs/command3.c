@@ -14,6 +14,12 @@
 
 void	ft_cd_pre_aux(char *trash, char ***tmp, t_token *token, int *index)
 {
+	if (token->next->val && (token->next->val)[0] == '-')
+	{
+		trash = ft_get_env_var("OLDPWD", g_glbl.envp);
+		*index = chdir(trash);
+		free(trash);
+	}
 	trash = ft_get_env_var("PWD", g_glbl.envp);
 	**tmp = ft_strjoin("OLDPWD=", trash);
 	ft_set(&g_glbl, **tmp);
@@ -21,36 +27,26 @@ void	ft_cd_pre_aux(char *trash, char ***tmp, t_token *token, int *index)
 	free(**tmp);
 	**tmp = NULL;
 	*tmp = &(token->next->val);
-	if (**tmp && (**tmp)[0] == '-')
-	{
-		trash = ft_get_env_var("OLDPWD", g_glbl.envp);
-		*index = chdir(trash);
-		free(trash);
-	}
 }
 
-int	ft_cd_aux(char ***tmp, int index, char *cwd)
+int	ft_cd_aux(char ***tmp, int *index, char *cwd)
 {
 	char	*trash;
-	char	*str;
 
 	if (**tmp && ft_strlen(**tmp) > 1 && (**tmp)[0] == 126 && (**tmp)[1] == 47)
+		ft_cd_home(tmp);
+	if (*index == 1 || *index < 0)
+		*index = chdir(**tmp);
+	if (*index < 0)
 	{
-		trash = ft_substr(**tmp, 1, ft_strlen(**tmp));
-		str = ft_get_env_var("HOME", g_glbl.envp);
-		free(**tmp);
-		**tmp = ft_strjoin(str, trash);
-		free(str);
-		free(trash);
-	}
-	index = chdir(**tmp);
-	if (index < 0)
+		write(1, "No such file or directory\n", 26);
 		return (0);
-	getcwd(cwd, sizeof(cwd));
+	}
+	getcwd(cwd, sizeof(char) * 1024);
 	trash = ft_strjoin("PWD=", cwd);
 	ft_set(&g_glbl, trash);
 	free(trash);
-	if (index < 0 && (**tmp)[0] != '-'
+	if (*index < 0 && (**tmp)[0] != '-'
 		&& !(**tmp == NULL || ft_str_sim(&(**tmp)[0], "~")))
 		printf("cd: %s: %s\n", strerror(errno), **tmp);
 	g_glbl.ret = 0;
@@ -76,7 +72,7 @@ int	ft_cd(t_token *token)
 		return (0);
 	}
 	ft_cd_pre_aux(trash, &tmp, token, &index);
-	return (ft_cd_aux(&tmp, index, cwd));
+	return (ft_cd_aux(&tmp, &index, cwd));
 }
 
 void	exit_if(char **arr, t_global *global, int i)

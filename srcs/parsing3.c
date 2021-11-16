@@ -59,3 +59,17 @@ void	str_append(char *line, int *j, char **tmp, char *s)
 	if (line[j[1]] && line[j[1] + 1])
 		*tmp = str_2loop(line, j, *tmp, s);
 }
+
+//external function
+void	ft_cd_home(char ***tmp)
+{
+	char	*str;
+	char	*trash;
+
+	trash = ft_substr(**tmp, 1, ft_strlen(**tmp));
+	str = ft_get_env_var("HOME", g_glbl.envp);
+	free(**tmp);
+	**tmp = ft_strjoin(str, trash);
+	free(str);
+	free(trash);
+}

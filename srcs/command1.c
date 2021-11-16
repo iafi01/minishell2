@@ -38,9 +38,7 @@ void	ft_set(t_global *global, char *find)
 	split = ft_split(find, '=');
 	tmp = ft_get_env_var(split[0], global->envp);
 	if (tmp != NULL)
-	{
 		ft_unset(global, split[0]);
-	}
 	i[1] = ft_get_size(global->envp) + 1;
 	env = ft_malloc(sizeof(char *) * (i[1] + 2));
 	free(split[0]);

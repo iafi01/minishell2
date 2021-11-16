@@ -19,6 +19,7 @@ void	ft_unset_aux(int *i, int s, char *find, char **res)
 		if (!ft_strncmp(g_glbl.envp[i[1]], find, ft_strlen(find)))
 		{
 			free(g_glbl.envp[i[1]]);
+			g_glbl.envp[i[1]] = NULL;
 			i[1]++;
 			continue ;
 		}
@@ -53,15 +54,20 @@ int	ft_unset(t_global *global, char *find)
 
 t_bool	ft_echo_first_if(t_token **token, t_bool *first, int *flag)
 {
-	if (!ft_strncmp((*token)->val, "-n", 2)
+	t_bool	ret;
+
+	ret = false;
+	while (!ft_strncmp((*token)->val, "-n", 2)
 		&& *first && all_n((*token)->val + 2))
 	{
 		*flag = 1;
 		*first = false;
 		*token = (*token)->next;
-		return (true);
+		if (!ft_strncmp((*token)->val, "-n", 2))
+			*first = true;
+		ret = true;
 	}
-	return (false);
+	return (ret);
 }
 
 int	echo_loop(t_token *token, int *flag, t_global *global, int fd)

@@ -149,6 +149,7 @@ int			ft_add_list(t_token *list, t_type type, char *val, int apici);
 int			ft_token_priority(t_global *global, t_token *token);
 int			ft_is_command(enum e_type i);
 void		end_echo(int *flag, int fd, t_global *global);
+void		ft_cd_home(char ***tmp);
 
 //parser.c
 int			ft_parsing(t_global *global);
