@@ -14,7 +14,7 @@
 
 void	ft_set_aux(int *i, char ***env, t_global *global, char *find)
 {
-	while (i < i[1] - 2)
+	while (*i < i[1] - 2)
 	{
 		(*env)[i[0]] = global->envp[i[0]];
 		(*i)++;

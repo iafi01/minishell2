@@ -46,7 +46,7 @@ void	ft_free_lst(t_list *lst)
 	{
 		tmp = lst->next;
 		red = (t_redirect *)lst->content;
-		if (red->red_type == TK_DGREA || red->red_type == TK_GREATER 
+		if (red->red_type == TK_DGREA || red->red_type == TK_GREATER
 			|| red->red_type == TK_LOWER || red->red_type == TK_DLOW)
 			free(red->file);
 		free(lst->content);

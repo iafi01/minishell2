@@ -38,17 +38,6 @@ char	*str_2loop(char *line, int *j, char *tmp, char *s)
 	return (tmp);
 }
 
-//function that prints all the val of a t_token list
-void	print_tks(t_token *tokens)
-{
-	while (tokens)
-	{
-		ft_putstr(tokens->val);
-		ft_putchar('\n');
-		tokens = tokens->next;
-	}
-}
-
 void	loop_core(t_global *global, char *read)
 {
 	ft_free_list(global->token);

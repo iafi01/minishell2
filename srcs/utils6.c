@@ -12,7 +12,6 @@
 
 #include "../includes/minishell.h"
 
-//function that returns the pointer to the environment variable passed in the argument
 char	*ft_get_env_var(char *var, char **env)
 {
 	int		i;
@@ -35,10 +34,35 @@ char	*ft_get_env_var(char *var, char **env)
 	return (NULL);
 }
 
+void	ft_expand_aux(int *j, char *str, int *i, char **result)
+{
+	char	*tmp;
+
+	j[0]++;
+	j[1]++;
+	while (str[j[1]] && str[*i] != ' '
+		&& str[j[1]] != '\t' && str[j[1]] != '\n' && str[j[1]] != '$'
+		&& str[j[1]] != 39 && str[j[1]] != 34)
+		j[1]++;
+	tmp = ft_substr(str, j[0], j[1] - j[0]);
+	if (tmp)
+	{
+		free(*result);
+		*result = ft_get_env_var(tmp, g_glbl.envp);
+		i[0]--;
+		if (!(*result))
+		{
+			*result = ft_strdup("");
+			j[0] -= ft_strlen(tmp) + 1;
+		}
+		free(tmp);
+	}
+	return ;
+}
+
 char	*expand_env_var(char *str, int *i, char *result)
 {
 	int		j[2];
-	char	*tmp;
 
 	j[0] = 0;
 	j[1] = 0;
@@ -48,29 +72,7 @@ char	*expand_env_var(char *str, int *i, char *result)
 		j[1]++;
 	}
 	if (str[j[1]] == '$' && str[j[1] + 1] != '?')
-	{
-		j[0]++;
-		j[1]++;
-		while (str[j[1]] && str[*i] != ' '
-			&& str[j[1]] != '\t' && str[j[1]] != '\n' && str[j[1]] != '$'
-			&& str[j[1]] != 39 && str[j[1]] != 34)
-			j[1]++;
-		tmp = ft_substr(str, j[0], j[1] - j[0]);
-		if (tmp)
-		{
-			// result = ft_strjoin(result, );
-			free(result);
-			result = ft_get_env_var(tmp, g_glbl.envp);
-			i[0]--;
-			if (!result)
-			{
-				result = ft_strdup("");
-				j[0] -= ft_strlen(tmp) + 1;
-			}
-			// *i += ft_strlen(result) + 1;
-			free(tmp);
-		}
-	}
+		ft_expand_aux(j, str, i, &result);
 	return (result);
 }
 
@@ -94,12 +96,4 @@ void	str_unica_complement(char *s, char *line, char **tmp, int *j)
 	trash = ft_strjoin(*tmp, s);
 	free(*tmp);
 	*tmp = trash;
-}
-
-void	str_append(char *line, int *j, char **tmp, char *s)
-{
-	if (line[j[1]] && line[j[1] + 1]
-		// && (line[j[1]] == 34 || line[j[1]] == 39)
-		)
-		*tmp = str_2loop(line, j, *tmp, s);
 }

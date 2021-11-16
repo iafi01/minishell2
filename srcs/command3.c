@@ -12,15 +12,61 @@
 
 #include "../includes/minishell.h"
 
-int	ft_cd(t_token *token)
+void	ft_cd_pre_aux(char *trash, char ***tmp, t_token *token, int *index)
 {
-	char	*tmp;
+	trash = ft_get_env_var("PWD", g_glbl.envp);
+	**tmp = ft_strjoin("OLDPWD=", trash);
+	ft_set(&g_glbl, **tmp);
+	free(trash);
+	free(**tmp);
+	**tmp = NULL;
+	*tmp = &(token->next->val);
+	if (**tmp && (**tmp)[0] == '-')
+	{
+		trash = ft_get_env_var("OLDPWD", g_glbl.envp);
+		*index = chdir(trash);
+		free(trash);
+	}
+}
+
+int	ft_cd_aux(char ***tmp, int index, char *cwd)
+{
 	char	*trash;
 	char	*str;
+
+	if (**tmp && ft_strlen(**tmp) > 1 && (**tmp)[0] == 126 && (**tmp)[1] == 47)
+	{
+		trash = ft_substr(**tmp, 1, ft_strlen(**tmp));
+		str = ft_get_env_var("HOME", g_glbl.envp);
+		free(**tmp);
+		**tmp = ft_strjoin(str, trash);
+		free(str);
+		free(trash);
+	}
+	index = chdir(**tmp);
+	if (index < 0)
+		return (0);
+	getcwd(cwd, sizeof(cwd));
+	trash = ft_strjoin("PWD=", cwd);
+	ft_set(&g_glbl, trash);
+	free(trash);
+	if (index < 0 && (**tmp)[0] != '-'
+		&& !(**tmp == NULL || ft_str_sim(&(**tmp)[0], "~")))
+		printf("cd: %s: %s\n", strerror(errno), **tmp);
+	g_glbl.ret = 0;
+	return (0);
+}
+
+int	ft_cd(t_token *token)
+{
+	char	**tmp;
+	char	*trash;
 	int		index;
 	char	cwd[1024];
 
 	index = 1;
+	trash = "init";
+	tmp = &trash;
 	if (token->next == NULL)
 	{
 		trash = ft_get_env_var("HOME", g_glbl.envp);
@@ -29,40 +75,8 @@ int	ft_cd(t_token *token)
 		g_glbl.ret = 0;
 		return (0);
 	}
-	trash = ft_get_env_var("PWD", g_glbl.envp);
-	tmp = ft_strjoin("OLDPWD=", trash);
-	ft_set(&g_glbl, tmp);
-	free(trash);
-	free(tmp);
-	tmp = NULL;
-	tmp = token->next->val;
-	if (tmp && tmp[0] == '-')
-	{
-		trash = ft_get_env_var("OLDPWD", g_glbl.envp);
-		index = chdir(trash);
-		free(trash);
-	}
-	if (tmp && ft_strlen(tmp) > 1 && tmp[0] == 126 && tmp[1] == 47)
-	{
-		trash = ft_substr(tmp, 1, ft_strlen(tmp));
-		str = ft_get_env_var("HOME", g_glbl.envp);
-		free(tmp);
-		tmp = ft_strjoin(str, trash);
-		free(str);
-		free(trash);
-	}
-	index = chdir(tmp);
-	if (index < 0)
-		return (0);
-	getcwd(cwd, sizeof(cwd));
-	trash = ft_strjoin("PWD=", cwd);
-	ft_set(&g_glbl, trash);
-	free(trash);
-	if (index < 0 && tmp[0] != '-'
-		&& !(tmp == NULL || ft_str_sim(&tmp[0], "~")))
-		printf("cd: %s: %s\n", strerror(errno), tmp);
-	g_glbl.ret = 0;
-	return (0);
+	ft_cd_pre_aux(trash, &tmp, token, &index);
+	return (ft_cd_aux(&tmp, index, cwd));
 }
 
 void	exit_if(char **arr, t_global *global, int i)

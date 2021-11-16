@@ -122,6 +122,7 @@ int			ft_get_size(char **envp);
 char		*ft_stringa_unica(char *line, int *j, int ap);
 char		*str_2loop(char *line, int *j, char *tmp, char *s);
 char		*ft_apici_split(char *line);
+int			lex_last_if(char *line, int *i, t_token *token, char **tmp);
 
 //parsing.c
 int			init_parsing(char *line);
@@ -169,7 +170,6 @@ void		debug(int d_apici, int s_apici, int prev_apici);
 void		debug_list(t_token *token);
 void		print_tokens(t_global *global);
 void		print_str(char *str);
-void		print_tks(t_token *tokens);
 
 //utils.c
 char		*cerca_variabile(char *line);
@@ -255,6 +255,9 @@ char		*ft_get_env_var(char *var, char **env);
 //utils7.c
 t_bool		all_n(char *str);
 void		free_envp(t_envp *env);
+void		ft_set_fds(pid_t pid, int *fds, int fdi, int fdo);
+t_bool		ft_str_unic_aux(int *j, char *line, int *ap);
+int			ft_lex_inception(char **tmp, char *line, t_token *token, int *i);
 
 //state.c
 t_command	*ft_state_0(t_token *token, t_command *cmd);

@@ -22,23 +22,8 @@ char	*ft_stringa_unica(char *line, int *j, int ap)
 	j[1] = !(!ap) - 1;
 	while (line[++j[1]])
 	{
-		j[0]++;
-		if (line[j[1]] == 39
-			|| line[j[1]] == 34
-			|| (line[j[1]] == '$' && ft_strncmp(line + j[1], "$?", 2) != 0))
-		{
-			if (line[j[1]] != '$' && ((ap == 1 && line[j[1]] == 39)
-				|| (ap == 2 && line[j[1]] == 34)))
-			{
-				j[1]++;
-
-				break ;
-			}
-			if (line[j[1]] == 34)
-				ap = 2;
-			else if (line[j[1]] == 39)
-				ap = 1;
-		}
+		if (ft_str_unic_aux(j, line, &ap))
+			break ;
 		if (line[j[1]] == ' ' || line[j[1]] == '\t' || line[j[1]] == '\0'
 			|| is_token(&line[j[1]]))
 			if (ap == 0)
@@ -53,7 +38,7 @@ char	*ft_stringa_unica(char *line, int *j, int ap)
 	return (tmp);
 }
 
-static int	lex_last_if(char *line, int *i, t_token *token, char **tmp)
+int	lex_last_if(char *line, int *i, t_token *token, char **tmp)
 {
 	if (is_token(line + *i))
 	{
@@ -116,7 +101,6 @@ static void	lex_2nd_if(char *line, int *i, char *s, char **tmp)
 
 void	ft_lexer(char *line, t_token *token)
 {
-	int		len;
 	int		i[2];
 	char	*tmp;
 	char	s[2];
@@ -124,7 +108,6 @@ void	ft_lexer(char *line, t_token *token)
 	s[1] = '\0';
 	i[0] = -1;
 	tmp = (char *)ft_calloc(30, sizeof(char));
-	len = ft_strlen(line);
 	while (line[++i[0]])
 	{
 		if (lex_first_2if(line, i, token, tmp))
@@ -137,11 +120,7 @@ void	ft_lexer(char *line, t_token *token)
 			continue ;
 		}
 		lex_2nd_if(line, i, s, &tmp);
-		if (*tmp == (char) NULL && line[*i] == 32)
-			continue ;
-		if (line[*i] && (is_token(line + *i) || line[*i] == 32))
-			if (lex_last_if(line, i, token, &tmp))
-				continue ;
+		ft_lex_inception(&tmp, line, token, i);
 	}
 	if (line[*i] == '\0' && tmp && *tmp != (char) NULL && line[*i] != 32)
 		ft_add_list(token, TK_ID, ft_strdup(tmp), 0);

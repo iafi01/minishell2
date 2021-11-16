@@ -85,11 +85,7 @@ int	ft_exec_build_in(t_global *global, t_command *cmd, int fdi, int fdo)
 	else
 	{
 		pid = fork();
-		g_glbl.pid = pid;
-		if (pid < 0)
-			perror("error");
-		fds[0] = fdi;
-		fds[1] = fdo;
+		ft_set_fds(pid, fds, fdi, fdo);
 		if (pid == 0)
 			exec_child_proc(fds, cmd, global, arr);
 		else
