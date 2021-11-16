@@ -59,6 +59,7 @@ t_bool	ft_str_unic_aux(int *j, char *line, int *ap)
 				|| (*ap == 2 && line[j[1]] == 34)))
 		{
 			j[1]++;
+			j[0]--;
 			return (true);
 		}
 		if (line[j[1]] == 34)

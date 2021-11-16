@@ -20,6 +20,8 @@ char	*ft_stringa_unica(char *line, int *j, int ap)
 	s[1] = '\0';
 	tmp = ft_calloc(30, sizeof(char));
 	j[1] = !(!ap) - 1;
+	if (line[j[1] + 1] == '$')
+		j[0]++;
 	while (line[++j[1]])
 	{
 		if (ft_str_unic_aux(j, line, &ap))
@@ -114,7 +116,7 @@ void	ft_lexer(char *line, t_token *token)
 		{
 			if (i[0] < 0)
 			{
-				i[0] = ft_strlen(line) - 1;
+				i[0] = ft_strlen(line);
 				break ;
 			}
 			continue ;
